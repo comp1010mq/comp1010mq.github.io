@@ -1,0 +1,525 @@
+\documentclass{exam} 
+\def\workshopTitle{Workshop - Classes and Objects - 2} 
+\input{comp125workshopHeader}
+\section*{Learning outcomes}
+Following are this week's learning outcomes,
+\begin{enumerate}
+\item Implement and use \texttt{compareTo()} method
+\item References
+\item Creating and using arrays of objects
+\end{enumerate}
+
+\section*{Questions}
+\begin{questions}
+
+\question 
+
+Consider the following class definition for a \texttt{Cube}. A cube is a 3-dimensional object, enclosed by 6 equal squares. A cube is characterised by the length of each side (all sides have equal length).
+
+\begin{lstlisting}
+public class Cube {
+	private double side;
+	public double getSide() {
+		return side;
+	}
+	public void setSide(double side) {
+		this.side = Math.max(0, side);
+	}
+	public Cube(double side) {
+		setSide(side);
+	}
+	public double volume() {
+		return side*side*side;
+	}
+}
+\end{lstlisting}
+
+\begin{parts}
+
+\part \textbf{\texttt{compareTo} method definition:} Define the method \texttt{compareTo} that when passed another \texttt{Cube} object, returns 
+
+\begin{itemize}
+	
+\item 1, if the calling object has a larger side than that of the parameter object 
+\item -1 if the calling object has a smaller side than that of the parameter object 
+\item 0 if the calling object and the parameter object have the same sides.
+\end{itemize}
+
+\begin{solution}
+\begin{lstlisting}
+public class Cube {
+	//other stuff
+	
+	public int compareTo(Cube other) {
+		if(this.side > other.side)
+			return 1;
+		if(this.side < other.side)
+			return -1;
+		return 0;
+	}
+}
+\end{lstlisting}
+\end{solution}
+
+\part \textbf{Calling \texttt{compareTo} method:} Complete the following client code that performs the following operations,
+
+\begin{enumerate}
+\item create a \texttt{Cube} object \texttt{c1} with side of 1.5
+\item create a \texttt{Cube} object \texttt{c2} with side of 3.5
+\item create a \texttt{Cube} object \texttt{c3} with side of 1.5
+\item creates a \texttt{Cube} object \texttt{c4} with side of 0.5
+\item Store the outcome of calling \texttt{compareTo()} on \texttt{c1}, passing \texttt{c2} to the method, in a variable \texttt{flag1}.
+\item Store the outcome of calling \texttt{compareTo()} on \texttt{c3}, passing \texttt{c1} to the method, in a variable \texttt{flag2}.
+\item Store the outcome of calling \texttt{compareTo()} on \texttt{c4}, passing \texttt{c3} to the method, in a variable \texttt{flag3}.
+\end{enumerate}
+
+\begin{solution}
+\begin{lstlisting}
+public class Client {
+	public static void main(String[] args) {
+		Cube c1 = new Cube(1.5);
+		Cube c2 = new Cube(3.5);
+		Cube c3 = new Cube(1.5);
+		Cube c4 = new Cube(0.5);
+		int flag1 = c1.compareTo(c2);
+		int flag2 = c3.compareTo(c1);
+		int flag3 = c4.compareTo(c3);
+	}
+}
+\end{lstlisting}
+\end{solution}
+
+\part \textbf{Tracing \texttt{compareTo} execution:} What are the values of \texttt{flag1, flag2, flag3} after the code is executed?
+
+\begin{solution}
+flag1 = 1
+flag2 = 0
+flag3 = -1	
+\end{solution}
+
+\part \textbf{Understanding references:} Consider the following client code,
+
+\begin{lstlisting}
+public class Client {
+	public static void main(String[] args) {
+		Cube c1 = new Cube(1.5);
+		Cube c2 = new Cube(3.5);
+		Cube c3 = c2;
+		double s = c1.getSide() - 1;
+		c2.setSide(s);
+	}
+}
+\end{lstlisting}
+
+Draw a memory diagram to illustrate the storage of these objects in the memory.
+
+\begin{solution}
+After the statement
+\begin{lstlisting}
+Cube c1 = new Cube(1.5);	
+\end{lstlisting}
+\begin{tikzpicture}[scale=.5]
+\block{{0,9,2,2,1}}{{"c1"}}
+\block{{8,8,6,3,1}}{{"side = 1.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 10) -- (8, 10);
+\end{tikzpicture}
+
+After the statement
+\begin{lstlisting}
+Cube c2 = new Cube(3.5);	
+\end{lstlisting}
+\begin{tikzpicture}[scale=.5]
+\block{{0,9,2,2,1}}{{"c1"}}
+\block{{8,8,6,3,1}}{{"side = 1.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 10) -- (8, 10);
+\block{{0,5,2,2,1}}{{"c2"}}
+\block{{8,4,6,3,1}}{{"side = 3.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 6) -- (8, 6);
+\end{tikzpicture}
+
+After the statement
+\begin{lstlisting}
+Cube c3 = c2;	
+\end{lstlisting}
+\begin{tikzpicture}[scale=.5]
+\block{{0,9,2,2,1}}{{"c1"}}
+\block{{8,8,6,3,1}}{{"side = 1.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 10) -- (8, 10);
+\block{{0,5,2,2,1}}{{"c2"}}
+\block{{8,4,6,3,1}}{{"side = 3.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 6) -- (8, 6);
+\block{{0,1,2,2,1}}{{"c3"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 2) -- (8, 5.5);
+\end{tikzpicture}
+
+After the statements
+\begin{lstlisting}
+double s = c1.getSide() - 1;
+c2.setSide(s);	
+\end{lstlisting}
+\begin{tikzpicture}[scale=.5]
+\block{{0,9,2,2,1}}{{"c1"}}
+\block{{8,8,6,3,1}}{{"side = 1.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 10) -- (8, 10);
+\block{{0,5,2,2,1}}{{"c2"}}
+\block{{8,4,6,3,1}}{{"side = 0.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 6) -- (8, 6);
+\block{{0,1,2,2,1}}{{"c3"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 2) -- (8, 5.5);
+\end{tikzpicture}	
+\end{solution}
+
+\part \textbf{Understanding passing of objects to methods:} Consider the following client code,
+
+\begin{lstlisting}
+public class Client {
+	public static void main(String[] args) {
+		Cube c1 = new Cube(1.5);
+		Cube c2 = new Cube(3.5);
+		int flag = c1.compareTo(c2);
+	}
+}
+\end{lstlisting}
+
+Draw a memory diagram to illustrate the memory manipulations that are caused by the statements of the above code. Specifically, the memory scope during the method call \texttt{c1.compareTo(c2))}.
+
+\begin{solution}
+After the statements
+\begin{lstlisting}
+Cube c1 = new Cube(1.5);
+Cube c2 = new Cube(3.5);
+\end{lstlisting}
+\begin{tikzpicture}[scale=.5]
+\block{{0,9,2,2,1}}{{"c1"}}
+\block{{8,8,6,3,1}}{{"side = 1.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 10) -- (8, 10);
+\block{{0,5,2,2,1}}{{"c2"}}
+\block{{8,4,6,3,1}}{{"side = 3.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 6) -- (8, 6);
+\end{tikzpicture}
+
+During the call \texttt{c1.compareTo(c2)},
+
+\begin{tikzpicture}[scale=.5]
+\block{{0,9,2,2,1}}{{"c1"}}
+\block{{8,8,6,3,1}}{{"side = 1.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 10) -- (8, 10);
+\block{{0,5,2,2,1}}{{"c2"}}
+\block{{8,4,6,3,1}}{{"side = 0.5"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (1.5, 6) -- (8, 6);
+\block{{16,3.5,3,8,2}}{{"this", "other"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (16.25, 5.5) -- (13.5, 5.5);
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (16.25, 9.5) -- (13.5, 9.5	);
+\end{tikzpicture}
+\end{solution}
+
+\end{parts}
+
+\newpage
+
+\question \textbf{Class containing an array}: 
+
+Consider the following class definition,
+
+\begin{lstlisting}
+public class Marks {
+	private double[] marks;
+	//in this case, setter should be called only 
+	//from the constructor, hence private
+
+	private void setMarks(double[] m) {
+		if(m == null)
+			return;
+		marks = new double[m.length];
+		for(int i=0; i < m.length; i++)
+			setMark(i, m[i]);
+	}
+
+	public void setMark(int idx, double mark) {
+		if(idx < 0 || idx >= marks.length)
+			return; //out of bounds
+		if(mark < 0)
+			marks[idx] = 0;
+		else if(mark > 100)
+			marks[idx] = 100;
+		else 
+			marks[idx] = mark;
+	}
+
+	public double getMark(int idx) {
+		if(idx < 0 || idx >= marks.length)
+			return 0; //out of bounds
+		return marks[idx];
+	}
+
+	public Marks(double[] m) {
+		if(m == null)
+			return;
+		setMarks(m);
+	}
+}
+\end{lstlisting}
+
+\newpage
+
+Consider the following client code:
+
+\begin{lstlisting}
+public class Client {
+	public static void main(String[] args) {
+		double[] data = {78.5, 135.3, -61.8, 83.2};
+		Marks myScores = new Marks(data);
+	}
+}
+\end{lstlisting}
+
+Discuss the following memory diagram in pairs. Call your tutor for assistance if neither of you understand what's going on. If you clearly understand it, please help others who are having difficulty.
+
+\begin{tikzpicture}[scale=.4]
+\memoryblock{x=0, y=1, width=5, height=2, array = {"myScores"}}
+\memoryblock{x=7, y=1, width=4, height=2, array={"marks"}}
+\memoryblock{x=13, y=0, width=6, height=5, array={"[0] = 78.5","[1] = 100","[2] = 0","[3] = 83.2"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (4.8, 2) -- (7, 2);
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.8, 2) -- (13, 2);
+
+\memoryblock{x=7, y=9, width=4, height=2, array={"data"}}
+\memoryblock{x=13, y=8, width=6, height=5, array={"[0] = 78.5","[1] = 135.3","[2] = -61.8","[3] = 83.2"}}
+\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.8, 10) -- (13, 10);
+\end{tikzpicture}
+
+%\question \textbf{Array of objects}
+%
+%We will use the same \texttt{Cube} class definition for this question.
+%
+%Consider the following client code:
+%
+%\begin{lstlisting}
+%public class Client {
+%	public static void main(String[] args) {
+%		Cube[] cubes = new Cube[5];
+%	}
+%}
+%\end{lstlisting}
+%
+%This creates an array of 4 \texttt{Cube} objects, but each item is \texttt{null} so far.
+%
+%\begin{tikzpicture}[scale=.5]
+%\block{{0,9,3,2,1}}{{"cubes"}}
+%\block{{6,8,6,5,4}}{{"[0] = null","[1] = null","[2] = null","[3] = null"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (2.8, 10) -- (6, 10);
+%\end{tikzpicture}
+%
+%We can instantiate each item of the array either one at a time, 
+%\begin{lstlisting}
+%public class Client {
+%	public static void main(String[] args) {
+%		Cube[] cubes = new Cube[5];
+%		cubes[2] = new Cube(2.4);
+%	}
+%}
+%\end{lstlisting}
+%
+%\begin{tikzpicture}[scale=.5]
+%\block{{0,9,3,2,1}}{{"cubes"}}
+%\block{{6,8,6,5,4}}{{"[0] = null","[1] = null","[2]     ","[3] = null"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (2.8, 10) -- (6, 10);
+%\block{{16,9,5,2,1}}{{"side = 2.4"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.5, 10) -- (16, 10);
+%\end{tikzpicture}
+%
+%or by using a loop,
+%
+%\begin{lstlisting}
+%public class Client {
+%	public static void main(String[] args) {
+%		Cube[] cubes = new Cube[5];
+%		Random r new Random();
+%		for(int i=0; i < cubes.length; i++) {
+%			int a = r.nextInt(9);
+%			double b = a / 2.0;
+%			cubes[i] = new Cube[b];
+%		}
+%	}
+%}
+%\end{lstlisting}
+%
+%\begin{tikzpicture}[scale=.5]
+%\block{{0,9,3,2,1}}{{"cubes"}}
+%\block{{6,8,6,7.2,4}}{{"[0]","[1]","[2]","[3]"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (2.8, 10) -- (6, 10);
+%\block{{16,8.3,5,1.3,1}}{{"side = 1.5"}}
+%\block{{16,10.1,5,1.3,1}}{{"side = 4.0"}}
+%\block{{16,11.9,5,1.3,1}}{{"side = 2.5"}}
+%\block{{16,13.7,5,1.3,1}}{{"side = 3.0"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.5, 8.9) -- (16, 8.9);
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.5, 10.7) -- (16, 10.7);
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.5, 12.5) -- (16, 12.5);
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.5, 14.3) -- (16, 14.3);
+%\end{tikzpicture}
+%
+%Thus, if the client makes the following access,
+%
+%\begin{lstlisting}
+%public class Client {
+%	public static void main(String[] args) {
+%		Cube[] cubes = new Cube[5];
+%		Random r new Random();
+%		for(int i=0; i < cubes.length; i++) {
+%			int a = r.nextInt(9);
+%			double b = a / 2.0;
+%			cubes[i] = new Cube[b];
+%		}
+%		System.out.println(cubes[2].getSide());
+%	}
+%}
+%\end{lstlisting}
+%
+%it performs the following access operation,
+%
+%\begin{tikzpicture}[scale=.5]
+%\block{{0,9,3,2,1}}{{"cubes"}}
+%\block{{6,8,6,7.2,4}}{{"-nothing-","-nothing-","[2]","-nothing-"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (2.8, 10) -- (6, 10);
+%\block{{16,10.1,5,1.3,1}}{{"side = 4.0"}}
+%\draw [line width = 0.5mm, -{Latex[length=5mm]}] (10.5, 10.7) -- (16, 10.7);
+%\end{tikzpicture}
+
+\question {\bf JUnit test (Time permitting)} 
+
+Run the JUnit test \texttt{testVolume} in JUnit test class \texttt{SphereTest}. Correct the method \texttt{volume} in class \texttt{Sphere} so that the test passes. The description for the method's requirements is provided as method comment.
+
+\begin{solution}
+\begin{lstlisting}
+public double volume() {
+  return 4 / 3.0 * Math.PI * radius * radius * radius;
+}
+\end{lstlisting}
+\end{solution}
+
+\question {\bf (Time permitting)} Consider the following class definition,
+		
+\begin{lstlisting}
+public class Line {
+	private double x1, y1, x2, y2;
+	//assume getters, setters, constructors	
+	
+	public double getLength() {
+		double dx = (x1 - x2);
+		double dy = (y1 - y2);
+		return Math.sqrt(dx*dx + dy*dy);
+	}
+}
+\end{lstlisting}
+	
+\begin{parts}
+\part Write a JUnit test case to ensure the correctness of \texttt{getLength()}. You will need the assertion
+
+\begin{verbatim}
+assertEquals(expectedValue, valueReturnedByMethodUnderTest, tolerance)
+\end{verbatim}
+		
+\begin{lstlisting}[style=junit]
+@Test
+public void testGetLength() {
+	//to be completed
+}
+\end{lstlisting}
+		
+\part Define instance method \texttt{compareTo} that when passed an object of class \texttt{Line}, returns 1 if the length of the calling object is more than that of parameter object, -1 if the length of the calling object is less than that of parameter object, and 0 if the length of the calling object and parameter object are the same.
+\end{parts}	
+		
+\begin{solution}
+\begin{lstlisting}
+public int compareTo(Line other) {
+	if(getLength() > other.getLength())
+		return 1;
+	if(getLength() < other.getLength())
+		return -1;
+	return 0;
+}
+\end{lstlisting}	
+\end{solution}
+\end{questions}
+
+%\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+\newpage
+\begin{center}
+\large
+\textbf{Supplementary exercises (take-home exercises)}
+\end{center}
+\normalsize
+
+\begin{questions}
+
+\question  \textbf{Bank account} \vskip 0.5cm
+Define a class representing a bank account with methods to check the balance, to deposit and withdraw funds and to test whether the account is overdrawn.
+
+In package \texttt{comp125}, there is an outline implementation of the class along with a set of tests for the different methods. Use this as the basis for your implementation. Read also the in-code comments for the details of what each method is expected to do.
+
+The first thing you need to do is decide how the \texttt{BankAccount} class is going to store its data -- the bank balance. You need to define an instance variable of the appropriate type in the class. (Label your instance variable \texttt{private}.)
+
+Then you need to write the body of each of the methods. At each point, run the tests to see if what you've written works. Try to work on the tests from top to bottom, getting one working after another. You can use the debugger to walk through your program if it's not doing what you expect -- remember to place a breakpoint in your class to stop execution when running under the debugger.
+
+When you've passed all the tests, complete the \texttt{public static void main(String[] args)} method in \newline \texttt{BankAccountClient} to make use of the bank account class. Make a bank account, add \$42.5 to the account, then withdraw \$80.6 from it, display if it's overdrawn (\texttt{true}) or not (\texttt{false}) and display the balance. You can include such a \texttt{main} method inside your \texttt{BankAccount} class.
+
+Please note that \texttt{BankAccountTest} uses an \texttt{assertEquals} assertion that has three parameters. The syntax is;
+
+\begin{lstlisting}
+assertEquals(expectedDouble, returnedDouble, tolerance);
+\end{lstlisting}
+
+The assertion is successful (passes) if the \texttt{expectedDouble} and \texttt{returnedDouble} differ by at most \texttt{tolerance}. That is, $Math.abs(expectedDouble - returnedDouble) \le tolerance$.
+
+\begin{solution}
+\begin{lstlisting}
+public class BankAccount {
+	public BankAccount() {
+		setBalance(0);
+	}
+	
+	/**
+	 * @return the balance of the account
+	 */
+	public double getBalance() {
+		return balance;  
+		// You might want to change this statement.
+	}
+	
+	/**
+	 * since balance can be negative or postive (or zero), there is really 
+	 * no validation rule here
+	 * @param bal
+	 */
+	public void setBalance(double bal) {
+		balance = bal;
+	}
+
+	/**
+	 * Increase the balance by the amount specified.
+	 * @param amount
+	 */
+	public void deposit(double amount) {
+		setBalance(balance+amount);
+	}
+
+	/**
+	 * Decrease the balance by the amount specified. It's OK if the resulting
+	 * balance is negative (overdrawn).
+	 * @param amount
+	 */
+	public void withdraw(double amount) {
+		setBalance(balance-amount);
+	}
+
+	/**
+	 * @return true if the balance is negative, false otherwise
+	 */
+	public boolean overdrawn() {
+		return balance < 0;  // You might want to change this statement.
+	}
+}
+\end{lstlisting}
+\end{solution}
+\end{questions}
+\end{document}

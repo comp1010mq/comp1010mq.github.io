@@ -1,0 +1,13 @@
+#image: samueldebruyn/debian-git
+image: bitnami/git
+pipelines:
+  default:
+    - step: 
+        script:
+          - apt-get update
+          - apt-get -qq install lftp
+          - apt-get -qq install ruby-full build-essential zlib1g-dev
+          - gem install jekyll bundler
+          - bundle update
+          - bundle exec jekyll build        
+          - lftp ftp.mattr.net.au -e "set ftp:ssl-protect-data true; set ssl:verify-certificate false; user mattrnet $FTP_PASSWORD; mirror -R _site/ ~/public_html ; quit"

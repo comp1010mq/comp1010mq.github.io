@@ -1,0 +1,19 @@
+---
+---
+// Styling for the multi level dropdown menu
+.dropdown-submenu {
+    position: relative;
+}
+
+// Hide the options
+.dropdown-submenu ul {
+    display: none;
+}
+
+// Show the options
+.dropdown-submenu:hover > ul {
+  display: block;
+  top: 0%;
+  left: 100%;
+  position: absolute;
+}

@@ -1,0 +1,23 @@
+---
+layout: base
+---
+
+<title>{{ site.title }}{% if page.title %}: {{ page.title }}{% endif %}</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row"><span class="pull-right"><span style="margin-left:10px; margin-right:10px"></span><a href="/meta.html">Meta Topics</a></span></div>
+    <div class="row">
+      <h1 class="maintitle"><a href="/index.html">{{ site.title }}</a>{% if page.title %}: {{ page.title }}{% endif %}</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 nav">
+        {% include navigation.html %}
+      </div>
+      <div class="col-sm-9" style="margin-bottom:120px">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

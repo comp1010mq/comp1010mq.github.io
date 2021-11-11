@@ -1,0 +1,23 @@
+\BOOKMARK [1][-]{section.1}{Why, oh why?}{}% 1
+\BOOKMARK [1][-]{section.2}{The List Interface \(adapted from official Java Tutorials\)}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Creating List objects}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Example of creating List objects}{subsection.2.1}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Important methods applicable to both kinds of list}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Honorary mention}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Additional resources for List objects}{subsection.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{A more comprehensive example}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{Difference between ArrayList and LinkedList}{}% 9
+\BOOKMARK [1][-]{section.4}{Custom Implementation of the essence of ArrayList class}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Instance variables required}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Adding items to the list}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Checking if array is full}{subsection.4.2}% 13
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Growing the array}{subsection.4.2}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Removing an item}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.4}{Time complexity analysis}{section.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Accessing an item}{subsection.4.4}% 17
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Example: Accessing an item}{subsection.4.4}% 18
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Inserting an item at a given index}{subsection.4.4}% 19
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Removing an item at a given index}{subsection.4.4}% 20
+\BOOKMARK [1][-]{section.5}{Iterators}{}% 21
+\BOOKMARK [2][-]{subsection.5.1}{Iterator implementation}{section.5}% 22
+\BOOKMARK [1][-]{section.6}{Sample solutions for exercises}{}% 23

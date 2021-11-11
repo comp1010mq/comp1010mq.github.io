@@ -1,0 +1,488 @@
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}
+ \usepackage[pdftex]{color}  
+ \usepackage[pdftex]{graphicx}     
+\usepackage{verbatim}
+\newenvironment{myverbatim}{\color{aquamarine}\verbatim}{\endverbatim}
+% \usepackage[dvips]{color}  
+% \usepackage[dvips]{graphicx}     
+\usepackage{amsmath} 
+\usepackage{amssymb} 
+\usepackage{amsfonts} 
+\usepackage{amsthm}
+\usepackage{tagging}
+\usepackage[colorlinks=true,urlcolor=red]{hyperref}
+\setlength{\topmargin}{-0.5in}                  % topmargin now at 1in
+\setlength{\textheight}{9.5in}                  % body of text = 9.5in
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}
+\usepackage[pdftex]{color}  
+\usepackage[pdftex]{graphicx}     
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{paralist}
+\usepackage{tagging}
+\usepackage{hyperref}
+
+\usepackage[colorlinks=true,urlcolor=red]{hyperref}
+\setlength{\topmargin}{-0.5in}                  % topmargin now at 1in
+\setlength{\textheight}{9.5in}                  % body of text = 9.5in
+\setlength{\oddsidemargin}{0in}                 % left margin = 1.0in on odd-numbered pages
+\setlength{\evensidemargin}{0in}                % left margin = 1.0in on even-numbered pages 
+\setlength{\textwidth}{6.5in}                   % width of text line.
+\setlength{\parindent}{0.0in}
+\newcommand{\code}{\texttt}
+
+\usepackage{listings}
+\lstset{%
+	language=Java,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,        
+	xleftmargin=17pt,
+        	xrightmargin=5pt,
+	frame=single,
+	breaklines=true,
+	moredelim=**[is][\color{red}]{@}{@}
+}
+
+\lstdefinestyle{buggy}{
+  language=Java,
+  emptylines=1,
+  breaklines=true,
+  basicstyle=\ttfamily\color{black},
+  moredelim=**[is][\color{red}]{@}{@},
+}
+
+\lstdefinestyle{correct}{
+  language=Java,
+  emptylines=1,
+  breaklines=true,
+  basicstyle=\ttfamily\color{black},
+  moredelim=**[is][\color{blue}]{@}{@},
+}
+
+
+\begin{document}
+
+\definecolor{aquamarine}{rgb}{0,0,0.7}
+\definecolor{blue}{rgb}{0,0,0.7}
+\definecolor{red}{rgb}{1,0,0}
+
+%
+\vspace{0.2in}
+\begin{center}
+        {\large  %MACQUARIE UNIVERSITY\\
+%\medskip
+\includegraphics[scale=0.3]{../../logo.jpg}\\
+\medskip
+        {\it  Faculty of Science and Engineering\\}
+        \vspace{0.2in}
+         {\bf COMP125 Fundamentals of Computer Science\\
+        Workshop Week 4\\}}
+\end{center}
+\vspace{0.3in}
+%
+
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+ 
+\section*{Learning outcomes}
+Following are this week's learning outcomes,
+\begin{enumerate}
+\item Design classes
+\item Implement classes (write class definition), including,
+	\begin{enumerate}
+		\item instance variables
+		\item getters and setters
+		\item constructors, that call setters
+		\item \texttt{toString(), compareTo(), equals()} methods
+	\end{enumerate}
+\item Understanding the \texttt{this} keyword
+\end{enumerate}
+
+%\begin{center}
+%\fbox{\fbox{\parbox{0.8\textwidth}{\centering
+%We shall be focusing on questions 2, 3, 4, 7 and 9 during the tutorial. Other questions shall be discussed based on time availibility.}}}
+%\end{center}
+
+\section*{Questions}
+\begin{questions}
+
+\question 
+
+\begin{enumerate}
+\item Write a class definition for a \texttt{Cube}. A cube is a 3-dimensional object, enclosed by 6 equal squares. A cube is characterised by the length of each side (all sides have equal length).
+
+\begin{enumerate}
+\item Correct class header.
+\item Data members with appropriate visibility and data types.
+\item Getters
+\item Setters
+\item Constructors
+	\begin{enumerate}
+		\item With no parameters. Length of each side is set to 0.
+		\item With one parameter for length of each side.
+	\end{enumerate}
+\item A method \texttt{volume()} that returns the volume of the cube given by $side * side * side$.
+
+\item The method \texttt{toString()} that returns the \texttt{String} representation of object of class \texttt{Cube}. For example, for a cube of sides 2.5, the method should return \texttt{``cube of size 2.5''}.
+
+\item The method \texttt{compareTo} that when passed another \texttt{Cube} object, returns 1 if the calling object has a larger side than that of the parameter object; returns -1 if the calling object has a smaller side than that of the parameter object; returns 0 if the calling object and the parameter object have the same sides.
+
+\end{enumerate}
+
+\begin{solution}
+\newpage
+\begin{lstlisting}
+public class Cube {
+	private double side;
+
+	public double getSide() {
+		return side;
+	}
+
+	public void setSide(double side) {
+		this.side = Math.max(0, side);
+	}
+	
+	public Cube() {
+		setSide(0);
+	}
+	
+	public Cube(double side) {
+		setSide(side);
+	}
+	
+	public double volume() {
+		return side*side*side;
+	}
+	
+	public String toString() {
+		return "cube of size "+side;
+	}
+	
+	public int compareTo(Cube other) {
+		if(this.side > other.side)
+			return 1;
+		if(this.size < other.side)
+			return -1;
+		return 0;
+	}
+}
+\end{lstlisting}
+\end{solution}
+
+\ifprintanswers
+\else
+\newpage
+\fi
+
+\item Write a piece of code outside the class \texttt{Cube} (in another class containing \texttt{public static void main(String[] args)} that does the following,
+
+	\begin{enumerate}
+		\item Declare and instantiate an object \texttt{myCube} of class \texttt{Cube} with sides 2.5
+		\item Store the volume of \texttt{myCube} in a variable \texttt{myVolume}.
+		\item Declare and instantiate an object \texttt{yourCube} of class \texttt{Cube} with sides 4.5
+		\item Store the volume of \texttt{yourCube} in a variable \texttt{yourVolume}.
+		\item Store the comparison of \texttt{myCube} with \texttt{yourCube} in a variable \texttt{myCubeComparedToYours}. The value of\texttt{myCubeComparedToYours} should be -1 if defined and called correctly.
+	\end{enumerate}
+	
+	\begin{solution}
+	\begin{lstlisting}
+	public class Client {
+		public static void main(String[] args) {
+			Cube myCube = new Cube(2.5);
+			int myVolume = myCube.volume();
+			Cube yourCube = new Cube(4.5);
+			int yourVolume = myCube.volume();
+			int myCubeComparedToYours = myCube.compareTo(yourCube);
+		}
+	}
+	\end{lstlisting}
+	
+	\end{solution}
+
+\end{enumerate}
+
+\question \textbf{The \texttt{this} keyword}\\
+Consider the following class definition,
+
+\begin{lstlisting}
+	public class Circle {
+		private double radius;
+		
+		//assume getters, setters, 
+		//assume default and parameterized constructors
+		
+		public boolean equals(Circle other) {
+			if(radius == other.radius) 
+				return true;
+			else
+				return false;
+		}
+	}
+\end{lstlisting}
+
+Further, consider the following client,
+
+\begin{lstlisting}
+	public class Client {
+		public static void main(String[] args) {
+			Circle c1 = new Circle(4.5);
+			Circle c2 = new Circle(4.8);
+			boolean status = c2.equals(c1);
+	}
+\end{lstlisting}
+
+Explain which is the \texttt{this} object and which is the \texttt{other} object in the context of the method call \texttt{c2.equals(c1)} by drawing a memory diagram.
+
+\begin{solution}
+\texttt{this} is a shallow copy of the calling object \texttt{c2} while \texttt{other} is a shallow copy of parameter object \texttt{c1}
+\end{solution}
+
+\question \textbf{The \texttt{compareTo} method}\\
+Complete the \texttt{compareTo} method in class \texttt{Box} such that it returns,
+
+\begin{itemize}
+\item 1, if the calling object has a higher capacity than the parameter object
+\item -1, if the calling object has a lower capacity than the parameter object
+\item 0, if the calling object has the same capacity as the parameter object
+\end{itemize}
+
+\begin{solution}
+\begin{lstlisting}
+	public int compareTo(Box other) {
+		if(capacity > other.capacity)
+			return 1;
+		if(capacity < other.capacity)
+			return -1;
+		return 0;
+	}
+\end{lstlisting}
+\end{solution}
+
+\question \textbf{The \texttt{equals} method}\\
+Complete the \texttt{equals} method in class \texttt{Box} such that it returns,
+
+\begin{itemize}
+\item \texttt{true}, if the calling object has the same capacity as the parameter object
+\item \texttt{false}, if the calling object has a different capacity from the parameter object
+\end{itemize}
+
+\begin{solution}
+Assuming \texttt{compareTo} has been implemented,
+\begin{lstlisting}
+	public boolean equals(Box other) {
+		return compareTo(other) == 0;
+	}
+\end{lstlisting}
+
+Assuming \texttt{compareTo} has NOT been implemented,
+\begin{lstlisting}
+	public boolean equals(Box other) {
+		return radius == other.radius;
+	}
+\end{lstlisting}
+\end{solution}
+
+\question {\bf JUnit test}
+
+\begin{enumerate}
+\item Run the JUnit test \texttt{testVolume} in JUnit test class \texttt{SphereTest}. Correct the method \texttt{volume} in class \texttt{Sphere} so that the test passes. The description for the method's requirements is provided as method comment.
+
+\begin{solution}
+\begin{lstlisting}
+	public double volume() {
+		return 4 / 3.0 * Math.PI * radius * radius * radius;
+	}
+\end{lstlisting}
+\end{solution}
+\end{enumerate}
+
+\ifprintanswers
+\else
+\newpage
+\fi
+
+\question \textbf{(Assessed task)}
+	\begin{enumerate}
+		\item Assuming the existence of the following Line class, answer the questions after it.
+		
+\begin{lstlisting}
+	public class Line {
+		private double x1, y1, x2, y2;
+		//assume getters, setters, constructors	
+		
+		public double getLength() {
+			return Math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+		}
+	}
+\end{lstlisting}
+	
+		\begin{enumerate}
+		
+			\item Define instance method \texttt{equals} that when passed an object of class \texttt{Line}, returns true if the length of the calling object and parameter object are the same, and false otherwise.
+			
+			\item Define instance method \texttt{compareTo} that when passed an object of class \texttt{Line}, returns 1 if the length of the calling object is more than that of parameter object, -1 if the length of the calling object is less than that of parameter object, and 0 if the length of the calling object and parameter object are the same.
+		\end{enumerate}	
+		
+		\begin{solution}
+		\begin{lstlisting}
+			public boolean equals(Line other) {
+				if(getLength() == other.getLength())
+					return true;
+				else
+					return false;
+			}
+			
+			public int compareTo(Line other) {
+				if(getLength() > other.getLength())
+					return 1;
+				if(getLength() < other.getLength())
+					return -1;
+				return 0;
+			}
+		\end{lstlisting}	
+		\end{solution}
+
+	\end{enumerate}
+\end{questions}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\vskip 0.5 cm 
+
+\begin{center}
+\large
+\textbf{Supplementary exercises (take-home exercises)}
+\end{center}
+\normalsize
+
+\begin{questions}
+
+\question  \textbf{Email address} \vskip 0.5cm
+
+Complete the definition of class \texttt{EmailAddress} based on the requirements provided as comments in the class, and run the the client \texttt{EmailAddressClient}.
+
+\begin{solution}
+\begin{lstlisting}
+package comp125;
+
+/**
+ * email address is stored as a combination of username and domain
+ * for example, username = "gaurav.gupta"
+ * domain = "mq.edu.au"
+ * thus the username is "gaurav.gupta@mq.edu.au"
+ * @author gauravgupta
+ *
+ */
+public class EmailAddress {
+	private String username, domain;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public EmailAddress(String username, String domain) {
+		setUsername(username);
+		setDomain(domain);
+	}
+	
+	public EmailAddress() {
+		setUsername("tba");
+		setDomain("tba");
+	}
+
+	public String toString() {
+		return username+"@"+domain;
+	}
+	
+	public boolean equals(EmailAddress other) {
+		return username.equals(other.username) && domain.equals(other.domain);
+	}
+}
+\end{lstlisting}
+\end{solution}
+
+\question  \textbf{Bank account} \vskip 0.5cm
+Define a class representing a bank account with methods to check the balance, to deposit and withdraw funds and to test whether the account is overdrawn.
+
+In package \texttt{comp125}, there is an outline implementation of the class along with a set of tests for the different methods. Use this as the basis for your implementation. Read also the in-code comments for the details of what each method is expected to do.
+
+The first thing you need to do is decide how the \texttt{BankAccount} class is going to store its data -- the bank balance. You need to define an instance variable of the appropriate type in the class. (Label your instance variable \texttt{private}.)
+
+Then you need to write the body of each of the methods. At each point, run the tests to see if what you've written works. Try to work on the tests from top to bottom, getting one working after another. You can use the debugger to walk through your program if it's not doing what you expect -- remember to place a breakpoint in your class to stop execution when running under the debugger.
+
+When you've passed all the tests, complete the \texttt{public static void main(String[] args)} method in \newline \texttt{BankAccountClient} to make use of the bank account class. Make a bank account, add \$42.5 to the account, then withdraw \$80.6 from it, display if it's overdrawn (\texttt{true}) or not (\texttt{false}) and display the balance. You can include such a \texttt{main} method inside your \texttt{BankAccount} class.
+
+Please note that \texttt{BankAccountTest} uses an \texttt{assertEquals} assertion that has three parameters. The syntax is;
+
+\begin{lstlisting}
+	assertEquals(expectedDouble, returnedDouble, tolerance);
+\end{lstlisting}
+
+The assertion is successful (passes) if the \texttt{expectedDouble} and \texttt{returnedDouble} differ by at most \texttt{tolerance}. That is, $Math.abs(expectedDouble - returnedDouble) \le tolerance$.
+
+\begin{solution}
+\begin{lstlisting}
+public class BankAccount {
+	public BankAccount() {
+		setBalance(0);
+	}
+	
+	/**
+	 * @return the balance of the account
+	 */
+	public double getBalance() {
+		return balance;  // You might want to change this statement.
+	}
+	
+	/**
+	 * since balance can be negative or postive (or zero), there is really 
+	 * no validation rule here
+	 * @param bal
+	 */
+	public void setBalance(double bal) {
+		balance = bal;
+	}
+
+	/**
+	 * Increase the balance by the amount specified.
+	 * @param amount
+	 */
+	public void deposit(double amount) {
+		setBalance(balance+amount);
+	}
+
+	/**
+	 * Decrease the balance by the amount specified. It's OK if the resulting
+	 * balance is negative (overdrawn).
+	 * @param amount
+	 */
+	public void withdraw(double amount) {
+		setBalance(balance-amount);
+	}
+
+	/**
+	 * @return true if the balance is negative, false otherwise
+	 */
+	public boolean overdrawn() {
+		return balance < 0;  // You might want to change this statement.
+	}
+}
+\end{lstlisting}
+\end{solution}
+\end{questions}
+\end{document}

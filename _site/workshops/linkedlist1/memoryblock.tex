@@ -1,0 +1,90 @@
+%SAMPLE USAGE:
+%\memoryblock{x = 5, y = 2, height = 4, textsize = \LARGE, width = 8, array={"width = 20", "height = 50"}}
+%\memoryblock{}
+%\memoryblock{y=12, array={"rect"}}
+
+
+\usepackage{tikz}
+\usepackage{xparse}
+\usepackage{keyval}
+\usepackage{tikz-uml}
+\usepackage{pgfmath}
+\usepackage{pgflibraryshapes}
+\usetikzlibrary{arrows.meta}
+
+\makeatletter
+% ========= KEY DEFINITIONS =========
+\define@key{memoryblock}{x}{\def\mm@x{#1}}
+\define@key{memoryblock}{y}{\def\mm@y{#1}}
+\define@key{memoryblock}{width}{\def\mm@width{#1}}
+\define@key{memoryblock}{height}{\def\mm@height{#1}}
+\define@key{memoryblock}{array}{\def\mm@array{#1}}
+\define@key{memoryblock}{colour}{\def\mm@colour{#1}}
+\define@key{memoryblock}{textsize}{\def\mm@textsize{#1}}
+\DeclareDocumentCommand{\memoryblock}{m}{%
+  \begingroup%
+	  % ========= KEY DEFAULTS + new ones =========
+	  \setkeys{memoryblock}{x={0},y={0},width={2},height={2}, array={{10,20,30,40}},colour=white!80!green,textsize={\normalsize},#1}%
+	  \def\x{\mm@x}
+	  \def\y{\mm@y}
+	  \def\width{\mm@width}
+	  \def\height{\mm@height}
+	  \def\array{{\mm@array,"DUMMYDUMMYDUMMY"}}
+	  \def\textsize{\mm@textsize}
+	  \def\colour{\mm@colour}
+
+	  \pgfmathparse{int(dim(\array) - 1)}
+      \edef\arraylength{\pgfmathresult}
+      
+   	  \pgfmathparse{int(\arraylength-1)}
+  	  \edef\lastIndex{\pgfmathresult}
+
+	  \def\endX{\x+\width}
+  	  \def\endY{\y+\height}
+  	  \ifthenelse {\arraylength=0}
+  	  {
+      	\def\compartment{\height}
+  	  }
+  	  {
+      	\def\compartmentHeight{\height/\arraylength}
+	  }
+	  	
+  \draw [fill = \colour, rounded corners = 8pt, line width = 0.25mm] (\x, \y) rectangle (\endX, \endY);
+  \foreach \i in {0,...,\lastIndex} 
+  {
+    \pgfmathparse{\endY-\i*\compartmentHeight}
+   	\edef\compartmentStartY{\pgfmathresult}
+    \pgfmathparse{\compartmentStartY - \compartmentHeight}
+   	\edef\compartmentEndY{\pgfmathresult}
+    
+    \ifthenelse{\i < \arraylength} 
+     {
+      	\pgfmathparse{\array[\i]}
+   	    \edef\item{\pgfmathresult}
+		
+		\ifthenelse{\equal{\item}{-nothing-}}
+		{
+			\fill [fill=none] (\x, \compartmentStartY) rectangle (\endX, \compartmentEndY) node[pos=0.5]{};
+		
+		}
+		{
+			\fill [fill=none] (\x, \compartmentStartY) rectangle (\endX, \compartmentEndY) node[pos=0.5] {\textsize \item};
+		}
+	
+		\ifthenelse{\i > 0}
+		{
+			\draw  (\x, \compartmentStartY) -- (\endX, \compartmentStartY);	
+		}
+		{ 
+		}
+
+	 }
+     {
+      
+		\draw  (\x, \compartmentStartY) -- (\endX, \compartmentEndY);
+     }
+  } %end loop
+
+  \endgroup
+}
+\makeatother

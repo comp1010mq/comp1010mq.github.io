@@ -1,0 +1,275 @@
+\input{comp125workshopHeader}\section*{Learning outcomes}
+Following are this week's learning outcomes,
+\begin{enumerate}
+\item Perform problem-solving tasks
+\item Identify and eliminate bugs from an incorrect implementation
+\item Write methods that deal with arrays.
+\end{enumerate}
+
+\begin{center}
+
+\fbox{
+\begin{minipage}{0.8\textwidth}
+Download \texttt{Workshop week 2 files} from iLearn and import the project contained inside (\texttt{workshop02template}) in Eclipse. The process of importing Java projects from archive files is explained in week 1 tutorial worksheet. 
+\end{minipage}
+}
+\end{center}
+
+\vspace{1em}
+\begin{questions}
+
+%\question  \textbf{Ratio and proportions} \vskip 0.5cm
+%If it takes $t1$ amount of time for $n1$ people to finish a job, how much time will it take for $n2$ (equally efficient) people to finish the same job? Assume the values $t1$ is stored in an \texttt{double} variable and the values of  $n1, n2$ are stored in \texttt{int} variables. Compute and store the value of $t2$ in a variable.
+%\begin{solution}
+%\begin{lstlisting}
+%	double t2 = n2*t1/n1;
+%\end{lstlisting}
+%\end{solution}
+%
+%\vskip 0.5 cm 
+%
+%\question  \textbf{Swap two variables} \vskip 0.5cm
+%
+%Design an algorithm that swaps the contents of two variables. If the first variable holds the value 5 and the second 8, then after the algorithm is executed, the first variable should hold the value 8 and the second 5.
+%
+%\begin{solution}
+%\begin{lstlisting}
+%variable 1 --> temp
+%variable 2 --> variable 1
+%temp --> variable 2
+%\end{lstlisting}
+%\end{solution}
+%
+%\vskip 0.5 cm 
+
+\question \textbf{Debugging}
+
+Your tutor will demonstrate the process of debugging a method with the example of method \texttt{sumEven} in class \texttt{DebuggingDemo}. You should then debug the method \texttt{isAscending} in the same class.
+
+\begin{solution}
+Refer to code in \texttt{workshop02solution.zip}	
+\end{solution}
+
+\vskip 0.5cm
+
+\question \textbf{Bugs buggy}
+
+In class \texttt{Buggy}, the code in \texttt{main} attempts to add all items of the array \texttt{a}. However, the code contains a few bugs. Identify and correct them using the debugger. 
+
+\begin{enumerate}
+\item Place breakpoints on lines you'd like the execution to halt at.	
+\item Run the program in debug mode.
+\item Trace the variables. This should help you identify where the problem lies.
+\end{enumerate}
+
+The value displayed when the bugs are eliminated should be 190.
+
+\begin{solution}
+Three bugs:
+\begin{enumerate}
+\item result should be initialized to 0, not 1
+\item start loop counter i from 0, not 1
+\item add a[i] every time, not i
+\end{enumerate}
+\end{solution}
+
+\vskip 0.5cm
+
+\question The method \texttt{allEven} \textbf{attempts to} return \texttt{true} if the array passed contains only even numbers, and \texttt{false} otherwise. However it contains a bug. Identify and explain that bug. Write the corrected method.
+
+\begin{lstlisting}
+public static boolean allEven(int[] a) {
+	for(int i=0; i < a.length; i++) {
+		if(a[i]%2 != 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{solution}
+Method returns \texttt{true} as soon as one even number is found. This (returning \texttt{true}) should be done after all numbers are checked and none of them is odd.
+\begin{lstlisting}
+public static boolean allEven(int[] a) {
+	for(int i=0; i < a.length; i++) {
+		if(a[i]%2 != 0) { //an odd number
+			return false;
+		}
+	}
+	//if control reaches here, it means
+	//no odd numbers were found
+	return true;
+}
+\end{lstlisting}	
+\end{solution}
+
+
+\newpage 
+
+\question The following method attempts to return \texttt{true} if the two arrays passed are identical (same items in the same order), and \texttt{false} otherwise. However, it has a bug. Trace the following method for input arrays \{12, 6, 15\} and \{12, 6, 15, 8\}, identify the bug and fix the code.
+
+\begin{lstlisting}
+public static boolean identical(int[] a, int[] b) {
+	for(int i=0; i < a.length; i++) {
+		if(a[i] != b[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+\end{lstlisting}
+
+\begin{solution}
+Methods doesn't check if the size of the two arrays is same or not. Debugged version:
+\begin{lstlisting}
+public static boolean identical(int[] a, int[] b) {
+	if(a.length != b.length) {
+		return false;
+	}
+	for(int i=0; i < a.length; i++) {
+		if(a[i] != b[i]) {
+			return false;
+		}
+	}
+	return true;
+}	
+\end{lstlisting}	
+\end{solution}
+
+\vskip 0.5cm
+
+\question The following method attempts to return the sum of all odd numbers in the array. However, it has a bug (and a tricky one). Trace the method for input array \{5, 8, 4, 0, 7, -3, 6\} to identify the bug and get rid of it.
+
+\begin{lstlisting}
+public static int sumOdds(int[] a) {
+	int result = 0;
+	for(int i=0; i < a.length; i++) {
+		if(a[i]%2 == 1) {
+			result = result + a[i];
+		}
+	}
+	return result;
+}
+\end{lstlisting}
+
+\begin{solution}
+Negative odd numbers when divided by 2 leave remainder -1 (and not 1). Debugged version:
+\begin{lstlisting}
+public static int sumOdds(int[] a) {
+	int result = 0;
+	for(int i=0; i < a.length; i++) {
+		if(a%2 != 0) {
+			result = result + a[i];
+		}
+	}
+	return result;
+}	
+\end{lstlisting}	
+\end{solution}
+
+\vskip 0.5cm
+
+\question Complete the method \texttt{onlyNegatives} in class \texttt{MainTask}. For example,
+
+\texttt{onlyNegatives(new int[]\{-10, -20, -17, -1\})} --> \texttt{true}
+
+\texttt{onlyNegatives(new int[]\{-10, -20, 0, -1\})} --> \texttt{false}
+
+\texttt{onlyNegatives(new int[]\{-10, -20, -17, 1\})} --> \texttt{false}
+
+\texttt{onlyNegatives(new int[]\{\})} --> \texttt{true} (all items in the array \textbf{ARE} negative)
+
+\texttt{onlyNegatives(new int[]\{-10\})} --> \texttt{true}
+
+\texttt{onlyNegatives(new int[]\{3, -20, -17, -1, -9, -14\})} --> \texttt{false}
+
+\begin{solution}
+\begin{lstlisting}
+/**
+ * 
+ * @param arr
+ * @return true if all the items of array arr are negative 
+ * (less than 0), false otherwise.
+ * note, return true if array arr has no items 
+ * (it's empty)
+ */
+public static boolean onlyNegatives(double[] arr) {
+	for(int i=0; i < arr.length; i++) {
+		if(arr[i] >= 0) { //NOT negative
+			return false; //to be completed
+		}
+	}//end loop
+	//if didn't return false during the loop
+	//it means no non-negatives
+	//so all negatives
+	//so...
+	return true;
+}
+\end{lstlisting}	
+\end{solution}
+
+\newpage
+
+\begin{center}
+\LARGE \textbf{Additional tasks} (for anyone who has a little spare time)
+\end{center}
+
+\question \textbf{String theory} \vskip 0.5cm
+
+For this question, you will need the following two methods that operate on a String object (assuming the object name is \texttt{str}):
+
+\begin{enumerate} 
+\item \texttt{str.length()}: returns the number of characters in the String.
+\item \texttt{str.charAt(int)}: returns the character at passed index, provided the index is valid (between 0 and \texttt{str.length() - 1}, including \texttt{str.length() - 1}).
+\end{enumerate}
+
+Example:
+
+\begin{lstlisting}
+String s = "hello";
+System.out.println(s.length()); //displays 5
+System.out.println(s.charAt(0)); //displays 'h'
+System.out.println(s.length(4)); //displays 'o'
+//System.out.println(s.charAt(-1)); //Boo...
+//System.out.println(s.charAt(5)); //Boo...
+\end{lstlisting}
+
+In project \texttt{workshop02template}, there is a class file \texttt{StringTheory}.  Please open this file. Notice that there are two methods, a \texttt{main} method and a helping method, \texttt{countOccurrences}.
+
+Complete the method \texttt{countOccurrences} which, when passed a \texttt{String str} and a character \texttt{ch}, returns the number of occurrences of \texttt{ch} in \texttt{str}.
+
+\begin{solution}
+\begin{lstlisting}
+public static int countOccurrences(String str, char ch) {
+	int count = 0;
+	for(int i=0; i<str.length(); i++) //for each character
+		if(str(i) == ch) //found a match
+			count++;
+	
+	return count;
+}
+\end{lstlisting}
+\end{solution}
+
+\question Write a method that when passed a \texttt{String}, returns the most frequently occurring \texttt{char} in that \texttt{String}. For example, when passed ``abysmal'', the method returns `a'. In case of a tie, return the \texttt{char} that occurs first. For example, when passed `surreal'', the method returns `r'.
+
+\begin{solution}
+In \texttt{AdditionalTasks.java} (which is inside the project imported from \texttt{workshop02solution.zip}
+\end{solution}
+
+\question Write a method that when passed a \texttt{String}, returns a \texttt{String} containing the most frequently occurring characters in that \texttt{String}, in the order of their occurrence. For example, when passed ``abysmal'', the method returns ``a'', and when passed ``fantastic'', the method returns ``at''.
+
+\begin{solution}
+In \texttt{AdditionalTasks.java} (which is inside the project imported from \texttt{workshop02solution.zip}
+\end{solution}
+
+\question Write a method that when passed a floating-point array (\texttt{double[]}), returns the number of unique items, that is, the number of items that occur exactly once in the array.
+
+\begin{solution}
+In \texttt{AdditionalTasks.java} (which is inside the project imported from \texttt{workshop02solution.zip}
+\end{solution}
+\end{questions}
+\end{document}

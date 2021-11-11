@@ -1,0 +1,512 @@
+%\usepackage[T1]{fontenc}
+%\usepackage{pslatex}
+% \usepackage[pdftex]{color}  
+% \usepackage[pdftex]{graphicx}     
+%\usepackage{verbatim}
+%\usepackage{xcolor}
+%\usepackage{paralist}
+%\usepackage{tagging}
+
+\usepackage[colorlinks=true,urlcolor=red]{hyperref}
+\setlength{\topmargin}{-0.5in}                  % topmargin now at 1in
+\setlength{\textheight}{9.5in}                  % body of text = 9.5in
+\setlength{\oddsidemargin}{0in}                 % left margin = 1.0in on odd-numbered pages
+\setlength{\evensidemargin}{0in}                % left margin = 1.0in on even-numbered pages 
+\setlength{\textwidth}{6.5in}                   % width of text line.
+\setlength{\parindent}{0.0in}
+\newcommand{\code}{\texttt}
+
+\begin{document}
+
+\definecolor{aquamarine}{rgb}{0,0,0.7}
+\definecolor{blue}{rgb}{0,0,0.7}
+\definecolor{red}{rgb}{1,0,0}
+
+%
+\vspace{0.2in}
+\begin{center}
+        {\large  %MACQUARIE UNIVERSITY\\
+%\medskip
+\includegraphics[scale=0.3]{mqlogo.jpeg}\\
+\medskip
+        {\it  Faculty of Science and Engineering\\}
+        \vspace{0.2in}
+         {\bf COMP125 Fundamentals of Computer Science\\
+        Workshop - Searching and Arrays of Objects}}
+\end{center}
+\vspace{0.3in}
+%
+
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+ 
+\section*{Learning outcomes}
+
+By the end of this session, you will know the basics of objects and testing in Java. In particular, you will be able to,
+
+\begin{enumerate}
+\item Perform binary search on an array;
+\item Operate on array of objects;
+\item Create array of objects
+\end{enumerate}
+\vskip 0.5cm
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.8\textwidth}
+Import project \texttt{searchingWorkshopTemplate} from \texttt{searchingWorkshopTemplate.zip}. 
+\end{minipage}
+}
+\end{center}
+
+
+\begin{questions}
+
+\vskip 0.5 cm 
+
+\question  \textbf{Apply binary search on an array} 
+\vskip 0.5cm
+
+Consider the following \textbf{pseudo-code} is being used to perform binary search.
+
+\begin{lstlisting}[numbers = none, frame = single, style = correct]
+Input: 
+1. array arr: assumed to be sorted in ascending order
+2. target (of the type as each item of the array arrr)
+
+Output:
+index in array at which target is found. -1 if not found
+
+Process:
+//Search space: from first to last item
+first = 0
+last = arr.length - 1
+while(first <= last)
+   median = (first+last)/2
+   if target is equal to arr[median]
+      OUTPUT median
+   //options left target < arr[median] or target > arr[median]
+   if target < arr[median] //if present, it's in the left half
+      last = median - 1
+   else //target > arr[median] means if present, it's in the right half
+      first = median + 1
+end while loop
+
+//loop ending implies first > last and search space exhausted
+OUTPUT -1	
+\end{lstlisting}
+
+For the array 
+
+\begin{verbatim}
+{1, 4, 5, 7, 9, 23, 47, 50, 58, 58, 58, 58, 88, 90, 95, 99}
+\end{verbatim}
+
+Trace the execution of the above algorithm for the following targets,
+
+\begin{itemize}
+\item 58
+
+\begin{tabular}{c | c | c | c}
+\hline
+first &	last &	median &	arr[median]\\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\end{tabular}
+\vskip 0.5cm
+
+\item 50
+
+\begin{tabular}{c | c | c | c}
+\hline
+first &	last &	median &	arr[median]\\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\end{tabular}
+\vskip 0.5cm
+
+\item 47
+
+\begin{tabular}{c | c | c | c}
+\hline
+first &	last &	median &	arr[median]\\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\end{tabular}
+\vskip 0.5cm
+
+\item 59
+
+\begin{tabular}{c | c | c | c}
+\hline
+first &	last &	median &	arr[median]\\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\hline
+& & & \\
+\end{tabular}
+\end{itemize}
+
+\newpage
+\question \textbf{Variations of binary search} \vskip 0.5cm
+
+Write down, on a piece of paper, the changes you need to make to the binary search code provided in class \texttt{ArrayService},
+
+\begin{enumerate}
+\item to search for an item in an integer array sorted in descending order
+\begin{solution}
+\begin{verbatim}
+	if(target > arr[median])
+	
+	is replaced by 
+	
+	if(target < arr[median])
+\end{verbatim}	
+
+Similarly, 
+
+\begin{verbatim}
+	if(target < arr[median])
+	
+	is replaced by 
+	
+	if(target > arr[median])
+\end{verbatim}
+\end{solution}
+
+\item to search for a \texttt{Rectangle} object in an array of \texttt{Rectangle} objects. 
+
+You cannot compare two objects, \texttt{r1, r2} of a class \texttt{Rectangle}, for equality as \texttt{if(r1 == r2)}. 
+
+The primitive equality operator (\texttt{==}) checks if \texttt{r1} and \texttt{r2} refer to the same object (memory block). Or in other words, \texttt{r1} and \texttt{r2} are shallow copies of each other.
+
+Consider the following code:
+
+\vskip 0.5cm
+\begin{lstlisting}
+Rectangle r1 = new Rectangle(3.2, 2.5);
+Rectangle r2 = r1;
+\end{lstlisting}
+\vskip 0.5cm
+Here, \texttt{r2} is said to be a \emph{shallow copy} of \texttt{r1}. That is, we are copying the reference \texttt{r1} into \texttt{r2}. Here, \texttt{r1 == r2} would evaluate to \texttt{true}. The corresponding memory diagram is below:
+\vskip 0.5cm
+\begin{tikzpicture}
+\block{{6, 5.5, 1, 1, 1}}{{"r1"}}
+\block{{6, 3, 1, 1, 1}}{{"r2"}}
+\arrow{{6.8, 6, 8.5, 5}}
+\arrow{{6.8, 3.5, 8.5, 4.5}}
+\block{{8.5, 3.75, 5, 2, 2}}{{"width = 3.2", "height = 2.5"}}
+\end{tikzpicture}
+\vskip 0.5cm
+Now, consider the following code:
+\vskip 0.5cm
+\begin{lstlisting}
+Rectangle r1 = new Rectangle(3.2, 2.5);
+double w = r1.getWidth();
+double h = r1.getHeight();
+Rectangle r2 = new Rectangle(w, h);
+\end{lstlisting}
+\vskip 0.5cm
+Here, \texttt{r2} is said to be a \emph{deep copy} of \texttt{r1}. We are, in effect, \emph{cloning} the object \texttt{r1} into \texttt{r2}. In this case, \texttt{r1 == r2} would evaluate to \texttt{false}. The corresponding memory diagram is below:
+\vskip 0.5cm
+\begin{tikzpicture}
+\block{{6, 5.5, 1, 1, 1}}{{"r1"}}
+\block{{6, 3, 1, 1, 1}}{{"r2"}}
+\arrow{{6.8, 6, 8.5, 6}}
+\arrow{{6.8, 3.5, 8.5, 3.5}}
+\block{{8.5, 5, 5, 2, 2}}{{"width = 3.2", "height = 2.5"}}
+\block{{8.5, 2.5, 5, 2, 2}}{{"width = 3.2", "height = 2.5"}}
+\end{tikzpicture}
+\vskip 0.5cm
+Instead, we must use \texttt{if(r1.compareTo(r2) == 0)}. This is, of course, assuming the following method is defined in the \texttt{Rectangle} class. 
+
+\begin{lstlisting}
+public int compareTo(Rectangle other) {
+	if(this.area() > other.area())
+		return 1;
+	if(this.area() < other.area())
+		return -1;
+	return 0;
+}
+\end{lstlisting}
+
+The following summarises comparison of primitive data type variables vs. comparison of objects.
+
+\vskip 0.5cm
+
+\begin{tabular}{p{5cm}|p{5cm}}
+  Comparison of primitive data type variables $a$ and $b$ & Corresponding comparison of objects \texttt{obj1} and \texttt{obj2}\\
+  \hline
+  \texttt{a == b} & \texttt{obj1.compareTo(obj2) == 0}\\
+  \hline
+  \texttt{a != b} & \texttt{obj1.compareTo(obj2) != 0}\\
+  \hline
+  \texttt{a > b} & \texttt{obj1.compareTo(obj2) == 1}\\
+  \hline
+  \texttt{a < b} & \texttt{obj1.compareTo(obj2) == -1}\\
+  \hline
+  \texttt{a $\geq$ b} & \texttt{obj1.compareTo(obj2) != -1}\\
+  \hline
+  \texttt{a $\leq$ b} & \texttt{obj1.compareTo(obj2) != 1}
+\end{tabular}
+\vskip 0.5cm
+\end{enumerate}
+
+\begin{solution}
+\begin{verbatim}
+	if(target == arr[median])
+	
+	is replaced by 
+	
+	if(target.compareTo(arr[median]) == 0)
+\end{verbatim}	
+
+Similarly, 
+
+\begin{verbatim}
+	if(target < arr[median])
+	
+	is replaced by
+	
+	if(target.compareTo(arr[median]) < 0)
+\end{verbatim}
+
+and also,
+
+\begin{verbatim}
+	if(target > arr[median])
+	
+	is replaced by
+	
+	if(target.compareTo(arr[median]) > 0)
+\end{verbatim}
+\end{solution}
+
+%\vskip 0.5 cm \question \textbf{Implement search algorithms} \vskip 0.5cm
+%
+%The project \texttt{searchingWorkshopTemplate} contains a \emph{service} class \texttt{ArrayService}. All methods of this class are \texttt{static} (called on the class, rather than an object) and operate on the array passed to them. Complete the following \texttt{static} methods in this class,
+%
+%\begin{enumerate}
+%\item \texttt{linearSearch}: Perform linear search for an item on the array. The parameters are the array and item to be searched. The method should return the index at which the first occurrence of item is found, and -1 if not found. Write your unit tests to ensure that the method is correct.
+%
+%\item \texttt{binarySearch}: Perform binary search for an item on the array assumed to be sorted in ascending order.  The parameters are the array and item to be searched.  The method returns the index at which the item is found (not necessarily the index of the first occurrence because binary search does not scan the array sequentially), and -1 if not found. Write your unit tests to ensure that the method is correct. 
+%
+%\item \texttt{search}: Write a method that when passed an array and an item to be searched, calls either the binary search method or the linear search method, depending on whether the array is sorted in ascending order or not. Note that you can use other methods of \texttt{ArrayService} -- for example the \texttt{isSorted} method might be useful. 
+%\vskip 0.5cm
+%Also, write a unit test in \texttt{ArrayServiceTest} (which already has tests for methods \texttt{linearSearch} and \texttt{binarySearch}) to ensure the correctness of method \texttt{search}.
+%\end{enumerate}
+%
+%Discuss in pairs the best and worst case time complexities of each of the three algorithms, and comment on the convenience or otherwise of implementing the third function.
+%
+%\begin{solution}
+%Refer to \texttt{ArrayService.java}
+%\end{solution}
+
+\vskip 0.5 cm \question \textbf{Understanding the process of creating array of objects} \vskip 0.5cm
+
+In pairs, discuss the contents of \texttt{arrayOfObjectsSummary.pdf} (included in the \texttt{eclipse project} that you imported) and repeat the process illustrated in it for the class \texttt{Trip} and the client \texttt{TripListClient} that creates an array of \texttt{Trip} objects and operates on it.
+
+\vskip 0.5 cm \question \textbf{Create an array of objects} \vskip 0.5cm
+
+You are provided with a completed \texttt{StockItem} class. Complete the code in \texttt{StockItemListClient} that creates and operates on an array of \texttt{StockItem} objects, similar to the code in \texttt{TripListClient} that creates and operates on an array of \texttt{Trip} objects. You can use the following configuration values,
+
+\begin{itemize}
+\item array should be of size 5
+\item \texttt{name} of first item should be ``Item 1'', of second item should be ``Item 2'' and so on. In general, \texttt{name} of item at index \texttt{i} should be \texttt{"Item "+(i+1)}.
+\item \texttt{unitPrice} of item at index \texttt{i} should be \texttt{2*i + 2}. (you can assign an integer to a double variable so it's all good)
+\item \texttt{quantity} of item at index \texttt{i} should be \texttt{2*i - 8}.
+\end{itemize}
+
+Display the item with the maximum \texttt{totalStockPrice()} as defined in the \texttt{StockItem} class.
+
+\newpage \question \textbf{Additional Tasks (time permitting)} \vskip 0.5cm
+
+Complete the following methods based on the specifications,
+
+\begin{enumerate}
+	\item \textbf{existsInFirstHalf}: returns \texttt{true} if \texttt{target} exists in the first half of the array \texttt{arr}, and \texttt{false} otherwise. If the array contains an odd number of items ($2*k + 1$, where $k$ is an integer), then the first half contains the first $k$ items.
+	
+\begin{lstlisting}
+public static boolean existsInFirstHalf(double[] arr, double target);		
+\end{lstlisting}
+	
+	\ifprintanswers
+	\begin{lstlisting}
+		public static boolean existsInFirstHalf(double[] arr, double target) {
+			if(arr == null)
+				return false;
+			int end = arr.length/2;	
+			for(int i=0; i < end; i++) {
+				if(arr[i] == target) {
+					return true;
+				}
+			}
+			return false;
+		}
+	\end{lstlisting}
+	\else
+	\fi
+	
+	\item \textbf{getCount}: returns the number of times \texttt{target} exists in \texttt{arr}.
+	
+\begin{lstlisting}
+public static int getCount(double[] arr, double target);\end{lstlisting}
+	
+	\ifprintanswers
+		\begin{lstlisting}
+		public static int getCount(double[] arr, double target) {
+			if(arr == null)
+				return 0;	
+			int count = 0;
+			for(int i=0; i < arr.length; i++) {
+				if(arr[i] == target) {
+					count++;
+				}
+			}
+			return count;
+		}
+	\end{lstlisting}
+	
+	The time complexity in the best case is $\mathcal{O}(log_2(n))$ and in the worst or average case is $\mathcal{O}((n)$.
+	\else
+	\fi
+	
+	
+	\item \textbf{getMostFrequentItem}: Assuming the method \texttt{getCount} is completed and available, returns the item that occurs the most number of times in \texttt{arr}. If there is a tie, the candidate that occurs first in the array is returned. For example, if $arr=\{8.5,8.5,8.5,1.7,1.7,1.7,6.2,6.2,6.2\}$, the method returns \texttt{8.5}. Return 0 if the array is empty or null.
+	
+\begin{lstlisting}
+public static double getMostFrequentItem(double[] arr);		
+\end{lstlisting}
+
+	\ifprintanswers
+\begin{lstlisting}
+public static double getMostFrequentItem(double[] arr) {
+	if(arr == null || arr.length == 0)
+		return 0;
+	int freqIndex = 0;
+	for(int i=1; i < arr.length; i++) {
+		if(getCount(arr, arr[i]) > getCount(arr, arr[freqIndex)) {
+			freqIndex = i;
+		}
+	}
+	return arr[freqIndex];
+}	
+\end{lstlisting}
+	\else
+	\fi
+
+	\item \textbf{getFirstIndex}: Consider the following method for binary search.
+	
+\begin{lstlisting}
+public static int binarySearch(double[] arr, double target) {
+	int first = 0;
+	int last = arr.length - 1;
+	while(first <= last) {
+   		int median = (first+last)/2;
+   		if(target==arr[median])
+			return median;
+   		if(target > arr[median])
+			first = median + 1;
+		else
+		   last = median - 1;
+	}
+	return -1;
+}	
+\end{lstlisting}
+
+The above method returns index 3 while searching for the item 24 in the array $\{0,24,24,24,24,24,24\}$. Modify the method so that it returns the \textbf{first} index of the item from the array (should return 1 for the above example).
+
+	\ifprintanswers
+\begin{lstlisting}
+public static int binarySearchV2(double[] arr, double target) {
+	int first = 0;
+	int last = arr.length - 1;
+	int median = -1;
+	while(first <= last) {
+   		median = (first+last)/2;
+   		
+   		if(target == arr[median])
+   			break; //exit the loop
+   			
+   		if(target > arr[median])
+			first = median + 1;
+		else
+		   last = median - 1;
+	}
+	if(median == -1)
+		return -1;
+
+	while(median >= 0 && target == arr[median]) {
+		median--;
+	}
+
+	return median + 1;
+}	
+\end{lstlisting}
+	\else
+	\fi
+
+\item Write a method in a Client class that when passed an array \texttt{arr} of \texttt{Rectangle} objects, returns an array with \textbf{deep copies} of \texttt{Rectangle} objects from \texttt{arr} that are not \texttt{null}. Return \texttt{null} if \texttt{arr} itself is null. Return an empty array (not \texttt{null}) if \texttt{arr} is not \texttt{null} but every item of \texttt{arr} is \texttt{null}.
+
+\begin{solution}
+\begin{lstlisting}[style=buggy]
+public static Rectangle[] nonNullItems(Rectangle[] arr) {
+	if(arr == null)
+		return null;
+	
+	int count = 0;
+	for(int i=0; i < arr.length; i++)
+		if(arr[i] != null)
+			count++;
+	
+	Rectangle[] result = new Rectangle[count];
+	int targetIndex = 0;
+	for(int i=0; i < arr.length; i++) {
+		if(arr[i] != null) {
+			result[targetIndex] = new Rectangle(arr[i]); //call to copy constructor
+			/* DO NOT USE 
+			result[targetIndex] - arr[i]; 
+			That is a shallow copy
+			*/
+			targetIndex++;
+		}
+	}
+	return result;
+}
+\end{lstlisting}	
+\end{solution}
+
+\end{enumerate}
+
+\end{questions}
+\end{document}

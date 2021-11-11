@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}So why are we learning this?}{4}{section.1}
+\contentsline {section}{\numberline {2}The \leavevmode {\color {ForestGreen} \textbf {Node}} class}{5}{section.2}
+\contentsline {section}{\numberline {3}Creating a \emph {"linked list"} manually}{12}{section.3}
+\contentsline {subsection}{\numberline {3.1}Simplified representation of linked nodes}{15}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Traversing a linked list}{17}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Incorrect Approach}{17}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Correct Approach}{25}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.3}Some examples of traversal}{27}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Recursive methods on linked nodes}{30}{subsubsection.3.3.1}
+\contentsline {section}{\numberline {4}Custom-built LinkedList class}{31}{section.4}
+\contentsline {subsection}{\numberline {4.1}Accessing an item at an arbitrary index}{36}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Inserting an item at an arbitrary index}{37}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}SCENARIO 1: Inserting in an empty list}{41}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}SCENARIO 2: Inserting in a non-empty list}{45}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Removing an item from an arbitrary index}{60}{subsection.4.3}
+\contentsline {section}{\numberline {5}Sample solutions for exercises}{71}{section.5}
+\contentsfinish 

@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Overview}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Why is searching important?}{4}{subsection.1.1}
+\contentsline {section}{\numberline {2}Linear search}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}Version 1}{6}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Version 2}{11}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Comparison of versions 1 and 2}{13}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Returning index instead of true/false}{13}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Handling \leavevmode {\color {ForestGreen} \textbf {null}} array}{15}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Variation 1}{16}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}Variation 2}{17}{subsection.2.7}
+\contentsline {subsection}{\numberline {2.8}Variation 3}{18}{subsection.2.8}
+\contentsline {subsection}{\numberline {2.9}Variation 4}{20}{subsection.2.9}
+\contentsline {section}{\numberline {3}Binary search}{22}{section.3}
+\contentsline {subsection}{\numberline {3.1}Formal discussion on binary search}{46}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Binary search code}{49}{subsection.3.2}
+\contentsline {section}{\numberline {4}Sample solutions for exercises}{52}{section.4}
+\contentsfinish 

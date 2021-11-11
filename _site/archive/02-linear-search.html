@@ -1,0 +1,319 @@
+<h1 id="linear-search">Linear search</h1>
+
+<ul>
+  <li>Simplest search algorithm.</li>
+  <li>Look at each element of the array in turn.</li>
+  <li>If you find the target, stop.</li>
+  <li>If you don’t find the target by the end, it’s not there.</li>
+</ul>
+
+<h3 id="version-1---buggy-linear-search">Version 1 - Buggy linear search</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="cm">/**
+ * Perform a linear search for a given integer in the array.
+ * @return true if target present, false otherwise
+ */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">buggyContais</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++</span> <span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="o">}</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Trace the above code with the following pair of values:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">arr = {10, 70, 20, 90}</code>, <code class="highlighter-rouge">target = 10</code></li>
+  <li><code class="highlighter-rouge">arr = {10, 70, 20, 90}</code>, <code class="highlighter-rouge">target = 80</code></li>
+  <li><code class="highlighter-rouge">arr = {10, 70, 20, 90}</code>, <code class="highlighter-rouge">target = 90</code></li>
+</ul>
+
+<p>When <code class="highlighter-rouge">target = 10</code>, the first item (10) matches the target and the method
+returns <code class="highlighter-rouge">true</code> correctly.</p>
+
+<p>When <code class="highlighter-rouge">target = 80</code>, the first item (10) <strong>DOES NOT</strong> match the target and
+the method immediately returns <code class="highlighter-rouge">false</code> - which is incidentally correct.</p>
+
+<p>When <code class="highlighter-rouge">target = 90</code>, the first item (10) <strong>DOES NOT</strong> match the target and
+the method immediately returns <code class="highlighter-rouge">false</code> - .</p>
+
+<p>The problem is the <code class="highlighter-rouge">else</code> block. The code returns <code class="highlighter-rouge">false</code> as
+soon as an item doesn’t match the target.</p>
+
+<p>So, if the target exists in the array at any index other than 0, the
+method incorrectly returns <code class="highlighter-rouge">false</code>.</p>
+
+<blockquote class="challenge">
+  <h2 id="write-a-corrected-version-of-the-linear-search-code-from-above">Write a corrected version of the linear search code from above.</h2>
+  <blockquote class="solution">
+    <h2 id="solution">SOLUTION</h2>
+    <blockquote>
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++</span> <span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+	     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+     <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="write-a-modified-version-of-linear-search-that-returns-the-first-index-at-which-the-target-is-found-and--1-if-the-target-is-not-found-in-the-array">Write a modified version of linear search that returns the first index at which the target is found, and -1 if the target is not found in the array.</h2>
+  <blockquote class="solution">
+    <h2 id="solution-1">SOLUTION</h2>
+    <blockquote>
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">indexOf</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++</span> <span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+	     <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+     <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="write-a-modified-version-of-linear-search-that-returns-the-last-index-at-which-the-target-is-found-and--1-if-the-target-is-not-found-in-the-array">Write a modified version of linear search that returns the <strong>last</strong> index at which the target is found, and -1 if the target is not found in the array.</h2>
+  <blockquote class="solution">
+    <h2 id="solution-2">SOLUTION</h2>
+    <blockquote>
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">lastIndexOf</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++</span> <span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+	     <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+     <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="consider-an-array-arr--1-2-cdots-n-such-that-arrlength--n-in-which-case-will-the-method">Consider an array <code class="highlighter-rouge">arr = {1, 2, \cdots, n}</code> (such that <code class="highlighter-rouge">arr.length = n</code>). In which case will the method</h2>
+  <blockquote class="solution">
+    <h2 id="solution-3">SOLUTION</h2>
+    <blockquote>
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">linearSearch</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++</span> <span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+	     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+     <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>What information did you deduce from the above exercise?</p>
+
+<ul>
+  <li>
+    <p>In the best case scenario (fastest possible), the loop executes just
+once (irrespective of the value of $n$)</p>
+  </li>
+  <li>
+    <p>In the worst case scenario (slowest possible), the loop executes $n$
+times. Thus, the time taken is proportional to $n$ (as time is
+proportional to number of loop executions and number of loop
+executions is proportional to $n$).</p>
+  </li>
+</ul>
+
+<h2 id="version-2">Version 2</h2>
+
+<blockquote class="challenge">
+  <h2 id="consider-an-array-arr--1-2-cdots-n-such-that-arrlength--n-in-which-ca">Consider an array <code class="highlighter-rouge">arr = {1, 2, \cdots, n}</code> (such that <code class="highlighter-rouge">arr.length = n</code>). In which ca</h2>
+  <blockquote class="solution">
+    <h2 id="solution-4">SOLUTION</h2>
+    <blockquote>
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">linearSearch</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++</span> <span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+	     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+     <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p>[8][Code for linear search - version 2] Write a method in java that
+implements the pseudo-code from Algorithm [lsv2]</p>
+
+<p>[H] set <code class="highlighter-rouge">idx</code> to first item’s index (0 in java) set <code class="highlighter-rouge">result</code> to <code class="highlighter-rouge">false</code>
+return <code class="highlighter-rouge">result</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>public static boolean linearSearchV2(int[] arr, int target) {
+    boolean result = false;
+    for(int i=0; i &lt; arr.length; i++) {
+        if(arr[i] == target) {
+            result = true;
+        }
+    }
+    return result;
+}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>[8][Analysis of linear search - version 2] Consider an array
+<code class="highlighter-rouge">arr = {1, 2, \cdots, n}</code> (such that <code class="highlighter-rouge">arr.length = n</code>). How many times
+is the loop executed in linear search - version 2 code to search for,</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">target = 1</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">target = n/2</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">target = n + 1</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">target = 1: n times</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">target = n/2: n times</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">target = n + 1: n times</code></p>
+  </li>
+</ul>
+
+<h2 id="comparison-of-versions-1-and-2">Comparison of versions 1 and 2</h2>
+
+<p>[5][Comparison of versions 1 and 2] Which version is better - 1 or 2?</p>
+
+<p>The loop in both versions executes $n$ times in the worst case scenario,
+but in the best case scenario, version 1 loop executes only once
+(compared to $n$ executions of the loop in version 2). Therefore,</p>
+
+<h2 id="returning-index-instead-of-truefalse">Returning index instead of true/false</h2>
+
+<p>Returning <code class="highlighter-rouge">true</code> if an item is found in an array (and <code class="highlighter-rouge">false</code> otherwise)
+is fine, but returning the index at which it is found (and -1 if it
+isn’t) is even better!</p>
+
+<p>[8][Modify linear search to return index] Write a method that when
+passed,</p>
+
+<ul>
+  <li>
+    <p>an integer array <code class="highlighter-rouge">arr</code></p>
+  </li>
+  <li>
+    <p>an integer <code class="highlighter-rouge">target</code></p>
+  </li>
+</ul>
+
+<p>returns,</p>
+
+<ul>
+  <li>
+    <p>the first index in <code class="highlighter-rouge">arr</code> at which <code class="highlighter-rouge">target</code> exists</p>
+  </li>
+  <li>
+    <p>-1 if <code class="highlighter-rouge">target</code> is not found in <code class="highlighter-rouge">arr</code></p>
+  </li>
+</ul>
+
+<p>public static int linearSearch(int[] arr, int target) <span> for(int
+i=0; i &lt; arr.length; i++) <span> if(arr[i] == target) <span> return i;
+</span> </span> return -1; </span></p>
+
+<h2 id="handling-null-array">Handling <code class="highlighter-rouge">null</code> array</h2>
+
+<p>Since we’ll be dealing with arrays and other containers throughout this
+unit, it’s important to think about the scenario where a <code class="highlighter-rouge">null</code> array or
+object is passed to a method.</p>
+
+<p>The code that we wrote will raise a <code class="highlighter-rouge">NullPointerException</code> because we’d
+be accessing <code class="highlighter-rouge">arr.length</code> for a <code class="highlighter-rouge">null</code> array. This is no good. We must
+handle a <code class="highlighter-rouge">null</code> array scenario before accessing the array.</p>
+
+<p>The course of action is dependent on the problem.</p>
+
+<p>[5][Handling <code class="highlighter-rouge">null</code> array] What value should we return if a <code class="highlighter-rouge">null</code> array
+is passed to a linear search algorithm, and why?</p>
+
+<p>The method should return -1 if you try to search for an item in a <code class="highlighter-rouge">null</code>
+array, since -1 is not a valid index, hence it is a clear error code
+indicating that the array was <code class="highlighter-rouge">null</code>.</p>

@@ -1,0 +1,4 @@
+navigation: 
+- id: "Overview"
+- id: "Linear search"
+- id: "Binary search"

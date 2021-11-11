@@ -1,0 +1,34 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Object Oriented Programming \205 Brief Introduction}{}% 2
+\BOOKMARK [1][-]{section.3}{Classes and instances}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Example: Java's String class}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Example: String object}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Standard way of instantiatiation}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Class definition and instantiation}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Defining classes}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Adding instance variables}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Defining methods}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.4}{Example - Defining a class}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.5}{Declaration and instantiation}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.6}{Declaration}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.7}{Declaration and instantiation}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.8}{Adding method to a class}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.9}{The dot \(.\) operator}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.10}{Are there any default values?}{section.4}% 17
+\BOOKMARK [1][-]{section.5}{Getters and setters}{}% 18
+\BOOKMARK [2][-]{subsection.5.1}{Bad client, bad bad client!}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.2}{Changing visibility to private}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.3}{How does one access \(read/write\) private instance variables}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.4}{Setters must provide validation where applicable}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.5}{I wish creating objects was easier}{section.5}% 23
+\BOOKMARK [1][-]{section.6}{Constructors}{}% 24
+\BOOKMARK [2][-]{subsection.6.1}{Example - Constructor}{section.6}% 25
+\BOOKMARK [2][-]{subsection.6.2}{Constructors should call setters - always!}{section.6}% 26
+\BOOKMARK [2][-]{subsection.6.3}{Default constructor}{section.6}% 27
+\BOOKMARK [2][-]{subsection.6.4}{Defining the default constructor}{section.6}% 28
+\BOOKMARK [1][-]{section.7}{Displaying objects}{}% 29
+\BOOKMARK [2][-]{subsection.7.1}{Problem with the display\(\) method}{section.7}% 30
+\BOOKMARK [2][-]{subsection.7.2}{Default toString\(\) behaviour}{section.7}% 31
+\BOOKMARK [2][-]{subsection.7.3}{Over-riding toString\(\) behaviour}{section.7}% 32
+\BOOKMARK [1][-]{section.8}{Class containing an array}{}% 33
+\BOOKMARK [1][-]{section.9}{Sample solutions for exercises}{}% 34

@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{Overview}{}% 1
+\BOOKMARK [1][-]{section.2}{The ``this'' keyword}{}% 2
+\BOOKMARK [1][-]{section.3}{Comparing objects \(compareTo method\)}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{compareTo in action}{section.3}% 4
+\BOOKMARK [1][-]{section.4}{The equals method}{}% 5
+\BOOKMARK [2][-]{subsection.4.1}{equals in action}{section.4}% 6
+\BOOKMARK [1][-]{section.5}{Multi-criteria comparison}{}% 7
+\BOOKMARK [1][-]{section.6}{Unit testing methods of a class}{}% 8
+\BOOKMARK [1][-]{section.7}{JUnit testing}{}% 9
+\BOOKMARK [2][-]{subsubsection.7.0.1}{Corrected version by looking at JUnit failure}{section.7}% 10
+\BOOKMARK [1][-]{section.8}{Static members vs. Instance members}{}% 11
+\BOOKMARK [2][-]{subsection.8.1}{Static member access}{section.8}% 12
+\BOOKMARK [2][-]{subsection.8.2}{Instance member access}{section.8}% 13
+\BOOKMARK [2][-]{subsection.8.3}{Typical static methods}{section.8}% 14
+\BOOKMARK [1][-]{section.9}{Manipulating references}{}% 15
+\BOOKMARK [2][-]{subsection.9.1}{Shallow copy}{section.9}% 16
+\BOOKMARK [2][-]{subsection.9.2}{Deep copy}{section.9}% 17
+\BOOKMARK [2][-]{subsection.9.3}{Copy constructor}{section.9}% 18
+\BOOKMARK [3][-]{subsubsection.9.3.1}{Copy constructor call}{subsection.9.3}% 19
+\BOOKMARK [1][-]{section.10}{Sample solutions for exercises}{}% 20

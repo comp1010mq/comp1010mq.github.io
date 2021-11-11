@@ -1,0 +1,199 @@
+\input{comp125workshopHeader}
+\section* {Learning outcomes}
+
+The learning outcomes of this workshop are to improve your understanding of binary search algorithm
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.8\textwidth}
+Import project from \texttt{workshopSearchingSortingTemplate.zip}. 
+\end{minipage}
+}
+\end{center}
+
+\begin{questions}
+\question \textbf{Binary search trace}
+
+Trace the execution of the binary search method from the lecture notes for the array, 
+\begin{verbatim}
+{1, 4, 5, 7, 9, 23, 47, 50, 58, 58, 58, 59, 88, 90, 95, 99}
+\end{verbatim}
+
+and each of the following targets:
+
+\begin{enumerate}
+  \item \texttt{target} = 50
+  \item \texttt{target} = 58
+  \item \texttt{target} = 2
+\end{enumerate}
+
+Your trace must be shown in the form of a logic table with the following structure:
+\vskip 0.5cm
+
+\small
+\begin{tabular}{c | c | c | c | c | c | c} 
+\hline
+first &	last &	first <= last & median & arr[median] & target (== or > or <) arr[median] & return value\\
+\hline
+& & & & & & \\
+\hline
+\end{tabular}
+\normalsize
+\vskip 0.5cm
+
+\begin{solution}
+\small
+target = 50:
+\vskip 0.2cm
+\begin{tabular}{c | c | c | c | c | c | c} 
+\hline
+first &	last &	first <= last & median & arr[median] & target (== or > or <) arr[median] & return value\\
+\hline
+0 & 15 & true & 7 & 50 & == & 7\\
+\hline
+\end{tabular}
+\vskip 0.5cm
+	
+target=58:
+\vskip 0.2cm
+\begin{tabular}{c | c | c | c | c | c | c} 
+\hline
+first &	last &	first <= last & median &	 arr[median] & target (== or > or <) arr[median] & return value\\
+\hline
+0 & 15 & true & 7 & 50 & 58 > 50 & \\
+8 & 15 & true & 11 & 59 & 58 < 59 & \\
+8 & 10 & true & 9 & 58 & 58 == 59 & 9\\
+\hline
+\end{tabular}
+\vskip 0.5cm
+
+target = 2:
+\vskip 0.2cm
+\begin{tabular}{c | c | c | c | c | c | c} 
+\hline
+first &	last &	first <= last & median & arr[median] & target (== or > or <) arr[median] & return value\\
+\hline
+0 & 15 & true & 7 & 50 & 2 < 50 & \\
+0 & 6 & true & 3 & 7 & 2 < 7 & \\
+0 & 2 & true & 1 & 4 & 2 < 4 & \\
+0 & 0 & true & 0 & 1 & 2 > 1 & \\
+1 & 0 & false & 0 & 1 & 2 > 1 & -1\\
+\hline
+\end{tabular}
+\normalsize
+\end{solution}
+
+\question \textbf{Tweak binary search}
+
+What changes must you make to the binary search method from the lecture notes if the array is sorted in \textbf{descending} order instead? Explain your answer in 3-4 lines or by using an example.
+
+\begin{solution}
+The only change required is changing the line
+
+\begin{lstlisting}
+if(target > arr[median])
+\end{lstlisting}
+
+to 
+
+\begin{lstlisting}
+if(target < arr[median])
+\end{lstlisting}
+
+This reflects shifting of search space to right half for items smaller than target instead of items bigger than target.
+\end{solution}
+
+\question \textbf{Binary search on array of objects}
+
+Complete the \texttt{binarySearch} method in class\texttt{SearchService} that searches of a target \texttt{Rectangle} in an array of \texttt{Rectangle} objects sorted based on area. Note that if target is a rectangle of 4 by 5, all rectangles with the same area (20) are considered to be matches since the searching and sorting criteria is area.
+
+Note that you cannot use primitive comparison operators to compare objects. You need to use the output of \texttt{compareTo} (implemented in \texttt{Rectangle} class).
+
+\begin{solution}
+Please refer to the solutions project for completed solution.	
+\end{solution}
+
+\end{questions}
+
+\newpage
+
+\section*{Extra questions for take-home exercises}
+
+\begin{questions}
+\question  \textbf{Importance of deep learning - debugging sorting algorithm} \vskip 0.5cm
+
+The method \texttt{selectionSortBuggy} in class \texttt{Buggy.java} contains some bugs (duh!).
+A client is provided in \texttt{BuggySortClient.java} that calls the said method but the array remains unsorted. Identify the bug in \texttt{selectionSortBuggy} with the help of drawing a memory diagram and logic table, and fix it. \textbf{TIP: Note all memory transactions.}
+
+\begin{solution}
+The problem is with the way the items are being swapped. In its current version, a copies of the items that should be swapped are made, and it's the copies that are swapped.
+	
+You must swap the array items, accessed through their indices.	
+
+Please refer to the solutions project for the corrected code.
+\end{solution}	
+
+\vskip 0.5 cm 
+
+\question  Complete the method \texttt{sortNumberOfDivisors} in class \texttt{SortService} that sorts an array of integers in the order of number of non-trivial divisors (divisors other than 1 and the number itself). For example, 15 has 2 non-trivial divisors - 3 and 5. For example, if the array before sorting is $\{24, 1, 65, 31, 25\}$, after sorting it should be $\{1, 31, 25, 65, 24\}$. 
+
+You should add a helper method that returns the number of divisors of the integer passed. 
+
+\begin{solution}
+\begin{lstlisting}[style=buggy]
+public static void sortNumberOfDivisors(int[] a) {
+	if(a == null) 
+		return;
+	for(int i=1; i < a.length; i++) {
+		int backup = a[i];
+		int k = i - 1;
+		while(k >= 0 && @nDivisors(a[k]) > nDivisors(backup)@) {
+			a[k+1] = a[k];
+			k--;
+		}
+		a[k+1] = backup;
+	}
+}
+
+public static int nDivisors(int n) {
+	n = Math.abs(n); //in case negative
+	int count = 0;
+	for(int i=2; i < n; i++) {
+		if(n%i == 0) { //another divisor
+			count++;
+		}
+	}//end loop
+	return count;
+}	
+\end{lstlisting}
+\end{solution}
+
+\vskip 0.5 cm \question Complete the method \texttt{secondarySort} \vskip 0.5cm
+The method \texttt{secondarySort} in class \texttt{FractionArrayService}, is a slight variation of insertion sort, and sorts a \texttt{Fraction} array by putting each item of array at the rightful place \emph{so far} in a secondary array. The original array should then be manipulated so that each item of the old array refers to the object the corresponding item of the secondary array refers to. This step has been left incomplete in the template and your job is to complete this part. You are trying to go through each item of the passed array (the array that needs to be sorted) (using index $i$) and updating its reference to the item at the same index in the secondary array.
+
+\begin{solution}
+Re-referencing the array as \texttt{fractions = temp;} doesn't work as any re-referencing applied to a parameter array is ignored upon exiting the method. Hence, we need to re-reference each item of the array individually.
+\begin{lstlisting}
+for(int i=0; i<temp.length; i++)
+	fractions[i] = temp[i];
+\end{lstlisting}
+\end{solution}
+
+\question \textbf{(ADVANCED): Recursive binary search} \vskip 0.5cm
+
+We will learn about recursion in coming weeks. If you would like to study the topic on your own, I highly recommend the following tutorials/ videos:
+
+\begin{enumerate}
+  \item https://www.hackerearth.com/practice/basic-programming/recursion/recursion-and-backtracking/tutorial/
+  \item https://www.youtube.com/watch?v=LF9zd5FW-Hg
+  \item https://www.youtube.com/watch?v=KEEKn7Me-ms
+  \item https://www.youtube.com/watch?v=neuDuf_i8Sg
+\end{enumerate}
+
+The problem I pose 
+
+\begin{solution}
+Refer to \texttt{GraphService.java} in the solution project	
+\end{solution}
+\end{questions}
+\end{document}

@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Overview}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Why is sorting important?}{4}{subsection.1.1}
+\contentsline {section}{\numberline {2}Selection Sort}{8}{section.2}
+\contentsline {subsection}{\numberline {2.1}Selection Sort sample pseudo-code}{10}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Selection Sort sample source code}{11}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Sorting array of objects}{14}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Variations to sorting algorithm}{15}{subsection.2.4}
+\contentsline {section}{\numberline {3}Insertion Sort}{16}{section.3}
+\contentsline {subsection}{\numberline {3.1}Insertion sort sample pseudo-code}{20}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Insertion Sort sample source code}{21}{subsection.3.2}
+\contentsline {section}{\numberline {4}Sample solutions for exercises}{23}{section.4}
+\contentsfinish 

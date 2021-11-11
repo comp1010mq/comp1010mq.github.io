@@ -1,0 +1,247 @@
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}
+ \usepackage[pdftex]{color}  
+ \usepackage[pdftex]{graphicx}     
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{paralist}
+
+\usepackage[colorlinks=true,urlcolor=red]{hyperref}
+\setlength{\topmargin}{-0.5in}                  % topmargin now at 1in
+\setlength{\textheight}{9.5in}                  % body of text = 9.5in
+\setlength{\oddsidemargin}{0in}                 % left margin = 1.0in on odd-numbered pages
+\setlength{\evensidemargin}{0in}                % left margin = 1.0in on even-numbered pages 
+\setlength{\textwidth}{6.5in}                   % width of text line.
+\setlength{\parindent}{0.0in}
+\newcommand{\code}{\texttt}
+
+\usepackage{listings}
+\lstset{%
+	language=Java,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,        
+	xleftmargin=17pt,
+        	xrightmargin=5pt,
+	frame=single,
+	breaklines=true,
+	moredelim=**[is][\color{red}]{@}{@}
+}
+
+\begin{document}
+
+\definecolor{aquamarine}{rgb}{0,0,0.7}
+\definecolor{blue}{rgb}{0,0,0.7}
+\definecolor{red}{rgb}{1,0,0}
+
+%
+\vspace{0.2in}
+\begin{center}
+        {\large  %MACQUARIE UNIVERSITY\\
+%\medskip
+\includegraphics[scale=0.3]{../../logo.jpg}\\
+\medskip
+        {\it  Faculty of Science and Engineering\\}
+        \vspace{0.2in}
+         {\bf COMP125 Fundamentals of Computer Science\\
+        Workshop Week 2\\}}
+\end{center}
+\vspace{0.3in}
+%
+
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+ 
+\section*{Learning outcomes}
+Following are this week's learning outcomes,
+\begin{enumerate}
+\item Perform problem-solving tasks
+\item Create a Java project from scratch
+\item Identify and eliminate bugs from an incorrect implementation
+\end{enumerate}
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.8\textwidth}
+Question 6 is assessed, and students will be chosen, \textbf{at random}, to answer a part of that question. If you are chosen and you are absent, you will be given a zero.
+\end{minipage}
+}
+\end{center}
+
+\begin{center}
+
+\fbox{
+\begin{minipage}{0.8\textwidth}
+Download \texttt{Workshop week 2 files} from iLearn and import the project contained inside (\texttt{workshop02template}) in Eclipse. The process of importing Java projects from archive files is explained in week 1 tutorial worksheet. 
+\end{minipage}
+}
+\end{center}
+
+
+\vspace{1em}
+\begin{questions}
+
+\vskip 0.5 cm \question  \textbf{Time-Distance relationship} \vskip 0.5cm
+Speed is defined as distance travelled divided by time taken. For a trip where the speed is constant, design a solution to find out time taken to travel distance $d_2$ if time taken to travel distance $d_1$ is $t_1$.
+\begin{solution}
+distance1 distance takens time1 time \newline
+unit distance takes time1/distance1 time \newline
+distance2 distance takens distance2 * time1 / distance1 time
+\end{solution}
+
+
+\vskip 0.5 cm 
+
+\question  \textbf{Swap two variables} \vskip 0.5cm
+
+Design an algorithm that swaps the contents of two variables. If the first variable holds the value 5 and the second 8, then after the algorithm is executed, the first variable should hold the value 8 and the second 5.
+
+\begin{solution}
+\begin{lstlisting}
+variable 1 --> temp
+variable 2 --> variable 1
+temp --> variable 2
+\end{lstlisting}
+\end{solution}
+%\question  \textbf{Largest of three values} \vskip 0.5cm
+%
+%Design (no coding component for this task) a solution that computes the largest of three given integers $n1, n2, n3$. You can assume that these integers already hold valid integer values. Proficient students might like to take this further: how could we find the largest of $n$ elements stored in an array, where $n$ is any positive integer?
+%
+%\begin{solution}
+%First solution: take three parameters ($a, b, c$). If $a \ge b, a ge c$, answer is $a$. Otherwise, it's a decision between $b, c$. So check if $b \ge c$. If so, answer is $b$, otherwise answer is $c$.
+%
+%Second solution: design a solution to determine higher of two values ($m, n$). Here, if $m \ge n$, answer is $m$, otherwise answer is $n$. Now to determine highest between three values ($a, b, c$), the answer is $higher( higher(a, b), c)$.
+%\end{solution}
+
+
+\vskip 0.5 cm \question \textbf{String theory} \vskip 0.5cm
+
+For this question, you will need the following two methods that operate on a String object (assuming the object name is \texttt{str}):
+
+\begin{enumerate} 
+\item \texttt{str.length()}: returns the number of characters in the String.
+\item \texttt{str.charAt(int)}: returns the character at passed index, provided the index is valid (between 0 and \texttt{str.length() - 1}, including \texttt{str.length() - 1}).
+\end{enumerate}
+
+Example:
+
+\begin{lstlisting}
+String s = ``hello'';
+System.out.println(s.length()); //displays 5
+System.out.println(s.charAt(0)); //displays `h'
+System.out.println(s.length(4)); //displays `o'
+//System.out.println(s.charAt(-1)); will cause a StringIndexOutOfBoundsException
+//System.out.println(s.charAt(5)); will cause a StringIndexOutOfBoundsException
+\end{lstlisting}
+
+In project \texttt{workshop02template}, there is a class file \texttt{StringTheory}.  Please open this file. Notice that there are three methods, a \texttt{main} method and a helping method, \texttt{countOccurrences}.
+
+\begin{enumerate}
+\item Complete the method \texttt{countOccurrences} which, when passed a \texttt{String aString} and a character \texttt{ch}, returns the number of occurrences of \texttt{ch} in \texttt{aString}.
+\item The \texttt{main} method has a piece of code that inputs a \texttt{String} and a \texttt{char} from the user. Write a few lines of code that displays the number of occurrences of the \texttt{char} input in the \texttt{String} input by calling the method \texttt{countOccurrences}.
+\end{enumerate}
+
+\begin{solution}
+\begin{lstlisting}
+public static int countOccurrences(String aString, char ch) {
+	int count = 0;
+
+	for(int i=0; i<aString.length(); i++) //for each character
+		if(aString.charAt(i) == ch) //found a match
+			count++;
+	
+	return count;
+}
+
+public static void main(String[] args) {
+	// ...
+	// already supplied code here
+	
+	int count = countOccurrences(s, ch);
+		System.out.println(ch+" occurs "+count+" times in "+s);
+}
+\end{lstlisting}
+\end{solution}
+
+\vskip 0.5 cm \question \textbf{Creating Java project} \vskip 0.5cm
+
+Follow the following instructions to create a new Java project.
+
+\begin{enumerate}
+\item Click on File --> New --> Java Project.
+\item Give the project a name. By convention, Java project names are camel-cased, starting with a lowercase letter. For example, \texttt{myVeryOwnJavaProject}. For this example, name the project \texttt{task4project}.
+\item Press ENTER, or click on \texttt{Finish}.
+\item Double-click on the project. Then right-click on \texttt{src} and choose New --> Package.
+\item Name the package \texttt{comp125}, which is the default package name for all projects in this unit. Press ENTER, or click on \texttt{Finish}.
+\item Right-click on \texttt{comp125} and choose New --> Class. By convention, Java class names are camel-cased, starting with an uppercase letter. For example, \texttt{MyClass}. For this example, name the class \texttt{Task4}.
+\item \color{red} \textbf{Check the button that states \texttt{public static void main(String[] args)}} \color{black}
+\item Now you are ready to add code inside the \texttt{main} method, and add more methods.
+\item Methods that are called by the \texttt{main} method, must be prefixed with keyword \texttt{static}. For example, if you have a method that returns the square of a \texttt{double} passed to it, and is called by \texttt{main}, it will be defined as,
+
+\begin{lstlisting}
+	public static double square(double num) {
+		return num*num;
+	}
+\end{lstlisting}
+
+
+Also, methods that are called by other \texttt{static} methods, must be prefixed with static. This is not true for all methods and will be made clearer in the next few weeks.
+\item In the \texttt{main} method, write a piece of code that computes the sum of the first hundred odd integers, and displays it in the console. Console output is given using \newline \texttt{System.out.println(stuff to output goes here)}
+\end{enumerate}
+
+\question \textbf{Bug buggy}
+
+In class \texttt{Buggy}, the code in \texttt{main} attempts to compute the factorial of 5. Factorial of an integer \texttt{n} is defined as the product of the first \texttt{n} positive integers ($1 \times 2 \times \ldots \times n$). However, the code contains two bugs. Identify and correct them. The value displayed when the bugs are eliminated should be 120.
+
+\begin{solution}
+The variable \texttt{factorial} should be initialized to 1 (instead of 0), and the loop expression should be $i \leq n$ (instead of $i < n$).
+\end{solution}
+
+\newpage
+
+\question Complete the following methods in class \texttt{AssessedTask}:
+
+\begin{enumerate}
+\item \texttt{isPerfectSquare(int n)} that returns \texttt{true} if the square root of the passed integer is an integer as well, and \texttt{false} otherwise. Hint 1: \texttt{Math.sqrt(n)} returns the square root of \texttt{n} where \texttt{n} can be an integer or a floating-point value. Hint 2: \texttt{(int)val} casts a double \texttt{val} to integer. For example, \texttt{(int)4.52} is \texttt{4}.
+\item \texttt{timesDivisible(int n, int p)} that returns number of times \texttt{n} is divisible by \texttt{p} \textbf{without leaving any remainder}. For example. 250 is divisible by  5 three times (250/5 = 50, 50/5 = 10, 10/5 = 2).
+\item (Challenging, students nominate themselves): \texttt{arrayToString(char[] ch)} that returns a String containing all characters from the passed array, in the order they occur in the array. For example if the array passed is $\{`h', `i', `!'\}$, the value returned is the String \texttt{``hi!''}. You can \emph{``build up''} a String by using the + operator. For example,
+
+\vskip 0.5cm
+
+\begin{lstlisting}
+char ch = ''e'';
+String s = ''pi'';
+
+String t = s + ch; //t becomes ''pie''
+String u = ch + s; //t becomes ''epi''
+
+int a = 5;
+String v = ''comp12'';
+String w = v + a; //w becomes ''comp125''
+
+int a = 4;
+boolean b = false;
+char ch = '!';
+String combined = ''The following '' + a + '' statements are '' + b + '' '' + ch;
+//combined becomes ``The following 4 statements are false''
+\end{lstlisting}
+\end{enumerate}
+
+\vskip 0.5cm
+
+A sample set of method calls is supplied in \texttt{main} alongwith expected outcome. Please note we may test your program with a different set of data.
+\end{questions}
+
+\vskip 1cm
+
+\textbf{Additional tasks} (for anyone who has a little spare time)
+
+\begin{itemize}
+\item Write a method that when passed a \texttt{String}, returns the most frequently occuring \texttt{char} in that \texttt{String}. For example, when passed ``abysmal'', the method returns `a'. In case of a tie, return the \texttt{char} that occurs first. For example, when passed `surreal'', the method returns `r'.
+
+\item Write a method that when passed a \texttt{String}, returns a \texttt{String} containing the most frequently occuring characters in that \texttt{String}, in the order of their occurrence. For example, when passed ``abysmal'', the method returns ``a'', and when passed ``fantastic'', the method returns ``at''.
+
+\end{itemize}
+
+
+\end{document}

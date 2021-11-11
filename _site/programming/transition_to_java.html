@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2019-02-26 11:11:12 +1100">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/dropdown-menu.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/collapsible-content.css" />
+
+    <style>
+      a{
+        color: rgb(166,25,46);
+      }
+    </style>
+    
+
+
+
+    <!-- Favicons for everyone -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="http://localhost:4000/assets/favicons//apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:4000/assets/favicons//apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:4000/assets/favicons//apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/assets/favicons//apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="http://localhost:4000/assets/favicons//apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="http://localhost:4000/assets/favicons//apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="http://localhost:4000/assets/favicons//apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="http://localhost:4000/assets/favicons//apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="http://localhost:4000/assets/favicons//favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="http://localhost:4000/assets/favicons//favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="http://localhost:4000/assets/favicons//favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="http://localhost:4000/assets/favicons//favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="http://localhost:4000/assets/favicons//favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content=" - Software Technology"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="http://localhost:4000/assets/favicons//mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="http://localhost:4000/assets/favicons//mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="http://localhost:4000/assets/favicons//mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="http://localhost:4000/assets/favicons//mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="http://localhost:4000/assets/favicons//mstile-310x310.png" />
+
+
+    
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/lesson.js"></script>
+<script src="/assets/js/snap.svg-min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script src="/assets/js/content-toggle.js"></script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+  <title>Software Technology: Transition to Java</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row"><span class="pull-right"><a href="/advanced.html">Advanced Topics</a></span></div>
+    <div class="row">
+      <h1 class="maintitle"><a href="/index.html">Software Technology</a>: Transition to Java</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 nav">
+        <details id="programming" ><summary>Programming</summary><ol>
+        <li><a href="/programming/transition_to_processing.html">Transition to Processing</a></li>
+        <li><a href="/programming/primitive_operations.html">Primitive Operations</a></li>
+        <li><a href="/programming/algorithms.html">Algorithms</a></li>
+        <li><a href="/programming/variables.html">Variables</a></li>
+        <li><a href="/programming/debugging_processing.html">Debugging in Processing</a></li>
+        <li><a href="/programming/conditions.html">Conditions</a></li>
+        <li><a href="/programming/loops.html">Loops</a></li>
+        <li><a href="/programming/functions.html">Functions</a></li>
+        <li><a href="/programming/composite_data.html">Composite Data</a></li>
+        <li><a href="/programming/reference_semantics.html">Reference Semantics</a></li>
+        <li><a href="">Transition to Java</a></li>
+            <ol><li><a href="/programming/transition_to_java.html">Java Basics</a></li>
+                <li><a href="/programming/debugging.html">Debugging in Java IDE</a></li>
+
+            </ol>
+        <li><a href="/programming/pen_and_paper_methodology.html">Pen and Paper Methodology</a></li>
+        <li><a href="/programming/unit_testing.html">Unit Testing</a></li>
+        <li>Classes - Writing your own Types</li>
+        <li>Classes - Functions inside objects</li>
+        <li>Recursion</li>
+        <li>Lists</li>
+        <li>Searching</li>
+        <li>Lists ArrayLists vs Recursive Data</li>
+    </ol>
+</details>
+<details><summary>Mathematics for Programmers</summary><ol>
+        <li>Logic and Proofs</li>
+        <li>Relations</li>
+        <li>Mathematical Functions</li>
+        <li>Matrices</li>
+        <li>Binary Numbers</li>
+        <li>Trigonomtry</li>
+        <li>Finite State Machines</li>
+        <li>Turing Machines</li>
+        <li>Counting - Inclusion/Exclusion</li>
+        <li>Graph Algorithms</li>
+    </ol>
+</details>
+<details>
+    <summary>Data Structures and Algorithms</summary>
+    <ol>
+        <li>Algorithm Efficiency</li>
+        <li>Algorithm Correctness</li>
+        <li>Trees</li>
+        <li>Heaps, Stack, and Queues</li>
+        <li>Maps and Hashtables</li>
+        <li>Graphs and Graph Algorithms</li>
+        <li>Advanced Trees and Computability</li>
+    </ol>
+</details>
+<details>
+    <summary>Systems Programming</summary>
+        <li>Transition to C</li>
+        <li>Pointers</li>
+        <li>Memory Allocation</li>
+        <li>IO</li>
+        <li>Number representations</li>
+        <li>Compilation and linking</li>
+        <li>Shell Scripting</li>
+        <li>Assembly Programming</li>
+        <li>Structs and Unions</li>
+        <li>How memory works</li>
+        <li>Virtual Memory</li>
+        <li>TODO: Concurrency</li>
+</ol></details>
+<details><summary>The Practice of Programming</summary><ol>
+        <li>Version Control with Git</li>
+        <li><a href="/practice_of_programming/inheritance_and_overloading.html">Inheritance and Overloading</a></li>
+        <li>Generics</li>
+        <li>Exceptions</li>
+        <li>Lambda Expressions</li>
+        <li>Design Patterns</li>
+        <li>Concurrency<ol>
+            <li>Concepts of Concurrency</li>
+            <li>Object Locks</li>
+            <li>Modern Java Concurrency</li>
+            <li>Avoiding Sharing</li>
+        </ol></li>
+</ol></details>
+<details><summary>Distributed Systems</summary><ol>
+        <li>System Models</li>
+        <li>Naming and Distributed File Systems</li>
+        <li>Synchronisation and Concurrency</li>
+        <li>Fault Tolerance and Security</li>
+        <li>Clusters and Grids</li>
+        <li>Virtualisation</li>
+        <li>Data Centers</li>
+        <li>Mobile Computing</li>
+</ol></details>
+<details><summary>Programming Languages</summary><ol>
+            <li>Transition to Scala</li>
+            <li>Functional Programming</li>
+            <li>Syntax Analysis</li>
+            <li>Name Analysis</li>
+            <li>Type Analysis</li>
+            <li>Transformation and Compilation</li>
+            <li>Control Abstraction</li>
+            <li>Implementing Data Abstraction</li>
+            <li>Language Runtimes</li>
+</ol></details>
+<details ><summary>Provably Correct Programs</summary><ol>
+        <li><a href="/provably_correct/intro.html">Transition to Coq</a></li>
+        <li><a href="/provably_correct/induction.html">Proof by Induction, Stuctured Data</a></li>
+        <li>Polymorphism and Higher-Order Functions</li>
+        <li>Tactic-based proofs</li>
+        <li>Logical Reasoning in Proof Assistants</li>
+        <li>Inductive Propositions</li>
+        <li>Maps</li>
+        <li>An Imperative Programming Language</li>
+        <li>Program E:quivalence</li>
+        <li>Hoare Logic</li>
+        <li>Small-Step Operational Semantics</li>
+        <li>Simply-typed Lambda Calculus</li>
+</ol></details>
+
+      </div>
+      <div class="col-sm-9">
+        <h1 id="history-of-java">History of Java</h1>
+
+<p>Some history about Java as a programming language follows.</p>
+
+<ul>
+  <li>
+    <p>Java was developed at Sun Microsystems, and most of the work was carried out between 1991 and 1995.</p>
+  </li>
+  <li>
+    <p>The development team included James Gosling, Mike Sheridan, Patrick Naughton, and their colleagues.</p>
+  </li>
+  <li>
+    <p>Java 1.0 was released in 1995.</p>
+  </li>
+  <li>
+    <p>Java has a C/C++ style compiler.</p>
+  </li>
+  <li>
+    <p>It is the most popular programming language (by far) according to TIOBE index.</p>
+  </li>
+</ul>
+
+<h2 id="how-a-java-program-compiles-and-executes">How a java program compiles and executes</h2>
+
+<p><img src="./../fig/javaCompileExecute.png" alt="" /></p>
+
+<h1 id="compiling-and-running-java-programs-from-command-prompt-or-terminal">Compiling and running java programs from command prompt or terminal</h1>
+
+<p>After installing Java SDK, you can write a code in a basic text editor (like notepad, atom, sublime) and then compile and run Java programs from command prompt or terminal.</p>
+
+<p>A java source file <code class="highlighter-rouge">HelloWorld.java</code> is compiled as</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>javac HelloWorld.java
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Once it is compiled, there will be java class file generated with name <code class="highlighter-rouge">HelloWorld.class</code>. What you execute is this class file, as,</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>java HelloWorld
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This is a good skill and the benefit of doing this over using an IDE like Eclipse include,</p>
+
+<ol>
+  <li>
+    <p>reducing reliance on auto-complete done by Eclipse.</p>
+  </li>
+  <li>
+    <p>not relying on Eclipse to tell you each time there is a syntactical error.</p>
+  </li>
+  <li>
+    <p>program will not compile, and therefore the class file will not be generated to execute if there is a syntactical error.</p>
+  </li>
+  <li>
+    <p>Helps with pen and paper design.</p>
+  </li>
+</ol>
+
+<p>Let’s say, following are the contents of <code class="highlighter-rouge">HelloWorld.java</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">5</span><span class="o">+);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>When you compile the program, you’ll get the following message,</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>I-2:intro gauravgupta$ javac HelloWorld.java
+HelloWorld.java:3: error: illegal start of expression
+System.out.println(5+);
+^
+1 error
+I-2:intro gauravgupta$
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You can see that it points to the line number (3) with syntactical errors so you can correct them. In this case, we change the <code class="highlighter-rouge">5+</code> to <code class="highlighter-rouge">5+3</code>, and our program compiles, and executes, successfully.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">5</span><span class="o">+</span><span class="mi">3</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h1 id="software-to-install-and-first-program">Software to install and first program</h1>
+
+<p>Install the following software <strong>in the order below</strong>. You will be asked to choose your operating system for each software, and whether it’s 32-bits or 64-bits. If not sure, use this <a href="http://www.computerhope.com/issues/ch001121.htm">link</a> to determine the same.</p>
+
+<ol>
+  <li>
+    <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><strong>Java Standard Edition (Java SE)</strong></a>, previously known as Java Standard Development Kit (Java SDK). Current version (on the date of writing this document): <code class="highlighter-rouge">10.0.2</code>. You’ll be fine as long as you have version 8 or above.</p>
+  </li>
+  <li>
+    <p><a href="https://eclipse.org/downloads/"><strong>Eclipse IDE for Java developers</strong></a>. Current version (on the date of writing this document): <code class="highlighter-rouge">Photon</code>. Previous versions <code class="highlighter-rouge">Oxygen</code> and <code class="highlighter-rouge">Neon</code> should also be ok.</p>
+  </li>
+</ol>
+
+<p><strong>NOTE:</strong> You are free to use any other IDE besides Eclipse (such as NetBeans or IntelliJ) if you want. However, we shall be doing all screencasts and video tutorials using Eclipse.</p>
+
+<h2 id="first-java-program">First java program</h2>
+
+<p>Once you have installed Java SE, you are ready to write and run Java programs. First we’ll learn how to write and run a java program from command prompt.</p>
+
+<p>Open notepad and type the following code in it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyFirstProgram</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello world!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Save the file as <code class="highlighter-rouge">MyFirstProgram.java</code> (case sensitive).</p>
+
+<p>Open command prompt (or terminal on Mac), go to the folder in which <code class="highlighter-rouge">MyFirstProgram.java</code> exists, and type the following:</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>javac MyFirstProgram.java
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>This is the <em>compilation</em> step.</p>
+</blockquote>
+
+<p>If everything went ok, it would execute this command and generate a new file named <code class="highlighter-rouge">MyFirstProgram.class</code> in the same directory as<code class="highlighter-rouge">MyFirstProgram.java</code>. This is the <em>classfile</em> or <em>bytecode</em>. It’s this file that actually executes. Once it’s generated, you can even delete the source file (<code class="highlighter-rouge">MyFirstProgram.java</code>) provided you don’t need to make any further changes).</p>
+
+<p>You run the classfile using the <code class="highlighter-rouge">java</code> command.</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>java MyFirstProgram
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>This is the <em>execution</em> step.</p>
+</blockquote>
+
+<p>If there are no run-time errors, you will get the following output on the console.</p>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Hello world!
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Atxj7fwu5Uk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<blockquote class="challenge challenge">
+  <h2 id="write-a-simple-java-program">Write a simple java program</h2>
+  <p>Write a java program that initializes two variables, <code class="highlighter-rouge">distance</code>, <code class="highlighter-rouge">time</code>, and give
+them values of your choice. Calculate the speed and display on the console.
+Compile and run the java program.</p>
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+    <script src="https://gist.github.com/gaurav1780/905f1681f5c75e60a7a4f3715355e14f.js"></script>
+
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge challenge">
+  <h2 id="debug-a-simple-program">Debug a simple program</h2>
+  <p>What’s wrong with the following code?</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="o">}</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"How do you do?"</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">SOLUTION</h2>
+    <p>Display statement exists outside the <code class="highlighter-rouge">main</code> method.
+Corrected version:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"How do you do?"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge challenge">
+  <h2 id="debug-a-simple-program-1">Debug a simple program</h2>
+  <p>What’s wrong with the following code?</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"All right!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">SOLUTION</h2>
+    <p><code class="highlighter-rouge">main</code> should be inside the <code class="highlighter-rouge">class</code>, not the other way round.
+Corrected version:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"All right!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge challenge">
+  <h2 id="debug-a-simple-program-2">Debug a simple program</h2>
+  <p>What’s wrong with the following code?</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wassup!"</span><span class="o">)</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+
+  <blockquote class="solution">
+    <h2 id="solution-3">SOLUTION</h2>
+    <p>Missing semi-colon at the end of line 3.
+Corrected version:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wassup!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<h2 id="first-java-program-in-eclipse">First java program in Eclipse</h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8DcIQcmwuSE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<h2 id="adding-more-functions-to-a-java-program">Adding more functions to a java program</h2>
+
+<p>You will notice that the <code class="highlighter-rouge">main</code> function is labelled <code class="highlighter-rouge">static</code> by Java. Your program will not run if you remove this keyword. A function being <code class="highlighter-rouge">static</code> means that the only data it operates on (if any) are the parameters passed.</p>
+
+<p>Equivalent versions of the same function in <code class="highlighter-rouge">Processing</code> and <code class="highlighter-rouge">Java</code> are provided below -</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processing</th>
+      <th>Java</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><script src="https://gist.github.com/gaurav1780/b3653c5a7bc5b8918bae111279542573.js"></script></td>
+      <td><script src="https://gist.github.com/gaurav1780/b9c62caf13fa64d008ee6770525158af.js"></script></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code class="highlighter-rouge">public</code> keyword is for consistency and will be used for all functions unless explicitly specified to be <code class="highlighter-rouge">private</code> (again, more about this in week 2 and 3).</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XS48hrWdm4Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+<p>&lt;/div&gt;
+I</p>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

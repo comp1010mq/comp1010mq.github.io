@@ -1,0 +1,2 @@
+\contentsline {section}{\numberline {1}Sample solutions for exercises}{7}{section.1}
+\contentsfinish 

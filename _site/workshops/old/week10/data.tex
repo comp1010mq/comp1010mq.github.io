@@ -1,0 +1,328 @@
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}
+ \usepackage[pdftex]{color}  
+ \usepackage[pdftex]{graphicx}     
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{paralist}
+\usepackage{tagging}
+
+\usepackage[colorlinks=true,urlcolor=red]{hyperref}
+\setlength{\topmargin}{-0.5in}                  % topmargin now at 1in
+\setlength{\textheight}{9.5in}                  % body of text = 9.5in
+\setlength{\oddsidemargin}{0in}                 % left margin = 1.0in on odd-numbered pages
+\setlength{\evensidemargin}{0in}                % left margin = 1.0in on even-numbered pages 
+\setlength{\textwidth}{6.5in}                   % width of text line.
+\setlength{\parindent}{0.0in}
+\newcommand{\code}{\texttt}
+
+\usepackage{listings}
+\lstset{%
+	language=Java,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,        
+	xleftmargin=17pt,
+        	xrightmargin=5pt,
+	frame=single,
+	breaklines=true,
+	moredelim=\item \item [is][\color{red}]{@}{@}
+}
+
+\begin{document}
+
+\definecolor{aquamarine}{rgb}{0,0,0.7}
+\definecolor{blue}{rgb}{0,0,0.7}
+\definecolor{red}{rgb}{1,0,0}
+
+%
+\vspace{0.2in}
+\begin{center}
+        {\large  %MACQUARIE UNIVERSITY\\
+%\medskip
+\includegraphics[scale=0.3]{../../logo.png}\\
+\medskip
+        {\it  Faculty of Science and Engineering\\}
+        \vspace{0.2in}
+         {\bf COMP125 Fundamentals of Computer Science\\
+        Workshop Week 10\\}}
+\end{center}
+\vspace{0.3in}
+%
+
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+ 
+\section* {Learning outcomes}
+
+By the end of this session, you will have learnt about containers and arraylists. 
+
+%\begin{center}
+%\fbox{
+%\begin{minipage}{0.8\textwidth}
+%Import project from \texttt{recursionWorkshopTemplate.zip}. 
+%\end{minipage}
+%}
+%\end{center}
+
+\section*{Questions}
+\begin{questions}
+
+\question
+An \texttt{ArrayList} is a resizable set of objects. If you don't parameterise an \texttt{ArrayList}, it can hold a variety of objects. That is, each item of the \texttt{ArrayList} can be of a different class.
+
+A parameter-less \texttt{ArrayList} is created as -
+
+\begin{lstlisting}
+    ArrayList list = new ArrayList();
+\end{lstlisting}
+where \texttt{list} is the \texttt{ArrayList} object.
+
+You can parameterize an \texttt{ArrayList} so that it stores objects of a specific class. A parameterized \texttt{ArrayList} is created as -
+
+\begin{lstlisting}
+    ArrayList<ClassType> list = new ArrayList<ClassType>();
+\end{lstlisting}
+
+where \texttt{list} is the \texttt{ArrayList} object.
+
+\newpage
+
+For example,
+
+\begin{lstlisting}
+    ArrayList<String> list = new ArrayList<String>();
+\end{lstlisting}
+
+can only hold \texttt{String} objects.
+
+A subset of methods (the important ones) applicable to an \texttt{ArrayList} object is given below -
+
+\begin{itemize}
+\item \texttt{int size()}: returns the number of items in the list
+\item \texttt{Object get(int index)}: returns the \texttt{Object} at the specified index, if any; and \texttt{null} otherwise.
+\item \texttt{add(Object obj)}: adds the specified \texttt{Object} to the end of the list and returns \texttt{true}, if it can; and \texttt{false} otherwise.
+\item \texttt{add(int idx, Object obj)}: adds the specified \texttt{Object} at given index. Shifts all items at index \texttt{idx} onwards to the right.
+\item \texttt{contains(Object obj)}: returns \texttt{true} if the specified exists, and \texttt{false} otherwise.
+\item \texttt{indexOf(Object obj)}: returns the index of the specified \texttt{Object} if it exists, and -1 otherwise.
+\item \texttt{remove(Object obj)}: removes the specified \texttt{Object} to the list and returns \texttt{true}, if it can; and \texttt{false} otherwise.
+\item \texttt{set(int index, Object obj)}: updates the item at given index ot the object passed. Returns the item that the new object has replaced.
+\end{itemize}
+
+Write a piece of code that performs the following operations in the given order -
+
+\begin{enumerate}
+	\item Create an \texttt{ArrayList list} to hold \texttt{String} objects
+	\item Add "hello" to \texttt{list}
+	\item Add "this" to \texttt{list}
+	\item Add "is" to \texttt{list}
+	\item Add "your" to \texttt{list}
+	\item Add "captain" to \texttt{list}
+	\item Add "speaking" to \texttt{list}
+	\item Remove the 5th item (at index 4) from \texttt{list}
+	\item Insert "brother" at index 4 in \texttt{list}.
+	\item Change the 6th item (at index 5) to "talking"
+	\item Display the number of items in \texttt{list}
+	\item Display all items of the \texttt{list}
+	\item Display each item in \texttt{list} on a separate line.
+	\item Store in a variable \texttt{loc} the index where ``brother'' is found in the \texttt{list}, and display it.
+	\item Display the first character of each item of the list
+	\item Create a String consisting of the first characters of each item. For example, if the items are ``this'', ``is'', ``fun'', your String should be ``tif''
+	\item Count the number of items that begin with an `t' or `T'
+	\item Count the number of items that are more than 3 characters long
+	\item Create an arraylist of items that are more than 3 characters long and display it
+	\item Create a \texttt{char} array consisting of the last characters of each item. For example, if the items are ``this'', ``is'', ``fun'', your array should be $\{`s', `s', `n'\}$
+	\item Replace each item by their uppercase version, that is capitalize all Strings
+\end{enumerate}
+
+\begin{solution}
+\begin{lstlisting}
+ArrayList<String> list = new ArrayList<String>();
+list.add("hello");
+list.add("this");
+list.add("is");
+list.add("your");
+list.add("captain");
+list.add("speaking");
+list.remove(4);
+list.add(4, brother);
+list.set(5, "talking");
+System.out.println(list.size());
+System.out.println(list);
+for(int i=0; i<list.size(); i++)
+    System.out.println(list.get(i));
+int loc = list.indexOf("done");
+for(int i=0; i<list.size(); i++)
+	System.out.println("item "+(i+1)+": "+list.get(i));
+System.out.println();
+
+for(int i=0; i<list.size(); i++)
+	System.out.println("First character of item "+(i+1)+": "+list.get(i).charAt(0));
+System.out.println();
+
+int count = 0;
+for(int i=0; i<list.size(); i++)
+	if(list.get(i).substring(0, 1).equalsIgnoreCase("a"))
+		count++;
+System.out.println(count+" items begin with 'a'");
+
+count = 0;
+for(int i=0; i<list.size(); i++)
+	if(list.get(i).length() > 3)
+		count++;
+System.out.print(count+" items are longer than 3 characters: ");
+
+LinkedList<String> longOnes = new LinkedList<String>();
+for(int i=0; i<list.size(); i++)
+	if(list.get(i).length() > 3)
+		longOnes.add(list.get(i));
+System.out.println(longOnes);
+
+String firstChars = "";
+for(int i=0; i<list.size(); i++)
+	firstChars+=list.get(i).charAt(0);
+System.out.println("String of first characters: "+firstChars);
+
+String lastChars = "";
+for(int i=0; i<list.size(); i++)
+	lastChars+=list.get(i).charAt(list.get(i).length()-1);
+System.out.println("String of last characters: "+lastChars);
+
+for(int i=0; i<list.size(); i++)
+	list.set(i, list.get(i).toUpperCase());
+System.out.println("Capitalized list: "+list);
+\end{lstlisting}
+\end{solution}
+
+\question (Assessed task) Add a method \texttt{product} that when passed an \texttt{ArrayList} of \texttt{Double} objects, returns the product of all items in the \texttt{ArrayList}. The method should return 0 if the list is \texttt{null} or empty.
+
+\begin{lstlisting}
+	public static double product(ArrayList <Double> list)
+\end{lstlisting}
+
+\begin{solution}
+\begin{lstlisting}
+public static double product(ArrayList <Double> list) {
+		if(list == null || list.size() == 0) 
+			return 0;
+		double result = 1;
+		for(Double item: list)
+			result*=item;
+		return result;
+	}	
+\end{lstlisting}	
+\end{solution}
+
+
+\question (Assessed task) Add a method \texttt{sumPositive} that when passed an \texttt{ArrayList} of \texttt{Integer} objects, returns the sum of all positive values in the \texttt{ArrayList}. The method should return 0 if the list is \texttt{null} or empty.
+
+\begin{lstlisting}
+	public static int sumPositive(ArrayList <Integer> list)
+\end{lstlisting}
+
+\begin{solution}
+\begin{lstlisting}
+	public static int sumPositive(ArrayList <Integer> list) {
+		if(list == null || list.size() == 0) 
+			return 0;
+		int result = 0;
+		for(Integer item: list)
+			if(item > 0)			
+				result+=item;
+		return result;
+	}	
+\end{lstlisting}	
+\end{solution}
+
+\question (Assessed Task) Add a method \texttt{count} that when passed an \texttt{ArrayList<Integer> list} and an \texttt{Integer target}, returns the number of times \texttt{target} exists in \texttt{list}.
+
+\begin{lstlisting}
+	public static int count(ArrayList<Integer> list, Integer target)
+\end{lstlisting}
+
+\begin{solution}
+\begin{lstlisting}
+int count(ArrayList<Integer> list, Integer target) {
+	if(list == null)
+		return 0;
+	int result = 0;
+	for(Integer item: list)
+		if(item == target)
+			result++;
+	return result;
+}
+\end{lstlisting}
+\end{solution}
+
+\question (Voluntary assessed task) Write a method that when passed an \texttt{ArrayList} of characters, returns an array containing the characters of the \texttt{ArrayList}. For example, if the \texttt{ArrayList passed} is \texttt{[`v', `e', `n', `d', `e', `t', `t', `a']}, the array returned should be \texttt{\{`v', `e', `n', `d', `e', `t', `t', `a'\}}. You may NOT use built-in methods to convert an \texttt{ArrayList} to an array.
+
+\begin{solution}
+\begin{lstlisting}
+public static char[] toArray(ArrayList <Character> list) {
+	if(list == null) 
+		return null;
+	char[] result = new char[list.size()];
+		int i = 0;
+		for(Character item: list) {
+			result[i] = item;
+			i++;
+		}
+	return result;
+}	
+\end{lstlisting}	
+\end{solution}
+
+
+\question (Voluntary assessed task) Complete the method \texttt{squared} that when passed an \texttt{ArrayList<Integer> list}, squares all items of \texttt{list}. So if the list that is passed is \texttt{[3, 1, 7]}, after the method executes, it becomes \texttt{[9, 1, 49]}.
+
+Hint 1: the method on \texttt{ArrayList} that you'll need are,
+
+\begin{itemize}
+\item \texttt{size()}
+\item\texttt{get(int index)}
+\item \texttt{set(int index, int value)}
+\end{itemize}
+
+\begin{lstlisting}
+public static void squared(ArrayList<Integer> list)
+\end{lstlisting}
+
+\begin{solution}
+\begin{lstlisting}
+void squared(ArrayList<Integer> list) {
+	if(list == null)
+		return;
+
+	for(int i=0; i<list.size(); i++)
+		list.set(i, list.get(i) * list.get(i));
+}
+\end{lstlisting}
+\end{solution}
+
+\question (Challenging - Voluntary assessed task)
+
+Write a method that when passed an arraylist of arraylists of integers, returns an arraylist containing items that are exclusive to each list. For example, if the list passed is [[8, 1, 4, 2, 4, 2, 1], [6, 4, 9, 8, 8, 8], [5, 3, 8, 8, 5, 6]], the method should return an \texttt{ArrayList} containing [1, 2, 2, 1, 9, 5, 3, 5]
+
+\begin{solution}
+\begin{lstlisting}
+public static ArrayList<Integer> exclusiveItems(ArrayList<ArrayList<Integer>> megaList) {
+	ArrayList<Integer> result = new ArrayList<Integer>();
+	for(int i=0; i < megaList.size(); i++) {
+		for(Integer item: megaList.get(i)) {
+			boolean dup = false;
+			for(int k=0; k < megaList.size() && !dup; k++) {
+				if(i != k && megaList.get(k).contains(item)) {
+					dup = true;
+				}	
+			}
+			if(!dup) 
+				result.add(item);
+		}
+	}
+	return result;
+}
+\end{lstlisting}
+\end{solution}
+\end{questions}
+	
+\end{document}

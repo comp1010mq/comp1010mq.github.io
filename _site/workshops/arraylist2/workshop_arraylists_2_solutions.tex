@@ -1,0 +1,276 @@
+\documentclass{exam} 
+\printanswers 
+\def\workshopTitle{Workshop - ArrayLists 2} 
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}
+ \usepackage[pdftex]{color}  
+ \usepackage[pdftex]{graphicx}     
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{paralist}
+\usepackage{tagging}
+
+\usepackage[colorlinks=true,urlcolor=red]{hyperref}
+\setlength{\topmargin}{-0.5in}                  % topmargin now at 1in
+\setlength{\textheight}{9.5in}                  % body of text = 9.5in
+\setlength{\oddsidemargin}{0in}                 % left margin = 1.0in on odd-numbered pages
+\setlength{\evensidemargin}{0in}                % left margin = 1.0in on even-numbered pages 
+\setlength{\textwidth}{6.5in}                   % width of text line.
+\setlength{\parindent}{0.0in}
+\newcommand{\code}{\texttt}
+
+\input{codeSnippets}
+
+\begin{document}
+
+\definecolor{aquamarine}{rgb}{0,0,0.7}
+\definecolor{blue}{rgb}{0,0,0.7}
+\definecolor{red}{rgb}{1,0,0}
+
+%
+\vspace{0.2in}
+\begin{center}
+        {\large  %MACQUARIE UNIVERSITY\\
+%\medskip
+\includegraphics[scale=0.3]{mqlogo.jpeg}\\
+\medskip
+        {\it  Faculty of Science and Engineering\\}
+        \vspace{0.2in}
+         {\bf COMP125 Fundamentals of Computer Science\\
+        Workshop Week 10\\}}
+\end{center}
+\vspace{0.3in}
+%
+
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+ 
+\section* {Learning outcomes}
+
+By the end of this session, you will have learnt about iterators and custom implementation of \texttt{ArrayList} class. 
+
+\section*{Iterators}
+\begin{questions}
+\question What is the need for having iterators when you can traverse a collection without it? For example, 
+
+you can traverse an array \texttt{arr} as:
+
+\begin{lstlisting}[numbers=none]
+for(int i=0; i < arr.length; i++)
+\end{lstlisting} 
+
+and a \texttt{List (ArrayList/ LinkedList) list} as:
+
+\begin{lstlisting}
+for(int i=0; i < list.size(); i++)
+\end{lstlisting} 
+
+\ifprintanswers
+For the more basic user:
+
+Iterators provide a consistent way of traversing any collection \texttt{data} as:
+
+\begin{lstlisting}
+//create an iterator (iter) for collection of objects
+//of type T (data). for a List<T> list, it's done as:
+//Iterator<T> iter = list.iterator();
+while(iter.hasNext()) {
+	iter.next();
+}
+\end{lstlisting}
+
+For the more advanced user:
+
+\begin{itemize}
+  \item You can implement or subclass (to be covered in COMP229) an \texttt{Iterator} such that it does something the standard ones don't do, without having to alter the actual object it iterates over.
+  \item Objects that can be traversed over don't need to have their interfaces cluttered up with traversal methods, in particular any highly specialized methods.
+  \item You can hand out Iterators to however many clients you wish, and each client may traverse in their own time, at their own speed.
+  \item Java Iterators from the \texttt{java.util} package in particular will throw an Exception if the storage that backs them is modified while you still have an Iterator out. This exception lets you know that the Iterator may now be returning invalid objects.
+\end{itemize}
+\else
+\fi
+
+\question Consider the following piece of code.
+
+\begin{lstlisting}
+ArrayList<Integer> list = new ArrayList(Arrays.asList(10,50,20,90,40,80));
+//list = [10, 50, 20, 90, 40, 80]
+\end{lstlisting}
+
+Write a piece of code that adds the items in list and stores it in a variable \texttt{total} \textbf{using an iterator}.
+
+\ifprintanswers
+Iterator<Integer> iter = list.iterator();
+int total = 0;
+while(iter.hasNext()) {
+	total = total + iter.next();
+}
+\else
+\fi
+
+\ifprintanswers
+\else
+\newpage
+\fi
+
+\question The \texttt{remove} method removes the \textbf{last item returned} from the iterator. Iterator remains at the same place (that is, before the item after the one removed).
+
+What is the state of the list after the following code is executed?
+
+\begin{lstlisting}
+ArrayList<Integer> list = new ArrayList(Arrays.asList(10,50,20,90,40,80,70,30));
+//list = [10, 50, 20, 90, 40, 80, 70, 30]
+Iterator<Integer> iter = list.iterator();
+while(iter.hasNext()) {
+	if(iter.next() >= 50) {
+		iter.remove();
+	}
+}
+//list=[???]
+\end{lstlisting}
+
+\ifprintanswers
+list = [10,20,40,30]
+\else
+\fi
+
+\question \texttt{ListIterator} interface: The \texttt{ListIterator} interface addresses the limited set of methods provided by \texttt{Iterator} interface and builds on that. In addition to the three methods provided by \texttt{Iterator}, it provides the following methods:
+
+\begin{enumerate}
+\item \texttt{add(<T> obj}: add item at current location of iterator. That is, before the item that will be returned by a subsequent call to \texttt{next()}.
+\item \texttt{hasPrevious()}: self-explanatory
+\item \texttt{previous()}: self-explanatory
+\item \texttt{nextIndex()}: index of item that will be returned by a subsequent call to \texttt{next()}. In other words, index of item \textbf{before} which iterator is located.
+\item \texttt{previousIndex()}: index of item that will be returned by a subsequent call to \texttt{previous()}. In other words, index of item \textbf{after} which iterator is located.
+\item \texttt{set(<T> obj)}: replaces the last element returned by next() or previous() with the passed object.
+\end{enumerate}
+
+
+A \texttt{ListIterator} can only be created for a \texttt{List} object. There are two ways of creating a \texttt{ListIterator}:
+
+\begin{lstlisting}
+//assuming list is either a LinkedList or ArrayList
+ListIterator<T> iter1 = list.listIterator(); //cursor before first item
+ListIterator<T> iter2 = list.listIterator(idx); //cursor before item at index idx
+\end{lstlisting} 
+
+\ifprintanswers
+\else
+\newpage
+\fi
+
+What is the state of the list after the following code is executed?
+
+\begin{lstlisting}
+ArrayList<Integer> list = new ArrayList(Arrays.asList(10,20,90,40,30));
+list.add(10);
+list.add(20);
+list.add(90);
+list.add(40);
+list.add(30);
+//list = [10, 20, 90, 40, 30]
+ListIterator<Integer> iter = list.listIterator();
+while(iter.hasNext()) {
+	int item = iter.next();
+	if(item % 20 == 0) {
+		iter.remove();
+		iter.add(item - 1);
+		iter.add(item + 1);
+	}
+}
+//list=[???]
+\end{lstlisting}
+
+\ifprintanswers
+list = [10,19,21,90,39,41,30]
+\else
+\fi
+
+\question 
+
+A list is \texttt{symmetric} if it remains unchanged if reversed.
+
+Complete the method \texttt{isSymmetric} that when passed an \texttt{ArrayList<Integer>} object, returns \texttt{true} if it is \emph{symmetric} and \texttt{false} otherwise. 
+
+Hint: You can create two iterators, one beginning at the front using \texttt{list.listIterator()} and the other at the end using \texttt{list.listIterator(list.size())}.
+
+\ifprintanswers
+\begin{lstlisting}
+public static boolean isSymmetric(ArrayList<Integer> list) {
+	ListIterator<Integer> iter1 = list.listIterator();
+	ListIterator<Integer> iter2 = list.listIterator(list.size());
+	while(iter1.hasNext()) {
+		if(iter1.next() != iter2.previous()) {
+			return false;
+		}
+	}
+	return true;
+}
+\end{lstlisting}
+\else
+\fi
+\end{questions}
+
+\newpage
+
+\section*{Preparation for third practical exam}
+\subsection*{Writing methods using Java's built-in ArrayList class}
+\begin{questions}
+\question Define a method that when passed an ArrayList of Integer objects, returns the sum of all items.
+
+\question Define a method that when passed an ArrayList of Integer objects, returns the sum of all even items.
+
+\question Define a method that when passed an ArrayList of Integer objects, returns the sum of all items that are multiples of 5 or is even, but not both.
+
+\question Define a method that when passed an ArrayList of String objects, returns true if there  are any items with more than 10 characters, false otherwise.
+
+\question Define a method that when passed an ArrayList of String objects and a second String, returns true if there  are any items in the list containing the second String inside them, false otherwise. For example, if list = ["is", "this", "the", "best"] and the String is "his", return \texttt{true}. On the other hand, if list = ["is", "this", "his", "best", "work"] and the String is "you", return \texttt{false}.
+
+\question Define a method that when passed two ArrayLists of Integer objects, returns true if they are identical (order important). So [10, 50, 20] and [10, 50, 20] are identical while [10, 50, 20] and [10, 20, 50] are not.
+
+\question \textbf{(Advanced)} Define a method that when passed two ArrayLists of Integer objects, returns true if they are identical (order unimportant). So [10, 50, 20], [10, 50, 20] are identical and so are [10, 50, 20], [10, 20, 50].
+\end{questions}
+
+\subsection*{Writing methods for custom-built array-based lists}
+
+\begin{questions}
+All questions are based on the following custom-built array-based list class like the one we created in the lecture.
+
+\begin{lstlisting}
+class MyArrayList {
+	private int[] data; //items stored here
+	private int nItems; //tracker to determine current occupancy
+	
+	public MyArrayList() {
+		data = new int[10];
+		nItems = 0;
+	}
+	
+	/**
+	* @param item: item to be added at the end of the list
+	*/
+	public void add(int item) {
+		data[nItems] = item;
+		nItems++;
+	}
+}
+\end{lstlisting}
+
+\question Find the problem with the add method. How many ways are there to fix the problem?
+
+\question You might have already done this as a solution to the previous question. If not, define a method \texttt{grow()} that resizes the array holding the items by 5. Please go through lecture notes on how to do this.
+
+\question Define a method \texttt{grow(int)} that resizes the array holding the items by the parameter passed. If the value passed is less than 1, nothing should happen. Otherwise, it should increase the size of the array by at most 100.
+
+\question Define a method \texttt{add(int, int)} where the first parameter is for the index at which the item (given by the second parameter) should be inserted. Note that all subsequent items need to be moved one space towards the end of the array.
+
+\question Define a method \texttt{remove(int)} where the first parameter is for the index whose occupant should be removed from the list. Note that all subsequent items need to be moved one space towards the front of the array.	
+
+\question Define a method \texttt{remove(int)} where the first occurrence of the item (given by the first parameter) should be removed from the list. Note that all subsequent items need to be moved one space towards the front of the array.
+
+\question \textbf{(Advanced)} Define a method \texttt{removeAll(int)} where all occurrences of the item (given by the first parameter) should be removed from the list. You can use the previously defined method \texttt{remove(int)} to do this.
+
+\question \textbf{(Advanced)} Define a method \texttt{removeAll(int)} where all occurrences of the item (given by the first parameter) should be removed from the list. You \textbf{CANNOT} use the previously defined method \texttt{remove(int)} to do this.
+\end{questions}
+
+\end{document}
