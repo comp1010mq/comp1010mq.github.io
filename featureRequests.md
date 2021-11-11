@@ -1,4 +1,0 @@
-- static side navigation (intra-page) or a frozen navigation panel on the top left corner
-- search option
-- smaller pages (discourage scrolling)
-- gists or part of github repository?

@@ -1,7 +1,0 @@
-navigation: 
-- id: "Background"
-- id: "Overview"
-- id: "Detailed example"
-- id: "Tracing some more recursive code"
-- id: "Recursion with Strings"
-- id: "Actually useful recursion"
