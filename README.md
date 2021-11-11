@@ -1,1 +1,1 @@
-# comp1010mq.github.io
+# COMP1010 - Fundamentals of Computer Science
