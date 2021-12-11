@@ -1,0 +1,24 @@
+---
+layout: base
+---
+
+<title>Learning Software Technology{% if page.title %}: {{ page.title }}{% endif %}</title>
+</head>
+<body>
+  <div class="container">
+      <div class="row"><span class="pull-right"><a href="/index.html">Software Technology</a><span style="margin-left:10px; margin-right:10px"></span></div></span>
+
+    <div class="row">
+      <h1 class="maintitle"><a href="/index.html">Learning Software Technology</a>{% if page.title %}: {{ page.title }}{% endif %}</h1>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        {% include meta_navigation.html %}
+      </div>
+      <div class="col-sm-9">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

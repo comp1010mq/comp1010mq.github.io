@@ -1,1 +1,2 @@
-# COMP1010 - Fundamentals of Computer Science
+# comp6010.github.io
+COMP1010 Content
