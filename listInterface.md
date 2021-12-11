@@ -1,8 +1,9 @@
-# Department of Computing, Macquarie University
+---
+layout: page
+author: gaurav
+---
 
-## Author: Gaurav Gupta
-
-## The `list` interface
+# The `list` interface
 
 List is an interface in Java (for the time being, just assume that an interface is a collection of method headers - very loose definition but it will do for now).
 
