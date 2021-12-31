@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: "Program design"
 within: programming
 ---

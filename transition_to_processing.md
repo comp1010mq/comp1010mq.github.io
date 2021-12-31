@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Transition to Processing
 within: programming
 ---
@@ -133,7 +133,7 @@ Processing insists that if you divide one integer by another, you should get an 
 
 <div class="task" markdown="1">
 Compute the following expressions according to processing's rules:
-  
+
   * `3+5`
   * `-2*5`
   * `12/3`
@@ -156,5 +156,3 @@ Compute the following expressions according to processing's rules:
   * `12.0/5.0`= `2.4`
 </details>
 </div>
-
-

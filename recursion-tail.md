@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Tail recursion
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
 
 * Have an understanding of *tail* recursion.
 * Be able to *tail-optimize* a recursive function.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -162,7 +162,7 @@ public static int sumEvenDigits(int n, int currentState) { //assuming n >= 0
 #### Without tail optimization
 
 ```java
-public static boolean isPalindrome(String str) { 
+public static boolean isPalindrome(String str) {
 	if(str == null) {
 		return false;
 	}
@@ -185,7 +185,7 @@ No change needed, already tail-optimized as the last statement is the recursive 
 #### Without tail optimization
 
 ```java
-public static String reverse(String str) { 
+public static String reverse(String str) {
 	if(str == null || str.length() < 2) {
 		return str;
 	}
@@ -201,7 +201,7 @@ The current version is not convenient for tail optimization, so we'll do a sligh
 #### Without tail optimization - version 2
 
 ```java
-public static String reverse(String str) { 
+public static String reverse(String str) {
 	if(str == null || str.length() < 2) {
 		return str;
 	}
@@ -216,10 +216,10 @@ Now, it's ready to tail optimize.
 #### With tail optimization
 
 ```java
-public static String reverse(String str, String constructed) { 
+public static String reverse(String str, String constructed) {
 	if(str == null) {
 		return null;
-	} 
+	}
 	if(str.isEmpty()) {
 		return constructed;
 	}
@@ -249,7 +249,7 @@ Already tail-optimized.
 #### Without tail optimization
 
 ```java
-public static int fib(int n) { 
+public static int fib(int n) {
 	if(n == 0 || n == 1) {
 		return n;
 	}
@@ -263,9 +263,9 @@ public static int fib(int n) {
 
 ```java
 //initially called as fib(n, 0, 1)
-public static int fib(int n, int a, int b) { 
+public static int fib(int n, int a, int b) {
 	if(n==0) {
-		//it will only ever be called directly from client, 
+		//it will only ever be called directly from client,
 		//never from another fib call
 		return a; //which WILL be 0
 	}
@@ -275,4 +275,3 @@ public static int fib(int n, int a, int b) {
 	return fib(n-1, b, a+b);
 }
 ```
-

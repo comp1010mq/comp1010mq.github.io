@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Recursive data structures
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
 </details>
 
 ## Author: Gaurav Gupta
- 
+
 # The Node class
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fDU7AtmQBjA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -29,7 +29,7 @@ Now, consider the following class:
 public class Node {
 	public int data;
 	public Node next;
-	
+
 	public Node(int d, Node n) {
 		data = d;
 		next = n;
@@ -42,20 +42,20 @@ Every Node object holds a reference to another Node object.
 > ```java
 > Node a = new Node(10, null);
 > ```
-> 
+>
 > ![](./fig/06-lists/node/node-figure0.png)
 
 
 > ```java
 > Node b = new Node(20, a);
 > ```
-> 
+>
 > ![](./fig/06-lists/node/node-figure1.png)
 
 > ```java
 > Node head = new Node(20, new Node(10, null));
 > ```
-> 
+>
 > ![](./fig/06-lists/node/node-figure2.png)
 
 Here, we created an *anonymous* `Node` object - `new Node(10, null)` - and passed it as a parameter to the constructor of `head`.
@@ -64,7 +64,7 @@ Here, we created an *anonymous* `Node` object - `new Node(10, null)` - and passe
 > ```java
 > head.getNext().setNext(new Node(-50, null));
 > ```
-> 
+>
 > ![](./fig/06-lists/node/node-figure3.png)
 
 
@@ -130,7 +130,7 @@ In the previous example, we saw a node holding integer data, but it can hold any
 
 For the classes defined in,
 
-- [Rectangle.java](./Rectangle.java), 
+- [Rectangle.java](./Rectangle.java),
 - [RNode.java](./RNode.java),
 
 Consider the following code,
@@ -155,7 +155,7 @@ RNode p = new RNode(new Rectangle(2.5, 1.5), q);
 
 # Homework - 2
 
-### Task 1 
+### Task 1
 
 For the class [Node](./Node.java), draw the memory diagram to illustrate objects after the last statement of the following code executes.
 
@@ -166,7 +166,7 @@ Node c = new Node(10, a);
 Node d = new Node(90, c);
 ```
 
-### Task 2 
+### Task 2
 
 For the class [Node](./Node.java), draw the memory diagram to illustrate objects after the last statement of the following code executes.
 
@@ -267,10 +267,10 @@ Node b = new Node(2, a);
 Node c = new Node(7, b);
 Node d = new Node(1, c);
 a.setNext(d);
-a.setData	(	
-				1000*d.getData() + 
+a.setData	(
+				1000*d.getData() +
 				100*d.getNext().getData() +
-				10*d.getNext().getNext().getData() + 
+				10*d.getNext().getNext().getData() +
 				1*d.getNext().getNext().getNext().getData()
 			);
 ```

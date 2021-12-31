@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Algorithms
 within: programming
 ---
@@ -36,7 +36,7 @@ A task should have a simple purpose, it might need some resources and carrying o
 #### Basic elements of an algorithm
 
 We will define every task according to its:
-  
+
   * **purpose**
   * **inputs**
   * **effect on the world**
@@ -45,7 +45,7 @@ We will define every task according to its:
 Lets consider some tasks and put them into this framework
 
 ### Make some toast
-  
+
   * **purpose:** create toast
   * **inputs:** bread or crumpet and a darkness setting
   * **effects:** none
@@ -63,7 +63,7 @@ so the inputs have told us we can't just say *"make some toast"*, we need to say
 Again we can see we were not precise enough.  We should have said "make me a corn beef and pickle sandwich".
 
 ### Mow the lawn
-  
+
   * **purpose:** make the grass short
   * **input:** area to mow lawn
   * **effects:** the grass in that area is shorter, the air smells of two-stroke.
@@ -79,14 +79,14 @@ Here we are (assuming we ignore grass clippings) not interested in the _output_ 
 Mathematical tasks are a particular type, they generally don't have effects, they have only inputs and outputs.
 
 ### Add two numbers
-  
+
   * **purpose:** get the sum of two numbers
   * **input:** two numbers
   * **effects:** none
   * **output:** a number
 
 So, we have four axis on which to think about any task/algorithm/function.  We can give each combination a nickname, making it easier to remember
-  
+
   * the purpose of a task is its _name_
   * if a task has inputs it is _informed_.
   * if a task has effects is a _changer_
@@ -127,7 +127,7 @@ Let’s start by reviewing some functions we have seen in Primitive Operations.
 
 Draw line:
 
-  * inputs: `float`, `float`, `float`, `float` 
+  * inputs: `float`, `float`, `float`, `float`
       * first two give x, y location for first point
       * last two give x, y location for second point
   * effects: draws line at the specified position
@@ -142,7 +142,7 @@ line(30, 50, 80, 70); 	// draw line from (30, 50) to (80, 70)
 
 #### Draw rectangle
 
-  * inputs: `float`, `float`, `float`, `float` 
+  * inputs: `float`, `float`, `float`, `float`
       * first two give x, y location of the top-left corner
       * third value gives width of the rectangle
       * fourth value gives height of the rectangle
@@ -211,7 +211,7 @@ draw box (version 2):
   * effects: draws a green rectangle at the specified position
   * output: none
 
-Draw-box has progressed from an uninformed changer to an informer changer. 
+Draw-box has progressed from an uninformed changer to an informer changer.
 
 We can implement it in Processing as:
 
@@ -305,5 +305,5 @@ Write an algorithm that always returns the number 7
 </div>
 
 <div class="task" markdown="1">
-Write an algorithm that returns the square of the number you give as input. For example, if the value passed is 6, it returns 36. If the value passed is 2.5, it returns 6.25. 
+Write an algorithm that returns the square of the number you give as input. For example, if the value passed is 6, it returns 36. If the value passed is 2.5, it returns 6.25.
 </div>

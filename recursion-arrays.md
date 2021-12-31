@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Recursion with arrays
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
 
   * Be able to trace recursive functions in the context of array inputs.
   * Be able to write recursive functions in the context of array inputs.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -52,9 +52,9 @@ For 4 items, there are 16 combinations, because each item has 2 states:
 1. *Selected*
 2. *Not selected*
 
-For an array containing `n` items, we must check 2^`n` cases in the worst case scenarios. 
+For an array containing `n` items, we must check 2^`n` cases in the worst case scenarios.
 
-### That's a lot! 
+### That's a lot!
 
 For an array of just 31 items, we'll need to check over **2 billion** combinations.
 
@@ -79,34 +79,34 @@ The parameters required are:
 3. target to be *constructed*.
 
 
-- `addUpTo(new int[]{10,70,20,90,30,80}, 0, 240)` returns `true` (70+90+80 = 240) 
+- `addUpTo(new int[]{10,70,20,90,30,80}, 0, 240)` returns `true` (70+90+80 = 240)
 
-- `addUpTo(new int[]{10,70,20,90,30,80}, 0, 280)` returns `true` (10+70+90+30+80 = 280) 
+- `addUpTo(new int[]{10,70,20,90,30,80}, 0, 280)` returns `true` (10+70+90+30+80 = 280)
 
-- `addUpTo(new int[]{50, 60, 70, 80}, 0,0)` returns `true` (empty set is still a subset of any set) 
+- `addUpTo(new int[]{50, 60, 70, 80}, 0,0)` returns `true` (empty set is still a subset of any set)
 
-- `addUpTo(new int[]{50, 60, 70, 80}, 0, 100)` returns `false` 
+- `addUpTo(new int[]{50, 60, 70, 80}, 0, 100)` returns `false`
 
 ```java
 public static boolean addsUpTo(int[] data, int start, int target) {
 	if(data == null) {
 	  return false;
 	}
-	
+
 	if(target == 0) { //we did it!
 	  return true;
 	}
-	
+
 	if(start >= data.length) { //checked everything, still here :(
 	  return false;
 	}
-		
+
 	if(addsUpTo(data, start+1, target - data[start])) { //left (green path)
 	  return true;
 	}
-	
+
 	//reaches here if it cannot achieve target following the green path
-	
+
 	return addsUpTo(data, start+1, target); //right (red path) - whatever it returns
 }
 ```

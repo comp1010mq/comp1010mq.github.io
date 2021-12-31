@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Functions
 within: programming
 ---
@@ -105,7 +105,7 @@ When the function is executed, the actual paramters are copied into the formal p
 
 
 <div class="task" markdown="1">
-Suppose we have a function that accepts a real number (`double`) and returns its square. 
+Suppose we have a function that accepts a real number (`double`) and returns its square.
 
 Draw a block diagram for the interaction when a caller calls the function with the value 2.5. Assume the name of the formal parameter is `val`, and the value returned by the function is copied into a variable `sqr`.
 

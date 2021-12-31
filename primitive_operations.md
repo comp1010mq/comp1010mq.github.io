@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Primitive Operations of Processing
 within: programming
 ---
@@ -132,7 +132,7 @@ circle(width/2, height/2, 40);
   * `int` because it is set from `size` which only accepts `int`s
   * `int` because it is set from `size` which only accepts `int`s
   * `int` because if you don't say otherwise, processing treats numbers as integers
-  * `int` because if you don't say otherwise, processing treats numbers as 
+  * `int` because if you don't say otherwise, processing treats numbers as
   * `int` because dividing an `int` by another `int` will give you a third `int`
   * `int` because dividing an `int` by another `int` will give you a third `int`
   *  It is always OK to give an `int` where a `float` should go, processing will automatically convert it for you.

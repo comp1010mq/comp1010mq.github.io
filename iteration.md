@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Iterating over lists
 within: programming
 ---
@@ -26,7 +26,7 @@ class Rectangle {
 		width = w;
 		height = h;
 	}
-	
+
 	public String toString() {
 		return width + " by " + height;
 	}
@@ -86,7 +86,7 @@ In this example, a reference copy of the current item is made into `r`, which is
 
 ## When should one use the enhanced for loop?
 
-Enhanced for loops are used when you don't need the index for anything besides accessing the item at that index. 
+Enhanced for loops are used when you don't need the index for anything besides accessing the item at that index.
 
 ### Examples of when enhanced for loop should be used
 
@@ -175,7 +175,7 @@ Following are the instance methods in `ListIterator` class:
 
 The advantages of using an iterator are,
 
-1. It's consistent across any class that implements the `Iterator` interface. 
+1. It's consistent across any class that implements the `Iterator` interface.
 2. It's intuitive as in *"while the collection has another item, access it"*.
 3. Ability to modify the contents of the list while traversing it (unlike an enhanced for loop).
 	4. Provision for `forEachRemaining` (not covered in this unit).
@@ -219,36 +219,36 @@ while(iter.hasNext()) {
 ```
 
 > ### Initial state
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure1.png)
- 
+
 > ### After first iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure2.png)
 
 > ### After second iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure3.png)
 
 > ### After third iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure4.png)
 
 > ### After fourth iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure5.png)
 
 > ### After fifth iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure6.png)
 
 > ### After sixth iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure7.png)
 
 ### Starting from a specific index
 
-You can pass the index of the item **BEFORE** which you want the iterator to be placed. 
+You can pass the index of the item **BEFORE** which you want the iterator to be placed.
 
 Assuming ArrayList `list` holds the values [10, 70, 20, 90, 30, 80], the following code will display `30 80`.
 
@@ -264,13 +264,13 @@ while(iter.hasNext()) {
 > ![](./fig/06-lists/listIterator/listIterator-figure5.png)
 
 > ### After first iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure6.png)
 
 > ### After second iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure7.png)
- 
+
 ### Back to front iteration
 
 Just like `hasNext()` and `next()`, the methods `hasPrevious()` and `previous()` also exist.
@@ -287,31 +287,31 @@ while(iter.hasPrevious()) {
 Assuming ArrayList `list` holds the values [10, 70, 20, 90, 30, 80], the following code will display `80, 30, 90, 20, 70, 10`.
 
 > ### Initial state
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure7.png)
- 
+
 > ### After first iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure6.png)
 
 > ### After second iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure5.png)
 
 > ### After third iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure4.png)
 
 > ### After fourth iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure3.png)
 
 > ### After fifth iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure2.png)
 
 > ### After sixth iteration
-> 
+>
 > ![](./fig/06-lists/listIterator/listIterator-figure1.png)
 
 ```java
@@ -422,7 +422,7 @@ while(iter.hasPrevious()) {
   		iter.set(0);
   }
 }
-//list is now 0, 0, -20, 0, -30, -80 
+//list is now 0, 0, -20, 0, -30, -80
 ```
 
 <!--# Some practical examples

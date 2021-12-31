@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Variables
 within: programming
 ---
@@ -42,7 +42,7 @@ Every part of a program can be clasified as a _statement_ or an _expression_ and
 
 A _statement_ is a section of code that _does something_.  For example, it might update a memory location, or draw something to the screen
 
-An _expression_ is a section of code that _has a value_.  For example `2` has the value 2 (obvioulsy).  A more complex example is 
+An _expression_ is a section of code that _has a value_.  For example `2` has the value 2 (obvioulsy).  A more complex example is
 
 ~~~~~
 int x;
@@ -51,7 +51,7 @@ x = 5;
 
 `x` is also an expression, it's value is 5.
 
-### Rules 
+### Rules
 
   * Values are expressions
   * Variables are expressions
@@ -369,7 +369,7 @@ The answer is `4`.  Some people will think the answer is `7` reasoning that afte
 
 <div class="task" markdown="1"><a name="animated_blue_circle"></a>
 Write a processing program that moves a blue circle from the top of the screen to the bottom of the screen over time.  If you have forgotten how to put a blue circle on the screen, you should review this [previous exercise](./primitive_operations.html#blue_circle).
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 The problem description does not directly relate to variables, so we need to "re-interpret" it to put it into "code-speak".  Another way to consider the problem statement (as a Processing programmer) is "write a program where a blue circle is drawn on the screen and every time it is drawn it moves downwards a little.""
 
 
@@ -404,7 +404,7 @@ In processing, we can get a random real number between 0 and `n` (including 0 bu
 
 ```java
 double r = random(n);
-``` 
+```
 
 If we cast the result to an integer, that integer will be between 0 and `n` (including 0 but **excluding** `n`)
 
@@ -414,7 +414,7 @@ int z = (int)r;
 
 <div class="task" markdown="1"><a name="timed_animated_blue_circle"></a>
 _Difficult:_ Write a processing program that moves a blue circle from the top of the window to the bottom of the window in exactly 200 frames of time, no matter what the size of the window is.  If you have forgotten how to put animate blue circle on the screen, you should review this [previous exercise](./variables#animated_blue_circle).
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 Here we need to use one variable (the `height` variable) to determine the value in another variable.  Another way to consider the problem statement (as a Processing programmer) is "write a program where a blue circle is drawn on the screen and every time it is drawn it moves downwards a little.  The amount it moves downward each time is 1/200th of the height of the window.""
 
 

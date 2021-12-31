@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Classification Of Array-Based Problems
 within: programming
 ---
@@ -156,7 +156,7 @@ public static int sumNonPositiveEvens(int[] data) {
 	int result = 0;
 	for(int i=0; i < data.length; i++) {
 		if(data[i]%2==0 && data[i]<=0) {
-			result+=data[i]; 
+			result+=data[i];
 		}
 	}
 	return result;
@@ -170,7 +170,7 @@ public static int productNonPositiveEvens(int[] data) {
 	int result = 1;
 	for(int i=0; i < data.length; i++) {
 		if(data[i]%2==0 && data[i]<=0) {
-			result*=data[i]; 
+			result*=data[i];
 		}
 	}
 	return result;
@@ -206,17 +206,17 @@ Instead of directly going to the pseudo-code, we'll consider one example to buil
 
 Le'ts say my array contains 10 items.
 
-### STEP 1: Check the first item (Say, 17). 
+### STEP 1: Check the first item (Say, 17).
 
 - Can you tell if there is any even item in the array just by looking at the first item (17)?
 - Can you guarantee that there is **NO** even item in the array just by looking at the first item (17)?
 
-### STEP 2: Check the second item (Say, -5). 
+### STEP 2: Check the second item (Say, -5).
 
 - Can you tell if there is any even item in the array just by looking at the second item (-5)?
 - Can you guarantee that there is **NO** even item in the array just by looking at the second item (-5)?
 
-### STEP 3: Check the third item (Say, 12). 
+### STEP 3: Check the third item (Say, 12).
 
 - Can you tell if there is any even item in the array just by looking at the first item (12)? YES! So we can immedaitely return `true`.
 
@@ -262,7 +262,7 @@ Again, we'll use number 7.
 
 Le'ts say my array contains 10 items.
 
-### STEP 1: Check the first item (Say, 17). 
+### STEP 1: Check the first item (Say, 17).
 
 - Can you tell if there is any even item in the array just by looking at the first item (17)?
 - Can you guarantee that there is **NO** even item in the array just by looking at the first item (17)? YES! Even if one item doesn't satisfy the criteria, we can return `false` immediately.
@@ -284,7 +284,7 @@ return true;
 
 # Category 5 - Checking all Pairs
 
-This is inspired by *the handshake algorithm*. Useful when you want to check each item of an array against every other item. 
+This is inspired by *the handshake algorithm*. Useful when you want to check each item of an array against every other item.
 
 Consider the array `{10,70,20,90}` (surprise!)
 
@@ -304,7 +304,7 @@ You can see that we compared:
 
 1. the first item against,
 	- the second item to the last item
-2. the second item against, 
+2. the second item against,
 	- the third item to the last item
 3. ...
 4. the second last item against,
@@ -373,7 +373,7 @@ public static boolean areCoPrime(int a, int b) {
 		b = temp;
 	}
 	return a == 1;
-}	
+}
 ```
 
 If trying to understand that method's logic caused some of the nerves in your brain to burst, you can use the following version instead. This belongs to category 4 algorithms (violation).
@@ -385,8 +385,8 @@ public static boolean areCoPrime(int a, int b) {
 			return false;
 		}
 	}
-	return true; 
-}	
+	return true;
+}
 ```
 Now that we have our helper method, we can write the method to determine if they are all co-prime:
 

@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Classes - Composition
 within: programming
 ---
@@ -15,7 +15,7 @@ within: programming
 <details class="outcomes" markdown="1"><summary>Learning Outcomes:</summary>
 
   * Understand composition in terms of classes.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -101,16 +101,16 @@ Consider a slightly modified class definition of `Point`.
 ```java
 public class Point {
 	public int x, y;
-	
+
 	public Point(int _x, int _y) {
 		x = _x;
 		y = _y;
 	}
-	
+
 	public double distanceFromOrigin() {
 		return Math.sqrt(x*x + y*y);
 	}
-	
+
 	public int compareTo(Point other) { //compare based on distance from origin
 		double d1 = this.distanceFromOrigin();
 		double d2 = other.distanceFromOrigin();
@@ -128,12 +128,12 @@ We can then update the class `Line` to get the point on the line that is further
 ```java
 public class Line {
 	public Point start, end;
-	
+
 	public Line(Point p1, Point p2) {
 		start = p1;
 		end = p2;
 	}
-	
+
 	public Point getPointFurtherFromOrigin() {
 		/*
 		 * left for you as an exercise
@@ -154,7 +154,7 @@ Draw the memory diagram for the objects created inside the `main` method in the 
 ```java
 class Date {
   public int day, month, year;
-  
+
   public Date(int d, int m, int y) {
   		date = d;
   		month = m;
@@ -164,7 +164,7 @@ class Date {
 
 class Time {
   public int hour, minute, second;
-  
+
   public Time(int h, int m, int s) {
   		hour = h;
   		minute = m;
@@ -175,7 +175,7 @@ class Time {
 class DateTime {
   public Date date;
   public Time time;
-  
+
   public Date(Date d, Time t) {
   		date = d;
   		time = t;
@@ -198,7 +198,7 @@ Draw the memory diagram for the objects created inside the `main` method in the 
 ```java
 class Date {
   public int day, month, year;
-  
+
   public Date(int d, int m, int y) {
   		data = d;
   		month = m;
@@ -208,7 +208,7 @@ class Date {
 
 class Time {
   public int hour, minute, second;
-  
+
   public Time(int h, int m, int s) {
   		hour = h;
   		minute = m;
@@ -219,7 +219,7 @@ class Time {
 class DateTime {
   public Date date;
   public Time time;
-  
+
   public Date(Date d, Time t) {
   		date = d;
   		time = t;
@@ -229,7 +229,7 @@ class DateTime {
 class QuizAttempt {
   public DateTime start, end;
   public int marksObtained;
-  
+
   public QuizAttempt(DateTime s, DateTime e, int m) {
   		start = s;
   		end = e;
@@ -264,8 +264,8 @@ For the same code as task 2, write down statements that store the following valu
 	```java
 	public int getSecondsTo(DateTime other) {
 		//returns number of seconds between calling object
-		//and parameter object. returned value is positive if 
-		//parameter object is after calling object in 
+		//and parameter object. returned value is positive if
+		//parameter object is after calling object in
 		//the chronological sense.
 	}
 	```

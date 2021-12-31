@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Recursion - function call
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
   * Familiarize yourself with standard terminology - *formal paramters* vs. *actual parameters*.
   * Understand the control flow and memory transactions during a function call.
   * Understand the concept of *Call Stack*.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -34,7 +34,7 @@ public class FormalVsActual {
 		int result = n * n;
 		return result;
 	}
-	
+
 	public static void main(String[] args) {
 		int a = 5;
 		int b = square(a); //whatever is inside the brackets is the "actual parameter"
@@ -129,7 +129,7 @@ Entry for `square` is taken off the stack. `distance` becomes the active functio
 Entry for `distance` is taken off the stack. `main` becomes the active function.
 
 ### STEP 10: `main` terminates
-	
+
 Entry for `main` is taken off the stack. Call stack is now empty. Program has now finished execution.
 
 ## Summary of control flow

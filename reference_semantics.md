@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: "Reference Semantics"
 within: programming
 ---
@@ -304,18 +304,18 @@ Define a function that when passed an array containing weekly salaries of a pers
 - income from `$1001` to `$1500` a week is taxed at 30%
 - income over `$1500` a week is a week taxed at 35%
 
-For example, if the array holding salaries is `{1200, 600}`, the first week's salary is taxed 
+For example, if the array holding salaries is `{1200, 600}`, the first week's salary is taxed
 
 `0.15*200 + 0.2*300 + 0.25*200 + 0.3*200 =  200`
- 
-and the second week's salary is taxed 
 
-`0.15*200 + 0.2*100 = 50` 
+and the second week's salary is taxed
+
+`0.15*200 + 0.2*100 = 50`
 
 Total tax: 250.
 
 ## SCENARIO 3
-Time to time, we get a list of students and their marks. The list of students is in a `String` array, while the marks are in an integer array. Obviously, the size of both the arrays is the same. Also, the name of the first student is at index 0 of the names array and his/her marks are at index 0 in the marks array and so on. 
+Time to time, we get a list of students and their marks. The list of students is in a `String` array, while the marks are in an integer array. Obviously, the size of both the arrays is the same. Also, the name of the first student is at index 0 of the names array and his/her marks are at index 0 in the marks array and so on.
 
 Define a function that returns the name of the student with the highest mark. For the basic version, in case of a tie, return the name of the first student with the highest mark. For the advanced version, in case of a tie, return an array with the names of all the students who have the same highest mark.
 
@@ -329,4 +329,3 @@ Define a function that returns the number of distinct values in the array passed
 
 ## SCENARIO 6
 Define a function that when passed an integer (store the value passed in the formal parameter `n`), returns an array that holds the first `n` prime numbers (a number is *prime* if it is more than or equal to 2 and is divisible by only 1 and itself).
-

@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Objects - Data and Functions combined
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
   * Recognise that objects have functions attached
   * Be able to use such functions
   * Be able to write such functions
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -51,7 +51,7 @@ An example of how these methods are called on a `String` objected `str` is:
 
 ```java
 String str = "Engorgio!";
-int idx = str.indexOf('g'); 
+int idx = str.indexOf('g');
 char first = str.charAt(0);
 char last = str.chatAt(str.length()-1);
 char allButFirst = str.substring(1);
@@ -68,7 +68,7 @@ When we want to operate on an instance of a class, we can put that behaviour ins
 public class Rectangle {
 	public double width, height;
 
-	public Rectangle(double w, double h) { 
+	public Rectangle(double w, double h) {
 		width = w;
 		height = h;
 	}
@@ -87,7 +87,7 @@ public class Client {
 	public static void main(String[] args) {
 		Rectangle r1 = new Rectangle(10, 20);
 		double area1 = r1.area();
-		
+
 		Rectangle r2 = new Rectangle(30, 40);
 		double area2 = r2.area();
 	}
@@ -106,7 +106,7 @@ However, if the instance method needs some parameters outside of the instance va
 public class Rectangle {
 	public double width, height;
 
-	public Rectangle(double w, double h) { 
+	public Rectangle(double w, double h) {
 		width = w;
 		height = h;
 	}
@@ -130,10 +130,10 @@ Hence, instead of the method `resize` that we wrote in the previous section, we 
 	public Rectangle getResized(double factor) {
 		double w = width * factor;
 		double h = height * factor;
-		
+
 		//create a new object with the fresh values
-		Rectangle result = new Rectangle(w, h); 
-		
+		Rectangle result = new Rectangle(w, h);
+
 		return result;
 	}
 ```
@@ -143,17 +143,17 @@ Another example:
 ```java
 public class Fraction {
 	public int num, den;
-	
+
 	public Fraction(int n, int d) { //assume d is not 0
 		num = n;
 		den = d;
 	}
-	
+
 	public Fraction getInverse() {
 		if(num == 0) {
 			return null; //x/0 is undefined
 		}
-		
+
 		return new Fraction(den, num); //switch numerator and denomenator
 	}
 }
@@ -175,7 +175,7 @@ For example, two rectangles can be compared on the basis of area as,
 public class Rectangle {
 	public double width, height;
 
-	public Rectangle(double w, double h) { 
+	public Rectangle(double w, double h) {
 		width = w;
 		height = h;
 	}
@@ -184,11 +184,11 @@ public class Rectangle {
 		double result = width * height;
 		return result;
 	}
-	
+
 	public int compareTo(Rectangle other) {
-		if(area() > other.area()) 
+		if(area() > other.area())
 			return 1;
-		
+
 		if(area() < other.area())
 			return -1;
 
@@ -257,11 +257,11 @@ public class Foo {
 	public int pac() {
 	   return bar * bar;
 	}
-	
+
 	public static int man() {
 	   return (int)(Math.random()*pog);
 	}
-	
+
 	public static void main(String[] args) {
 		Foo rig = new Foo();
 		//System.out.println(Foo.bar); //INVALID

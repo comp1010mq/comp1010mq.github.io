@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Recursion - function call
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
   * Familiarize yourself with standard terminology - *formal paramters* vs. *actual parameters*.
   * Understand the control flow and memory transactions during a function call.
   * Understand the concept of *Call Stack*.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -79,7 +79,7 @@ int square(int num) {
 
 ![](./fig/callStackProcessing/callStack1Processing.png)
 
-Function call is placed on the stack. 
+Function call is placed on the stack.
 
 ### STEP 2: setup calls `distance` with parameters 1, 3, 6 and 5.
 

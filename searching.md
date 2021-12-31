@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Searching
 within: programming
 ---
@@ -29,7 +29,7 @@ We can always tweak the algorithm based on the order of sorting.
 
 Before explaining things descriptively, how about a video to illustrate binary search, from our good friends at HackerRank.
 
-**IMPORTANT!!!** 
+**IMPORTANT!!!**
 
 The implementation discussed is recursive. We haven't covered recursion yet so only the first 2 minutes 40 seconds of the video are relevant.
 
@@ -48,15 +48,15 @@ Lets say that we are playing the game that has the following rules.
 4. Based on Alice's response, Bob makes his next guess if required. That is, go to step 2.
 
 <div class="task" markdown="1">Does it make sense for the first guess to be 5?
-<details class="solution" markdown="1"><summary>solution</summary> No. Of course, you will find the target with any given guess with a small probability. Otherwise, in this case, if you are very lucky (4/31 probability), you'll be left with 4 numbers to guess from. However, the chances are (26/31 probability) that you'll be left with 26 numbers to guess from. 
+<details class="solution" markdown="1"><summary>solution</summary> No. Of course, you will find the target with any given guess with a small probability. Otherwise, in this case, if you are very lucky (4/31 probability), you'll be left with 4 numbers to guess from. However, the chances are (26/31 probability) that you'll be left with 26 numbers to guess from.
 </details></div>
 
 <div class="task" markdown="1">What is a clever first guess?
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 The first clever guess would be 16 since either that **is** the target (1/31) or in either of the remaining cases, you are left with 15 numbers to guess from (either 1 to 15, or 16 to 31).
 </details> </div>
 
-> If there are an even number of items (say, 10), then, excluding the middle 
+> If there are an even number of items (say, 10), then, excluding the middle
 > item, the left half will have one more or one less item than the right half.
 > This is ok :)
 
@@ -68,7 +68,7 @@ For those of you who may have used the dictionary, it's again, the same strategy
 ## Visualising the game
 
 Assume the numbers in contention being in green. Initially all the numbers are in contention
- 
+
 ><span style="color:green">1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31</span>
 
 Guess 1: 16. Feedback: target is higher than 16
@@ -119,7 +119,7 @@ int median = (first+last)/2;
 
 The three scenarios we have are:
 
-1. `target == arr[median]`: 
+1. `target == arr[median]`:
 	* return `median` immediately
 2. `target > arr[median]`:
 	* first = median + 1 (to reflect searching in the right half)
@@ -141,10 +141,10 @@ What happens when `first > last` and the expression is no longer true? We have s
 ```java
 public static int binarySearch(int[] arr, int target) {
 	int first = 0;
-	int last = arr.length - 1; 
+	int last = arr.length - 1;
 	while(first <= last) {
 		int median = (first+last)/2;
-		if(target == arr[median]) 
+		if(target == arr[median])
 			return median;
 		//we reach here only if target != arr[median]
 		if(target > arr[median])
@@ -162,7 +162,7 @@ Let number of items at start be `n`. For simplicity, assume `n` is a power of 2,
 
 Just like square is the inverse of square root, logarithm is the inverse of power.
 
-n = 2<sup>k</sup> 
+n = 2<sup>k</sup>
 
 is also written as:
 
@@ -176,7 +176,7 @@ The best case is that the middle item is the target. In the best case, it takes 
 
 ### Worst case scenario
 
-The worst case is that the item doesn't exist in the array. In this case, we keep halving the search space. 
+The worst case is that the item doesn't exist in the array. In this case, we keep halving the search space.
 
 * After iteration 1: 2<sup>k</sup> to 2<sup>k-1</sup>
 * After iteration 2: 2<sup>k-1</sup> to 2<sup>k-1</sup>

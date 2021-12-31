@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Conditions
 within: programming
 ---
@@ -67,7 +67,7 @@ void draw(){
   } else {
     ypos++;
   }
-  
+
 }
 ~~~~~
 </details>
@@ -146,7 +146,7 @@ An `if` is a _statement_ not an _expression_.  That means it has no intrinsic va
 
 <div class="task" markdown="1">
 Draw a flowchart for the following code and determine the values of `a, b, c` after the code executes.
- 
+
 ```java
 int a = 5, b = 2, c = 10;
 if(a < b) {
@@ -225,7 +225,7 @@ void setup(){
 
 void draw(){
   background(255);
-  
+
   if (ypos == height){
     movingUp = true;
   }
@@ -263,7 +263,7 @@ void setup(){
 
 void draw(){
   background(255);
-  
+
   if (ypos == height){
     speed = -1;
   }
@@ -274,7 +274,7 @@ void draw(){
   fill(92, 136, 218);
   circle(width/2, ypos, 20);
   ypos = ypos + speed;
-  
+
 }
 ~~~~~
 
@@ -351,27 +351,27 @@ int parkingFee = 0;
 if (minutes >= 180) {
   if (minutes < 210) {
     parkingFee = 4;
-  } 
+  }
   else {
     if (minutes < 240) {
       parkingFee = 7;
-    } 
+    }
     else {
       if (minutes < 270) {
         parkingFee = 11;
-      } 
+      }
       else {
         if (minutes < 300) {
           parkingFee = 16;
-        } 
+        }
         else {
           if (minutes < 330) {
             parkingFee = 22;
-          } 
+          }
           else {
             if (minutes < 360) {
               parkingFee = 30;
-            } 
+            }
             else {
               parkingFee = 40;
             }
@@ -392,31 +392,31 @@ int parkingFee = 0;
 
 if (minutes >= 180 && minutes < 210) {
   parkingFee = 4;
-} 
+}
 
 if (minutes >= 210 && minutes < 240) {
   parkingFee = 7;
-} 
+}
 
 if (minutes >= 240 && minutes < 270) {
   parkingFee = 11;
-} 
+}
 
 if (minutes >= 270 && minutes < 300) {
   parkingFee = 16;
-} 
+}
 
 if (minutes >= 300 && minutes < 330) {
   parkingFee = 22;
-} 
+}
 
 if (minutes >= 330 && minutes < 360) {
   parkingFee = 30;
-} 
+}
 
 if (minutes >= 360) {
   parkingFee = 40;
-} 
+}
 
 ```
 </details>
@@ -441,27 +441,27 @@ int parkingFee = 0;
 if (dayOfWeek < 5) { //NOT the weekend
   if (minutes >= 180 && minutes < 210) {
     parkingFee = 4;
-  } 
+  }
 
   if (minutes >= 210 && minutes < 240) {
     parkingFee = 7;
-  } 
+  }
 
   if (minutes >= 240 && minutes < 270) {
     parkingFee = 11;
-  } 
+  }
 
   if (minutes >= 270 && minutes < 300) {
     parkingFee = 16;
-  } 
+  }
 
   if (minutes >= 300 && minutes < 330) {
     parkingFee = 22;
-  } 
+  }
 
   if (minutes >= 330 && minutes < 360) {
     parkingFee = 30;
-  } 
+  }
 
   if (minutes >= 360) {
     parkingFee = 40;
@@ -477,4 +477,3 @@ if (dayOfWeek < 5) { //NOT the weekend
 
 <h3>Furthering Your Understanding</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wUPc__xuCc0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-

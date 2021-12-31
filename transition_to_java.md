@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: "Transition to Java"
 within: programming
 ---
@@ -57,7 +57,7 @@ You should have become familiar with both steps already, but they were both done
 
 # What does a Java Program look like?
 
-All Java programs have the following structure 
+All Java programs have the following structure
 
 ~~~~~java
 public class Main {
@@ -135,7 +135,7 @@ Install the following software **in the order below**. You will be asked to choo
 
 1. [**Java Standard Edition (Java SE)**](http://www.oracle.com/technetwork/java/javase/downloads/index.html), previously known as Java Standard Development Kit (Java SDK). Current version (on the date of writing this document): `16.0.2`. You'll be fine as long as you have version 8 or above.
 
-2. [**Eclipse IDE for Java developers**](https://eclipse.org/downloads/). Current version (on the date of writing this document): `2021-06`. 
+2. [**Eclipse IDE for Java developers**](https://eclipse.org/downloads/). Current version (on the date of writing this document): `2021-06`.
 
 **NOTE:** You are free to use any other IDE besides Eclipse (such as Visual Studio Code or NetBeans or IntelliJ) if you want. However, we shall be doing all screencasts and video tutorials using Eclipse.
 
@@ -195,7 +195,7 @@ Compile and run the java program.
 </details>
 </div>
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 What's wrong with the following code?
 
 ```java
@@ -221,7 +221,7 @@ public class Worker {
 </div>
 
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 What's wrong with the following code?
 
 ```java
@@ -230,7 +230,7 @@ public static void main(String[] args) {
 		System.out.println("All right!");
 }
 ```
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 `main` should be inside the `class`, not the other way round.
 Corrected version:
 
@@ -244,7 +244,7 @@ public class Worker {
 </details>
 </div>
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 What's wrong with the following code?
 
 ```java
@@ -374,15 +374,15 @@ This is an `accumulation` algorithm. We go through each item of the array, and a
 
 Once we know how to do this, we can apply this to other problems such as,
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Define a method that when passed an array, returns the sum of all even numbers in the array
 <details class="solution" markdown="1"><summary>solution</summary> <script src="https://gist.github.com/gaurav1780/b1abbb1a3bab1ef55c1c0cf4815482b9.js"></script>
 </details>
 </div>
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Define a method that when passed an integer array, returns the sum of all negative numbers in the first half of the array. For example, if array is `{-6, -8, -1, -2, 9}`, return `-14`, and if array is `{-6, -5, -8, -12, -1, 9}`, return `-19`.
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 <script src="https://gist.github.com/gaurav1780/671b713a16b53872f45a36c1659464ea.js"></script>
 </details>
 </div>

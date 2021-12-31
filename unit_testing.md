@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 id: testing
 title: "Unit Testing and JUnit"
 within: programming
@@ -33,9 +33,9 @@ Conside a method supposed to return the highest of three numbers. An input-outpu
 | 0, 0, 0          | 0      |
 {: .table}
 
-<div class="task" markdown="1"> 
-Is the above set of mappings sufficient? 
-<details class="solution" markdown="1"><summary>solution</summary> 
+<div class="task" markdown="1">
+Is the above set of mappings sufficient?
+<details class="solution" markdown="1"><summary>solution</summary>
 No, in all cases, the third value is the answer. A function that simply returns the third value will pass this insufficient test
 </details>
 </div>
@@ -52,7 +52,7 @@ A more comprehensive set of mappings is provided below.
 | 6, 6, 6 | 6 |
 {: .table}
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Write a set of input-output mappings for a function that when passed an integer, returns `true` if all the digits in the integer are even (0/2/4/6/8), and `false` otherwise.
 <details class="solution" markdown="1"><summary>solution</summary>
  | Input      | Output |
@@ -67,7 +67,7 @@ Write a set of input-output mappings for a function that when passed an integer,
 </details>
 </div>
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Write a set of input-output mappings for a function that when passed an integer array, returns `true` if the array is in ascending order (for each item of thearray, the item is less than or equal to the next item (if any)), and `false` otherwise.
 <details class="solution" markdown="1"><summary>solution</summary>
 
@@ -83,9 +83,9 @@ Write a set of input-output mappings for a function that when passed an integer 
 </details>
 </div>
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Write a set of input-output mappings for a function that when passed an integer array, returns `true` if each item of the array occurs exactly once, and `false` otherwise. Return `false` if the array is `null`.
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 
 | Input      | Output |
 |------------|--------|
@@ -99,7 +99,7 @@ Write a set of input-output mappings for a function that when passed an integer 
 </details>
 </div>
 
-# JUnit test cases 
+# JUnit test cases
 
 JUnit is a unit testing framework for Java. It operates using assertions to determine if a particular test passes or not.
 
@@ -111,13 +111,13 @@ A list of important assertions are given below:
 	assertTrue(5 > 3): pass
 	assertTrue(6 == 12/3): fail
 	~~~
-	
+
 * `assertFalse(boolean expression)`: passes if the boolean expression passed to the assertion is `false`, fails otherwise.
 
 	~~~
 	assertFalse(2 >= 3): pass
 	assertFalse(6 == 12/2): fail
-	~~~	
+	~~~
 
 * `assertEquals(expected integer value, integer expression)`: passes if the integer expression passed to the assertion equals the expected integer value, fails otherwise.
 
@@ -132,7 +132,7 @@ A list of important assertions are given below:
 	assertEquals(1.2, 1.21, 0.02): pass
 	assertEquals(1.2, 1.23, 0.02): fail
 	~~~
-	
+
 * `assertNull(reference)`: passes if the reference (object/array) passed to the assertion is `null`, fails otherwise.
 
 	~~~
@@ -148,23 +148,23 @@ A list of important assertions are given below:
 	~~~
 
 * `assertArrayEquals(expected integer array, actual integer array)`: passes if the actual integer array passed to the assertion equals the expected integer array, fails otherwise.
-	
+
 	Assuming three arrays created as following:
-	
+
 	```java
 	int[] a = {1,7,2,9};
 	int[] b = {1,7,2};
 	int[] c = {1,7,2,9};
 	```
-	
+
 	~~~
 	assertArrayEquals(a,c): pass
 	assertArrayEquals(a,b): fail
 	~~~
-	
+
 ## How to write a JUnit test
 
-First you need a method that you need to test. 
+First you need a method that you need to test.
 
 Let's take a look at the following code that contains a single method `sumEven`.
 
@@ -173,4 +173,3 @@ Let's take a look at the following code that contains a single method `sumEven`.
 The JUnit test is a separate class created to test this method. The following video describes the steps to create a JUnit test. Generally a test is written before implementing a method.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7-T3kxCcMJY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-

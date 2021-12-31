@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: "Debugging in Java"
 within: programming
 ---
@@ -21,7 +21,7 @@ within: programming
 
 # Debugging
 
-For any given problem, we design a solution and then implement it. 
+For any given problem, we design a solution and then implement it.
 
 As an example, let's say that we are writing a program that gives you the number of digits in an integer. We expect the following *input-output mappings*.
 
@@ -48,11 +48,11 @@ We need to find out why do some inputs have incorrect outputs. So we go through 
 
 ## Example 1
 
-Consider the following code that is supposed to return the product of all integers from 1 to `n` (n >= 1). 
+Consider the following code that is supposed to return the product of all integers from 1 to `n` (n >= 1).
 
 <script src="https://gist.github.com/gaurav1780/71d8008cd4cc632dc6119b1594dcfe88.js"></script>
 
-The input-output mappings are - 
+The input-output mappings are -
 
 | Input      | Expected Output | Actual Output |
 |------------|--|---|
@@ -78,7 +78,7 @@ Our partially fixed code:
 
 <script src="https://gist.github.com/gaurav1780/526b68d197c7c3a705780af2fcef93c1.js"></script>
 
-The new input-output mappings are - 
+The new input-output mappings are -
 
 | Input      | Expected Output | Actual Output |
 |------------|--|---|
@@ -108,7 +108,7 @@ To confirm, we trace once more for `i=4`.
 |---|-------|--------|
 | 1 |  true | 1\*1 = 1|
 | 2 |  true | 1\*2 = 2|
-| 3 |  true | 2\*3 = 6| 
+| 3 |  true | 2\*3 = 6|
 | 4 |  true | 6\*4 = 24 (expected output)|
 | 5 |  false | |
 {: .table}
@@ -117,14 +117,14 @@ To confirm, we trace once more for `i=4`.
 Debug the following method for which the expected input-output mappings are provided in the javadoc (comment above the method).
 <script src="https://gist.github.com/gaurav1780/111f98632dbb6068d4056df295341cf3.js"></script>
 **CRITICAL STEP!!!** Write down the actual input-output mappings after every iteration of debugging
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 <script src="https://gist.github.com/gaurav1780/7556eea66978a974423447f544150841.js"></script>
 </details>
 </div>
 
 ## Performing debugging in Eclipse
 
-Most of the modern Integrated Development Environments (IDEs) have a comprehensive debugging feature that let's you trace the variables as your program executes. 
+Most of the modern Integrated Development Environments (IDEs) have a comprehensive debugging feature that let's you trace the variables as your program executes.
 
 In the IDE we are using (Eclipse), the debugger relies of placing `breakpoints` that are like pitstops in car race. The program runs till the next breakpoint where you can see the values of all the variables and when you hit `resume`, it goes to the next breakpoint.
 
@@ -141,7 +141,7 @@ Debugging is still mostly done in your head or on paper, so it is worth revisiti
 <div class="task" markdown="1">
 Trace the flow of the following program and determine the value of `result` at the end of it.
 <script src="https://gist.github.com/gaurav1780/767824769b5456ddb080e63d84124d70.js"></script>
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 `a < b` is `true`
 
 `b % a == 0` is `true`
@@ -159,10 +159,10 @@ Hence, the `else` block executes and `result` becomes `b (10)`.
 <div class="task" markdown="1">
 Trace the flow of the following program and determine the value of `result` at the end of it.
 <script src="https://gist.github.com/gaurav1780/0f335474bbbf8fcf488150b7b411c33a.js"></script>
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 a == b` is `false`,
 `else` executes
- 
+
 `b` decreases by 5, becomes 5
 `a == b` is `true`.
 `if` block executes and `result` becomes `b (5)`.
@@ -172,7 +172,7 @@ a == b` is `false`,
 <div class="task" markdown="1">
 Trace the flow of the following program and determine the value of `result` at the end of it.
 <script src="https://gist.github.com/gaurav1780/0302ce7e20a43b1807584b4ca7f49ce7.js"></script>
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 | i | i&lt;=7 | i%2 | i%2==1 | result |
 | --- | --- | --- | --- | --- |
 | 1 | true | 1 | true | -3+1 = -2 |
@@ -191,7 +191,7 @@ Trace the flow of the following program and determine the value of `result` at t
 <div class="task" markdown="1">
 Trace the flow of the following code -
 <script src="https://gist.github.com/gaurav1780/0b8969cabc916cff8ed88cfcde631560.js"></script>
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
 ## Solution
 At the end of the code,
 `a = 5`, `b = 10`, `c = 2`, `d = false`, `result = 10`.

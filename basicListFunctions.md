@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Lists
 within: programming
 ---
@@ -32,8 +32,8 @@ The size of array needs to be specified at the time of creating an array. The si
 
 ### 3. Lists have a range of instance methods
 
-With arrays (assuming array name is `arr`), the only operators you have to work with are `arr.length` and `arr[i]`. Anything and everything you need to do must be done using these two operators. Several life-saving methods are applicable on list objects, such as: 
-	
+With arrays (assuming array name is `arr`), the only operators you have to work with are `arr.length` and `arr[i]`. Anything and everything you need to do must be done using these two operators. Several life-saving methods are applicable on list objects, such as:
+
 - `get(int)` //similar to arr[i]
 - `size()` //similar to arr.length
 - `add(Object)`	//add item at the end of the list
@@ -134,7 +134,7 @@ for(int item: src) {
 		dest.add(item);
 	}
 }
-```	
+```
 
 <!--## Example 2 - reading student names outcomes from a file
 

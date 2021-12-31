@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Class holding array(s)
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
 
   * Defining a class holding array(s).
   * Creating and populating objects of such classes.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -42,7 +42,7 @@ public class TVData {
 
 Before we go on and add constructors and other methods, let's think about how we are going to access the information.
 
-From inside a client (outside the class definition), assuming an object `record` of class `TVData`, 
+From inside a client (outside the class definition), assuming an object `record` of class `TVData`,
 
 - the array holding the information is accessed using `record.minutesWatched`.
 - the number of days for which we have the information is given by `record.minutes.length`.
@@ -55,11 +55,11 @@ Next, we add a constructor with an array passed that will be **reference-copied*
 ```java
 public class TVData {
 	public int[] minutes;
-	
+
 	public TVData(int[] source) {
 		minutes = source; //reference copy made into array
 	}
-	
+
 	public int totalViewingTime() {
 		int result = 0;
 		for(int i=0; i < minutes.length; i++) {
@@ -99,11 +99,11 @@ public class BadClient {
 	public static void main(String[] args) {
 		int[] src = {120, 90, 180};
 		TVData record = new TVData(src); //populate with array src
-		
+
 		//so far, so good
-		
+
 		src[0] = -400; //nothing stops us from doing so
-		
+
 		int total = record.totalViewingTime();
 		System.out.println(total+" minutes viewed");
 	}
@@ -152,33 +152,33 @@ For the sake of clarity, we'll use the same `Point` class definition used in tha
 ```java
 public class Point {
 	public int x, y;
-	
+
 	public Point(int x, int y) {
 		this.x = x; //"this" distinguishes instance variable from formal paramter
 		this.y = y;
 	}
-	
+
 	public Point(Point p) {
 		x = p.x;
 		y = p.y;
 	}
-	
+
 	public String toString() {
 		return "("+x+","+y+")";
 	}
 }
 ```
 
-Say we want to create a "connect-the-dots" game where multiple points are present on a canvas and adjacent points need to be connected to reveal the art. 
+Say we want to create a "connect-the-dots" game where multiple points are present on a canvas and adjacent points need to be connected to reveal the art.
 
 ### Iteration 1
 
 ```java
 public class ConnectTheDots {
 	public Point[] points;
-	
+
 	public ConnectTheDots(Point[] source) {
-		if(source == null) {	
+		if(source == null) {
 			points = new Point[0];
 		}
 		else {
@@ -191,7 +191,7 @@ public class ConnectTheDots {
 }
 ```
 
-There is one logical mistake in the above code. 
+There is one logical mistake in the above code.
 
 <details>
   <summary>Click to reveal!</summary>
@@ -203,9 +203,9 @@ There is one logical mistake in the above code.
 ```java
 public class ConnectTheDots {
 	public Point[] points;
-	
+
 	public ConnectTheDots(Point[] source) {
-		if(source == null) {	
+		if(source == null) {
 			points = new Point[0];
 		}
 		else {
@@ -218,7 +218,7 @@ public class ConnectTheDots {
 }
 ```
 
-Still one issue :( 
+Still one issue :(
 
 <details>
   <summary>Click to reveal!</summary>
@@ -230,22 +230,22 @@ Still one issue :(
 ```java
 public class ConnectTheDots {
 	public Point[] points;
-	
+
 	public ConnectTheDots(Point[] source) {
-		if(source == null) {	
+		if(source == null) {
 			points = new Point[0];
 		}
 		else {
 			int nonNullPoints = 0;
-			
+
 			for(int i=0; i < source.length; i++) {
 				if(source[i] != null) {
 					nonNullPoints++;
 				}
 			}
-			
+
 			points = new Point[nonNullPoints];
-			
+
 			int k = 0; //destination index
 			for(int i=0; i < source.length; i++) {
 				if(source[i] != null) {
@@ -287,6 +287,3 @@ We will get the following output (notice that the `null` object was dropped succ
 ```
 
 Complete code is provided in [ArtGallery.java](./codes/ArtGallery.java)
-			
-
-

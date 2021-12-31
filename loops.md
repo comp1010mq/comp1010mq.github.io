@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Loops
 within: programming
 ---
@@ -66,7 +66,7 @@ println(result);
 <center><img src="loopsFigs/whileExample.png" style="width: 300px;"/></center>
 
 
-The above code executes the loop 6 times (for `a` = 6,5,4,3,2,1 but not for 0) each time multiplying the current value of `a` into `result` and the final value of `result` is 6\*5\*4\*3\*2\*1 = 720. 
+The above code executes the loop 6 times (for `a` = 6,5,4,3,2,1 but not for 0) each time multiplying the current value of `a` into `result` and the final value of `result` is 6\*5\*4\*3\*2\*1 = 720.
 
 There is a better way of tracing loops known as logic table construction. The logic table for the above example is given below.
 
@@ -90,7 +90,7 @@ While constructing a logic table, one is strongly encouraged to follow the follo
 1. Identify all variables involved in the boolean expression in the loop header.
 2. Create columns for each of the variables identified in step 1.
 3. Create a column for the loop expression. Create multiple columns to simplify reaching the expression if complex. For example, if expression is `x==y && !z`, the variables involved are `x`, `y`, and `z` and the sub-expressions are `x==y` and `!z`.
-4. Create columns for each variable (**unless column for the variable already present**) modified in the loop (in the order they are modified). 
+4. Create columns for each variable (**unless column for the variable already present**) modified in the loop (in the order they are modified).
 
 ### Example for constructing a logic table
 
@@ -194,7 +194,7 @@ void setup(){
 
 void draw(){
   background(255);
-  
+
   if (ypos == height){
     speed = -1;
   }
@@ -208,7 +208,7 @@ void draw(){
     circle(width/2, ypos, i);
   }
   ypos = ypos + speed;
-  
+
 }
 ~~~~~
 
@@ -219,7 +219,7 @@ void draw(){
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Z8s-7beNP1c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-As discussed in the above video, the fact that processing is always in a "draw loop" can confuse things somewhat.  It is possible to see all the operation of loops free of this constraint if we work only on _the console_.  [The console is the black area below your program](./debugging.html) and it is available even when you do a "static" processing program (one that has no `setup` or `draw`). 
+As discussed in the above video, the fact that processing is always in a "draw loop" can confuse things somewhat.  It is possible to see all the operation of loops free of this constraint if we work only on _the console_.  [The console is the black area below your program](./debugging.html) and it is available even when you do a "static" processing program (one that has no `setup` or `draw`).
 
 <div class="task" markdown="1">
 Using loops, draw five `^` (hat) characters to the console
@@ -256,7 +256,7 @@ We would like to generate a pattern based on input integer `N > 0`
 ^
 ^ ^
 ^ ^ ^
-^ ^ ^ ^ 
+^ ^ ^ ^
 ```
 
 <p>&nbsp;</p>
@@ -267,27 +267,27 @@ We would like to generate a pattern based on input integer `N > 0`
 ^
 ^ ^
 ^ ^ ^
-^ ^ ^ ^ 
-^ ^ ^ ^ ^ 
-^ ^ ^ ^ ^ ^ 
+^ ^ ^ ^
+^ ^ ^ ^ ^
+^ ^ ^ ^ ^ ^
 ```
 
 **STEP 1:** There are `N` lines.
 
-Outer loop - 
+Outer loop -
 
 ```java
 for(int i=1; i<=N; i++) {
 	display current line
-	change line using println(); 
+	change line using println();
 }
 ```
 
-**STEP 2:** Line corresponding to a given value of `i` has `i` caps 
+**STEP 2:** Line corresponding to a given value of `i` has `i` caps
 
 (when `i = 1`, there is 1 cap, when `i = 2` there are 2 caps, and so on ...).
 
-Inner loop - 
+Inner loop -
 
 ```java
 for(int k=1; k<=i; k++) {
@@ -302,7 +302,7 @@ for(int i=1; i<=N; i++) {
 	for(int k=1; k<=i; k++) {
 		print("^");
 	}
-	println(); 
+	println();
 }
 ```
 
@@ -315,7 +315,7 @@ Change the code so that the symbols alternate between a cap (^) and a dash (-) b
 ^
 - -
 ^ ^ ^
-- - - - 
+- - - -
 ^ ^ ^ ^ ^
 - - - - - -
 ```
@@ -351,7 +351,7 @@ for(int i=1; i<=N; i++) {
 			print("-");
 		}
 	}
-	println(); 
+	println();
 }
 ```
 </details>
@@ -384,7 +384,7 @@ for(int i=1; i<=N; i++) {
     else
       print("-");
   }
-  println(); 
+  println();
 }
 ```
 </details>
@@ -417,7 +417,7 @@ for(int i=1; i<=N; i++) {
     else
       print("-");
   }
-  println(); 
+  println();
 }
 ```
 </details>
@@ -425,9 +425,9 @@ for(int i=1; i<=N; i++) {
 
 # Coding in the real world
 
-Just like in conditions, lets see some real-world scenarios where we need to use loops. 
+Just like in conditions, lets see some real-world scenarios where we need to use loops.
 
-But there is a problem. Loops usually iterate over a *collection* (an array, list, hashmap, etc). Since we can't assume knowledge of the same in this document, we're in a bit of a pickle, aren't we? 
+But there is a problem. Loops usually iterate over a *collection* (an array, list, hashmap, etc). Since we can't assume knowledge of the same in this document, we're in a bit of a pickle, aren't we?
 
 So, instead we'll iterate over numbers generated via a random-number generator.
 
@@ -443,7 +443,7 @@ int n = 10*x; //n can be one of the values from [10, 20, ..., 1000]
 
 
 <div class="task" markdown="1">
-Write a piece of code that determines the number of times we get a 6 when a normal 6-faced die is rolled `n` times. 
+Write a piece of code that determines the number of times we get a 6 when a normal 6-faced die is rolled `n` times.
 <details markdown="1"><summary>Solution</summary>
 
 ```
@@ -490,7 +490,7 @@ int n = (int)random(101); //n can be any integer from 0 to 100
 
 Consider a party where there are 4 people. Call them Alice, Bob, Charles and Diane. Assuming they are all friendly and logical people, the following handshakes will take place:
 
-- Alice with 
+- Alice with
 	1. Bob
 	2. Charles
 	3. Diane
@@ -498,7 +498,7 @@ Consider a party where there are 4 people. Call them Alice, Bob, Charles and Dia
 	1. Charles
 	2. Diane
 - Chales (already shook hands with Alice and Bob) with
-	1. Diane 
+	1. Diane
 - Diane (already shook hands with everyone)
 
 Thus, there are 3+2+1 = 6 handshakes for 4 people.

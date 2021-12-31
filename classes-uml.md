@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Classes - UML Notation
 within: programming
 ---
@@ -13,7 +13,7 @@ within: programming
 <details class="outcomes" markdown="1"><summary>Learning Outcomes:</summary>
 
   * Understand Unified Modeling Language class diagrams and object diagrams.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -31,25 +31,23 @@ Consider the class definition:
 ```java
 class Rectangle {
 	public int length, breadth;
-	
+
 	public Rectangle(int len, int bre) {
 		length = len;
 		breadth = bre;
 	}
-	
+
 	public int area() {
 		return length * breadth;
 	}
-	
+
 	public boolean isSquare() {
 		return length == breadth;
 	}
-	
+
 	public void resize(double factor) { //assume factor>=0
 		length*=factor;
 		breadth*=factor;
 	}
 }
 ```
-
-

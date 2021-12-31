@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Recursion
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
   * Recognise difference between iterative and recursive code.
   * Be able to trace recursive functions.
   * Be able to write recursive functions.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -32,7 +32,7 @@ There are two common approaches to solving algorthmic problems:
 
 The distinctive property of *iterative* solutions is that they do not reduce a problem to a simpler form of itself.
 
-### EXAMPLE 
+### EXAMPLE
 
 Add all integers between `low` and `high` (inclusive on both sides, and assuming `low` <= `high`), I can go through each integer and add it to an accumulating variable, say `total`.
 
@@ -42,7 +42,7 @@ public static int sum(int low, int high) {
 	for(int i=low; i<=high; i++) {
 		total = total + i;
 	}
-	return total;	
+	return total;
 }
 ```
 
@@ -55,7 +55,7 @@ The distinctive property of *recursive* solutions is that they reduce a problem 
 For the same problem statement used for iterative solutions, we can say that the sum of all integers from `low` to `high` is:
 
 ```
-if low > high: 
+if low > high:
 	return 0
 else
 	sub = sum of all integers from (low+1) to high
@@ -87,17 +87,17 @@ Some solutions have an intuitive recursive design. Some examples (we assume n >=
 1. x to the power of n:
 	- `x`<sup>`n`</sup> = `x`<sup>`n-1`</sup> * `x` if n > 0
 	- `x`<sup>`0`</sup> = 1
-2. number of digits in an integer: 
+2. number of digits in an integer:
 	- `nDigits(n)` = `nDigits(n/10) + 1` if n > 0
 	- `nDigits(0)` = 0
-3. sum of the first n positive integers (1 + 2 + ... + n): 
+3. sum of the first n positive integers (1 + 2 + ... + n):
 	- `sum(n) = sum(n-1) + n` if n > 0
 	- `sum(0)` = 0
-	
+
 #### 2. Complex problems
 
 While trivial problems have fairly obvious recursive **and** iterative solutions, it's much easier to find a recursive solution to the more complex problems. For example, creating a random permutation of the word `"super".
- 
+
 > random permutation of the word `"super"`
 > = random character from `"super"` (say `'u'`) + random permutation of the word `"sper"`
 
@@ -229,9 +229,9 @@ In the above modified method, we have enclosed the entire code in a conditional 
 
 ```
 main(null) calls foo(4)
-	foo(4) displays 4 and calls foo(3) 
-		foo(3) displays 3 and calls foo(2) 
-			foo(2) displays 2 and calls foo(1) 
+	foo(4) displays 4 and calls foo(3)
+		foo(3) displays 3 and calls foo(2)
+			foo(2) displays 2 and calls foo(1)
 				foo(1) displays 1 and calls foo(0)
 				foo(0) does nothing and returns control to foo(1)
 			foo(1) returns control to foo(2)
@@ -312,9 +312,9 @@ can be written as:
 
 > sum(n) = [1 + 2 + ... + (n-1)] + n
 
-But 
+But
 
-> [1 + 2 + ... + (n-1)] is sum(3) 
+> [1 + 2 + ... + (n-1)] is sum(3)
 
 (by the problem statement)
 
@@ -330,7 +330,7 @@ public static int sum(int n) {
 }
 ```
 
-But this version will result in the method calling itself indefinitely, until JVM causes `StackOverflowError`. 
+But this version will result in the method calling itself indefinitely, until JVM causes `StackOverflowError`.
 
 We need to address the end case:
 
@@ -352,7 +352,7 @@ What happens if the client, maliciously, calls the method with parameter -3?
 
 `sum(-3)` → `sum(-4)` → `sum(-5)` ...
 
-Since the parameter is never equal to 0, the method, when initially called with a negative value, calls itself indefinitely. 
+Since the parameter is never equal to 0, the method, when initially called with a negative value, calls itself indefinitely.
 
 Eventually JVM causes `StackOverflowError`.
 
@@ -394,15 +394,15 @@ Some variations of `sum` function are provided to help you understand recursion 
 		if(n <= 0) {
 			return 0;
 		}
-		
+
 		if(n%2 == 0) { //when initially called with an even parameter
 			return sumOdd(n-1);
 		}
-		
+
 		//guaranteed: n >= 1 AND n%2 != 0 => n is a positive, odd number
-		
-		return n + sumOdd(n-2); 
-		//add the current odd number to 
+
+		return n + sumOdd(n-2);
+		//add the current odd number to
 		//the sum of all odd numbers up to, and including n-2
 	}
 	```
@@ -414,9 +414,9 @@ Some variations of `sum` function are provided to help you understand recursion 
 		if(n <= 0) {
 			return 0;
 		}
-		
-		return n*n + sumSquares(n-1); 
-		//add the square of the current number to 
+
+		return n*n + sumSquares(n-1);
+		//add the square of the current number to
 		//the sum of all square integers up to, and including n-1
 	}
 	```
@@ -428,15 +428,15 @@ Some variations of `sum` function are provided to help you understand recursion 
 		if(n <= 0) {
 			return 0;
 		}
-		
+
 		if(n%2 == 0) {
 			return sumSquareOdds(n-1);
 		}
-		
+
 		//guaranteed: n >= 1 AND n%2 != 0 => n is a positive, odd number
-	
-		return n*n + sumSquares(n-2); 
-		//add the square of the current number to 
+
+		return n*n + sumSquares(n-2);
+		//add the square of the current number to
 		//the sum of all square integers up to, and including n-2
 	}
 	```
@@ -449,18 +449,18 @@ Some variations of `sum` function are provided to help you understand recursion 
 		if(n == 0) {
 			return 0;
 		}
-		
+
 		if(n < 0) { //just in case n is negative
 			return sumDigits(-n);
 		}
-		
+
 		int lastDigit = n%10;
 		int remainingNumber = n/10;
-		
+
 		return lastDigit + sumDigits(remainingNumber);
 	}
 	```
-	
+
 5. `getReversed(String)`: get reverse of a String
 
 	```java
@@ -468,13 +468,13 @@ Some variations of `sum` function are provided to help you understand recursion 
 		if(str == null || str.length() < 1) {
 			return str;
 		}
-		
+
 		char first = str.charAt(0);
 		String remaining = str.substring(1);
-		
-		return getReversed(remaining) + first; 
+
+		return getReversed(remaining) + first;
 	}
-	```	
+	```
 
 6. `isPalindrome(String)`: return `true` if String is same when reversed, `false` otherwise
 
@@ -486,11 +486,9 @@ Some variations of `sum` function are provided to help you understand recursion 
 		if(str.length() < 1) {
 			return true;
 		}
-		
-		return str.equals(getReversed(str)); 
+
+		return str.equals(getReversed(str));
 	}
 	```
-	
+
 Note that this method uses `getReversed` as a *helper*, which, in turn, is recursive.
-
-

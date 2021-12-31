@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Custom-built ArrayList
 within: programming
 ---
@@ -365,9 +365,9 @@ With a little tweak we can see:
 Putting it all together,
 
 
-`(address of item at index idx)` = `(base address of array)` + 
+`(address of item at index idx)` = `(base address of array)` +
                                  `(size of each item)` * `(idx)`;
-                                 
+
 This means, irrespective of the index accessed, it takes the same time to return an item. A sample table illustrating time taken against index is provided below. In this, `x` is the amount of time taken and could be any value more than 0.
 
 | index | time taken   |
@@ -387,9 +387,9 @@ Let's say we want to access `data[3]` in the following statement:
 int item = data[3];
 ```
 
-We start off with the reference held by `data` and getting the base address (600). 
+We start off with the reference held by `data` and getting the base address (600).
 
-To that, we add 3 * 4 = 12 (3 being the index and 4 being size of each item), giving us the starting address of the item 612. 
+To that, we add 3 * 4 = 12 (3 being the index and 4 being size of each item), giving us the starting address of the item 612.
 
 We grab 4 bytes starting at that address (so bytes 612 to 615) and present it packed as an integer: 90.
 
@@ -398,8 +398,8 @@ We grab 4 bytes starting at that address (so bytes 612 to 615) and present it pa
 The `grow` method is as follows:
 
 ```java
-private void grow() { 
-	double[] temp = new double[data.length + 5]; 
+private void grow() {
+	double[] temp = new double[data.length + 5];
 	for(int i=0; i < data.length; i++) {
 		temp[i] = data[i];
 	}
@@ -445,7 +445,7 @@ These shifts are illustrated in the following diagram:
 
 <p></p>
 &nbsp;
-<p></p>	
+<p></p>
 
 ![](./fig/06-lists/lists-figure3.png)
 
@@ -466,14 +466,14 @@ There are two relevant cases for removing an item:
 
 <p></p>
 &nbsp;
-<p></p>	
+<p></p>
 
 ![](./fig/06-lists/lists-figure4.png)
 
 <p></p>
 &nbsp;
 <p></p>
-    
+
 These shifts are illustrated in the following diagram:
 
 <p></p>

@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Scope
 within: programming
 ---
@@ -74,4 +74,3 @@ As a side note, these rules mean you can't have two variables with the same name
 For loop, conditions, and functions, the curly brace indicates a new scope, but the scope really starts before the curly brace, at the start of the expression.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pC7RUmHL2KY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-

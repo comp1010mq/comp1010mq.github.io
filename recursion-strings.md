@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Recursion with String data
 within: programming
 ---
@@ -16,7 +16,7 @@ within: programming
 
   * Be able to trace recursive functions in the context of String data.
   * Be able to write recursive functions in the context of String data.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -66,9 +66,9 @@ String sub4 = b.substring(-5, 10); //INVALID STARTING INDEX - StringIndexOutOfBo
 
 # Basic strategy
 
-When designing and implementing recursive solutions in the context of String data, the key strategy is to 
+When designing and implementing recursive solutions in the context of String data, the key strategy is to
 
-1. *slice* a String, 
+1. *slice* a String,
 2. operate on the immediate portion, and,
 3. call the recursive method on the remaining String
 
@@ -117,7 +117,7 @@ public static int countVowels(String str) {
 `countVowels("")` returns 0
 
 `countVowels("s")` returns 0 + 0 = 0
- 
+
 `countVowels("ns")` returns 0 + 0 = 0
 
 `countVowels("ens")` returns 1 + 0 = 1

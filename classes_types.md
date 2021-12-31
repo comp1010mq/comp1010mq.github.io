@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Classes - Writing your own types
 within: programming
 ---
@@ -22,7 +22,7 @@ within: programming
 ## Author: Gaurav Gupta
 
 We have seen quite a few different types that data can be:
-  
+
   * `int` for simple numbers
   * `boolean` for true/false
   * `float` for more precise numbers
@@ -135,19 +135,19 @@ class has yet been created.
 
 <div class="task" markdown="1">
 Define a class for a Circle that is represented by its radius.
-<details class="solution" markdown="1"><summary>solution</summary> 
+<details class="solution" markdown="1"><summary>solution</summary>
  ```java
  public class Circle {
      public double radius;
      /*
-     * note that int is a wrong choice as radius 
+     * note that int is a wrong choice as radius
      * CAN be a floating-point value like 1.5 or 2.4
      */
  }
  ```
 </details>
 </div>
-	 
+
 ## Declaration and instantiation
 
 ### Declaration
@@ -172,7 +172,7 @@ Rectangle r; //example
 ### Instantiation
 
 We create an instance that holds the instance variables and the object holds its address. We say that the object refers to the instance, and represent it by an arrow going from the object to the instance.
-    
+
 ```java
 classVar = new ClassName(); //instantiation
 ```
@@ -182,18 +182,18 @@ In the following example, `new Rectangle()` creates an instance (the green block
 ```java
 r = new Rectangle(); //example
 ```
-	
+
 ![](./fig/03-classes-and-objects/classesObjects1-figure3.png)
 
 ### Combining declaration and instantiation
 
 ```java
-ClassName classVar = new ClassName(); 
+ClassName classVar = new ClassName();
 //declaration + instantiation
 
 Rectangle r = new Rectangle(); //example
 ```
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Declare and instantiate an object `myCircle` of class `Circle`.
 <details class="solution" markdown="1"><summary>solution</summary>```java
  public class Client {
@@ -203,7 +203,7 @@ Declare and instantiate an object `myCircle` of class `Circle`.
  }
  ```
 Although, you can just write the relevant part in written exams:
-```java 
+```java
 Circle myCircle = new Circle();
 ```
 </details>
@@ -223,7 +223,7 @@ r.width = 5;
 -   The expression `r` gives us access to the instance variable `width`
     of object `r`.
 
-<div class="task" markdown="1"> 
+<div class="task" markdown="1">
 Write a piece of code that sits outside the class definition and displays the radius of the object `myCircle`
 <details class="solution" markdown="1"><summary>solution</summary>
  ```java
@@ -231,7 +231,7 @@ Write a piece of code that sits outside the class definition and displays the ra
  ```
 </details>
 </div>
-	 
+
 ## Are there any default values?
 
 -   Each *instance variable* is automatically initialised
@@ -285,20 +285,20 @@ This is done through `constructors`.
 ```java
 public class Rectangle {
     public double width, height;
-    
+
     public Rectangle() { //default constructor
         width = 1;
         height = 1;
     }
 
     //parameterized constructor for a square
-    public Rectangle(double side) { 
+    public Rectangle(double side) {
         width = side;
         height = side;
     }
 
     //parameterized constructor - generic
-    public Rectangle(double w, double h) { 
+    public Rectangle(double w, double h) {
         width = w;
         height = h;
     }

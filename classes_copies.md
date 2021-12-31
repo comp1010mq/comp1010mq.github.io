@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Copying objects
 within: programming
 ---
@@ -17,7 +17,7 @@ within: programming
   * Identify a reference copy.
   * Differentiate an instance copy from a reference copy.
   * Be able to execute both types of object copying.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -45,8 +45,8 @@ We will use the following class for the rest of this page,
 ```java
 public class Rectangle {
 	public int width, height;
-	
-	public Rectangle(int w, int h) { 
+
+	public Rectangle(int w, int h) {
 		width = w;
 		height = h;
 	}
@@ -55,7 +55,7 @@ public class Rectangle {
 
 # Reference copy
 
-Recall the interaction when we copy a variable into another variable. The exact same thing happens when we copy an object into another object, the only difference being that objects hold an address to the location where the instance variables are kept. Hence, it's this address that's copied. 
+Recall the interaction when we copy a variable into another variable. The exact same thing happens when we copy an object into another object, the only difference being that objects hold an address to the location where the instance variables are kept. Hence, it's this address that's copied.
 In a separate client code, we call this method on an instance of class `Rectangle` as,
 
 ```java
@@ -67,7 +67,7 @@ public class Client {
 }
 ```
 
-In the above example, the contents of `r1`, which is the address that `r1` holds is copied into the contents of `r2`. Thus, `r2` holds the same address that `r1` holds. 
+In the above example, the contents of `r1`, which is the address that `r1` holds is copied into the contents of `r2`. Thus, `r2` holds the same address that `r1` holds.
 
 ![](./fig/03-classes-and-objects/referenceCopy.png)
 
@@ -101,10 +101,10 @@ public class Client {
 	public static void main(String[] args) {
 		Rectangle r1 = new Rectangle(10, 20);
 		Rectangle r2 = r1;
-		
+
 		Rectangle r3 = new Rectangle(0, 0);
 		r2 = r3; //now r2 is a reference copy of r3, NOT r1
-		
+
 		System.out.println(r1.width); //still 10
 		System.out.println(r1.height); //still 20
 	}
@@ -124,7 +124,7 @@ public class Client {
 		Rectangle r1 = new Rectangle(10, 20);
 		Rectangle r2 = new Rectangle(r1.width, r1.height);		
 		r1.width = 50;
-		
+
 		System.out.println(r2.width); //still 10
 	}
 }
@@ -144,12 +144,12 @@ We can add a special kind of constructor, known as the *copy constructor* which 
 ```java
 public class Rectangle {
 	public int width, height;
-	
-	public Rectangle(int w, int h) { 
+
+	public Rectangle(int w, int h) {
 		width = w;
 		height = h;
 	}
-	
+
 	public Rectangle(Rectangle source) {
 		width = source.width;
 		height = source.height;
@@ -165,7 +165,7 @@ public class Client {
 		Rectangle r1 = new Rectangle(10, 20);
 		Rectangle r2 = new Rectangle(r1); //invoke copy constructor		
 		r1.width = 50;
-		
+
 		System.out.println(r2.width); //still 10
 	}
 }

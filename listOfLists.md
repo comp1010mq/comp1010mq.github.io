@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: List of Lists
 within: programming
 ---
@@ -42,7 +42,7 @@ System.out.println(matrix.get(1)); //[500, 800, 300, 400]
 System.out.println(matrix.get(2)); //[600, 700, 800, 900]
 ```
 
-Note that when items are added to an ArrayList, it's a reference copy of the added object that is created and added to the list. Here, 
+Note that when items are added to an ArrayList, it's a reference copy of the added object that is created and added to the list. Here,
 
 - `matrix.get(0)` is a reference copy of `a`
 - `matrix.get(1)` is a reference copy of `b`
@@ -178,9 +178,9 @@ ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(1000, 700, 200, 900)
 ArrayList<Integer> b = new ArrayList<Integer>(Arrays.asList(500, 300));
 ArrayList<Integer> c = null;
 ArrayList<Integer> d = new ArrayList<Integer>(Arrays.asList(600, null, 300));
-ArrayList<ArrayList<Integer>> varying = 
+ArrayList<ArrayList<Integer>> varying =
 				new ArrayList<ArrayList<Integer>>(Arrays.asList(a, b, c, d));
-				
+
 //varying = [[1000, 700, 200, 900], [500, 300], null, [600, null, 300]]
 ```
 
@@ -245,7 +245,7 @@ if(varying!=null) {
 			maxItems = Math.max(maxItems, varying.get(i).size());
 		}
 	}
-	
+
 	for(int i=0; i < maxItems; i++) {
 		for(int k=0; k < varying.size(); k++) {
 			if(varying.get(k)!=null) {
@@ -289,4 +289,3 @@ out of bounds
 ```
 
 Working code in [ListOfListsComprehensive.java](./nuggets/ListOfListsComprehensive/ListOfListsComprehensive.java)
-

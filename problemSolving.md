@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: "Problem Solving"
 ---
 

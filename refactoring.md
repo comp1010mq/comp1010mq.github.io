@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: "Refactoring"
 within: programming
 ---
@@ -83,7 +83,7 @@ if(x > 23)
 	<div class="col-xs-2 refactor">&nbsp;</div>
 	<div class="col-xs-5">
 <pre><code>
-if(x < 7 || x > 23) 
+if(x < 7 || x > 23)
 	y = 4;
 </code></pre>
 	</div>
@@ -103,9 +103,9 @@ if(x < 7)
 	<div class="col-xs-2 refactor">&nbsp;</div>
 	<div class="col-xs-5">
 <pre><code>
-if(x < 7) { 
-	y = 4; 
-	z = 9; 
+if(x < 7) {
+	y = 4;
+	z = 9;
 }
 </code></pre>
 	</div>
@@ -127,8 +127,8 @@ if(x < 7){
 	<div class="col-xs-2 refactor">&nbsp;</div>
 	<div class="col-xs-5">
 <pre><code>
-if(x < 7 && y < 7) { 
-	y = 4; 
+if(x < 7 && y < 7) {
+	y = 4;
 }
 </code></pre>
 	</div>
@@ -141,10 +141,10 @@ if(x < 7 && y < 7) {
 <div class="row">
 	<div class="col-xs-5">
 <pre><code>
-ellipse(30, 30, 10, 10); 
-ellipse(60, 60, 10, 10); 
-ellipse(90, 90, 10, 10); 
-ellipse(120, 120, 10, 10); 
+ellipse(30, 30, 10, 10);
+ellipse(60, 60, 10, 10);
+ellipse(90, 90, 10, 10);
+ellipse(120, 120, 10, 10);
 ellipse(150, 150, 10, 10);
 </code></pre>
 	</div>
@@ -175,7 +175,7 @@ ellipse(160,160, 10, 10);
 	<div class="col-xs-2 refactor">&nbsp;</div>
 	<div class="col-xs-5">
 <pre><code>
-int[] z = {30, 50, 110, 120, 160}; 
+int[] z = {30, 50, 110, 120, 160};
 for(int i = 0; i < z.length; i++){
 	ellipse(z[i], z[i], 10, 10);
 }
@@ -239,7 +239,7 @@ You should create a function to do that job
 void drawRedEllipse(int x, int y){
 	stroke(0);
 	fill(255, 0, 0);
-	ellipse(x, y, 40, 40);	
+	ellipse(x, y, 40, 40);
 }
 ~~~~~
 
@@ -266,15 +266,15 @@ rect(300, 250, 40, 40);
 
 The structure is the same, the numbers are the same, the intent is very similar, it would be great to have one place to put this code.
 
-To achieve this, you should introduce a parameter that can be used to indicate which version of the major variation should be used. Create a new function and constants for the new parameter: 
+To achieve this, you should introduce a parameter that can be used to indicate which version of the major variation should be used. Create a new function and constants for the new parameter:
 
 ~~~~~
-int SHAPE_ELLIPSE = 1; 
-int SHAPE_RECT = 2; 
+int SHAPE_ELLIPSE = 1;
+int SHAPE_RECT = 2;
 
-void drawRedShape(int x, int y, int shape) { 
-	stroke(0); 
-	fill(255, 0, 0); 
+void drawRedShape(int x, int y, int shape) {
+	stroke(0);
+	fill(255, 0, 0);
 	if(shape == SHAPE_ELLIPSE){
 		ellipse(x, y, 40, 40);
 	} else {
@@ -283,13 +283,13 @@ void drawRedShape(int x, int y, int shape) {
 }
 ~~~~~
 
-and in the first place, replace with: 
+and in the first place, replace with:
 
 ~~~~~
 drawRedShape(150, 200, SHAPE_ELLIPSE);
 ~~~~~
 
-and in the second place, replace with: 
+and in the second place, replace with:
 
 ~~~~~
 drawRedShape(300, 250, SHAPE_RECT);
@@ -328,7 +328,7 @@ int closestToAverage(int[] a){
 ~~~~~
 
 The function is really doing two separate tasks:
-  
+
   * calculating the average
   * scanning the array to find the (first) element that is closest the average
 
@@ -387,6 +387,3 @@ if(x){
 </div>
 
 _Incomming: vid to come here (??)_
-
-
-

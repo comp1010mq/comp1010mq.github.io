@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Lists
 within: programming
 ---
@@ -34,8 +34,8 @@ The size of array needs to be specified at the time of creating an array. The si
 
 ### 3. Lists have a range of instance methods
 
-With arrays (assuming array name is `arr`), the only operators you have to work with are `arr.length` and `arr[i]`. Anything and everything you need to do must be done using these two operators. Several life-saving methods are applicable on list objects, such as: 
-	
+With arrays (assuming array name is `arr`), the only operators you have to work with are `arr.length` and `arr[i]`. Anything and everything you need to do must be done using these two operators. Several life-saving methods are applicable on list objects, such as:
+
 - `get(int)` //similar to arr[i]
 - `size()` //similar to arr.length
 - `add(Object)`	//add item at the end of the list
@@ -132,7 +132,7 @@ for(int item: src) {
 		dest.add(item);
 	}
 }
-```	
+```
 
 <!--## Example 2 - reading student names outcomes from a file
 
@@ -210,15 +210,15 @@ class Rectangle {
 		length = len;
 		breadth = bre;
 	}
-	
+
 	public String toString() {
 		return length + " by " + breadth;
 	}
-	
+
 	public int area() {
 		return length * breadth;
 	}
-	
+
 	public boolean isSquare() {
 		return length == breadth;
 	}
@@ -276,7 +276,7 @@ int f = data.lastIndexOf(80); //e is -1 (80 not found)
 
 ```java
 //note data = [60, 10, 70, 20, 90, 60] already
-data.remove(10); 
+data.remove(10);
 //IndexOutOfBoundsException since 10 is treated as int, and hence remove(int) is called
 data.remove((Integer)10); //data = [60, 70, 20, 90, 60]
 data.remove((Integer)60); //data = [70, 20, 90, 60]
@@ -321,7 +321,7 @@ public class ListToFunctionClient {
 		increment(data); //data = [11, 71, 21, 91]
 		System.out.println(total+" "+data); //190 [11, 71, 21, 91]
 	}
-	
+
 	public static int sum(ArrayList<Integer> list) {
 		int result = 0;
 		for(int i=0; i < list.size(); i++) {
@@ -329,12 +329,12 @@ public class ListToFunctionClient {
 		}
 		return result;
 	}
-	
+
 	public static void increment(ArrayList<Integer> list) {
 		for(int i=0; i < list.size(); i++) {
 			list.set(i, list.get(i)+1);
 		}
-	}	
+	}
 }
 ```
 
@@ -410,7 +410,3 @@ At the end of the execution of the above code, the output will be:
 The memory diagram is provided below:
 
 ![](./fig/06-lists/builtInLists/userDefinedObjectArrayList.png)
-
-
-
-	

@@ -27,8 +27,8 @@ The **most frequently used** methods from `List` are:
 
 The two classes that implement the methods from `List` interface are: (**Details discussed in the lectures**)
 
-- **ArrayList** 
-- **LinkedList** 
+- **ArrayList**
+- **LinkedList**
 
 ## Creating and operating on List objects
 
@@ -36,7 +36,7 @@ The two classes that implement the methods from `List` interface are: (**Details
 
 A list cannot hold variables of primitive data types (like `int`, `boolean`, `double`, `char`). Instead it must hold objects of corresponding classes provided by Java (`Integer`, `Boolean`, `Double`, `Character` respectively)
 
-A list is typically parameterized with the type of objects it must hold. 
+A list is typically parameterized with the type of objects it must hold.
 
 For those interested in learning about this, check out [Java Generics](https://docs.oracle.com/javase/tutorial/java/generics/index.html)
 
@@ -60,7 +60,7 @@ You can similarly create a `LinkedList` object as,
 LinkedList<Double> grades = new LinkedList<Double>();
 ```
 
-#### **Student activity 1** 
+#### **Student activity 1**
 
 Create a list (as an `ArrayList`) to hold outcomes of a dice roll. The dice can be rolled an arbitrary number of times. Give it the name `outcomes`.
 
@@ -81,7 +81,7 @@ System.out.println(list);     //toString() called, displays [30, 10, 70, 30]
 String rep = list.toString(); //rep = "[30, 10, 70, 30]"
 ```
 
-#### **Student activity 2** 
+#### **Student activity 2**
 
 Display the list `outcomes`. You should see the output `[]`.
 
@@ -101,7 +101,7 @@ list.add(90);
 //list = [10, 70, 20, 90]
 ```
 
-#### **Student activity 3** 
+#### **Student activity 3**
 
 Add the items 5, 6, and -2 (in that order) to `outcomes`. Display the list. You should see the output `[5, 6, -2]`.
 
@@ -120,7 +120,7 @@ The method `size()` returns the number of items in a list. Returns `null` if emp
 int n = list.size(); //size = 4
 ```
 
-#### **Student activity 4** 
+#### **Student activity 4**
 
 Store the number of items in list `outcomes` in a variable `nRolls`. Display `nRolls`. You should see the output 3.
 
@@ -132,7 +132,7 @@ Store the number of items in list `outcomes` in a variable `nRolls`. Display `nR
 
 ### Getting item at a specific index
 
-The method `get(int)` returns the item at passed index. Throws `NullPointerException` if list is `null`. Throws `IndexOutOfBoundsException` if index is invalid. 
+The method `get(int)` returns the item at passed index. Throws `NullPointerException` if list is `null`. Throws `IndexOutOfBoundsException` if index is invalid.
 
 ```java
 //assuming list = [10, 70, 20, 90]
@@ -143,7 +143,7 @@ ArrayList<Integer> nullList = null;
 int d = nullList.get(0); //throws NullPointerException
 ```
 
-#### **Student activity 5** 
+#### **Student activity 5**
 
 Store the first item of list `outcomes` in variable `first`. Display `first`. You should see the output 5.
 
@@ -170,7 +170,7 @@ list.add(list.size(), 30); //after the last item
 list.add(20, -60); //throws IndexOutOfBoundsException
 ```
 
-#### **Student activity 6** 
+#### **Student activity 6**
 
 Add the item 4 between the first two items (5 and 6) of list `outcomes`. Display the list. You should see the output `[5, 4, 6, -2]`.
 
@@ -191,7 +191,7 @@ list.remove(-3); //throws IndexOutOfBoundsException
 list.remove(6); //throws IndexOutOfBoundsException
 ```
 
-#### **Student activity 7** 
+#### **Student activity 7**
 
 Remove the first item from list `outcomes`. Display the list. You should see the output `[4, 6, -2]`.
 
@@ -209,16 +209,16 @@ Assume that you do not know how many items are in the list. Display the list. Yo
 The only scenario in which this is tricky is a list containing Integers, because the type of the object and the type of the index is the same (int or Integer).
 
 ```java
-list.remove(4); 
+list.remove(4);
 //removes item at index 4, not the item 4. list = [30, 10, 4, 70, 30]
 
 //if you want to remove THE ITEM 4, you must pass it as Integer object
 
-list.remove((Integer)4); 
+list.remove((Integer)4);
 //removes item 4. list = [30, 10, 70, 30]
 ```
 
-#### **Student activity 8** 
+#### **Student activity 8**
 
 Remove the item 4 from list `outcomes`. Display the list. You should see the output `[6]`.
 
@@ -242,7 +242,7 @@ for(int i=0; i < list.size(); i++) {
 //total = 30+10+70+30 = 140
 ```
 
-#### **Student activity 9** 
+#### **Student activity 9**
 
 Count the number of items in `outcomes` that are greater than 2. Store in variable `moreThanTwo`. Display `moreThanTwo`. You should see the output 3.
 
@@ -252,7 +252,7 @@ Count the number of items in `outcomes` that are greater than 2. Store in variab
 ---------
 
 ### Checking existence and location of items in list
-	
+
 ```java
 //note: list = [30, 10, 70, 30]
 boolean flag = list.contains(10);   //flag = true
@@ -264,7 +264,7 @@ int idx3 = list.indexOf(30);        //idx3 = 0
 int idx4 = list.lastIndexOf(30);    //idx4 = 3
 ```
 
-#### **Student activity 10** 
+#### **Student activity 10**
 
 Add item 6 to the list. The list should now become `[6, 3, 5, -2, 6]`.
 Display the first index at which the item 6 exists in list `outcomes`. You should see the output 0.

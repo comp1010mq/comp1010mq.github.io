@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Array of objects
 within: programming
 ---
@@ -15,7 +15,7 @@ within: programming
 <details class="outcomes" markdown="1"><summary>Learning Outcomes:</summary>
 
   * Creating and operating on an array of objects.
-  
+
 </details>
 
 ## Author: Gaurav Gupta
@@ -28,13 +28,13 @@ We will use the following class for this discussion:
 
 ```java
 public class Rectangle {
-	public double width, height;	
-	
+	public double width, height;
+
 	public Rectangle(double w, double h) {
 		width = w;
 		height = h;
 	}
-	
+
 	public String toString() {
 		return width + " by " + height;
 	}
@@ -71,11 +71,11 @@ null
 null
 ```
 
-Each item of the array is a `Rectangle` reference, and initialized to the default value (which, for objects, is `null`). 
+Each item of the array is a `Rectangle` reference, and initialized to the default value (which, for objects, is `null`).
 
 The memory diagram for the current state of the array is
 
-![](./fig/03-classes-and-objects/array-of-objects-figure0.png) 
+![](./fig/03-classes-and-objects/array-of-objects-figure0.png)
 
 Any attempt to access an instance variable or instance method on any of the items of the array will raise a `NullPointerException`.
 
@@ -95,7 +95,7 @@ for(int i=0; i < blocks.length; i++) {
 }
 ```
 
-![](./fig/03-classes-and-objects/array-of-objects-figure1.png) 
+![](./fig/03-classes-and-objects/array-of-objects-figure1.png)
 
 This time, you will get the following output:
 

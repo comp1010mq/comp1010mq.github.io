@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Compound Data
 within: programming
 ---
@@ -143,7 +143,7 @@ So you can have,
 
 ## Syntax to create an array
 
-There are a few ways to create an array. 
+There are a few ways to create an array.
 
 ### Creating array - Option 1
 
@@ -231,7 +231,7 @@ int total  = 0;
 for(int i=0; i < outcomes.length; i++) {
 	total += outcomes[i];
 }
-double average = (total * 1.0)/outcomes.length; 
+double average = (total * 1.0)/outcomes.length;
 //multiplication with 1.0 to convert int to double
 ```
 
@@ -240,7 +240,7 @@ double average = (total * 1.0)/outcomes.length;
 
 For the next example, note that an integer takes up 4 bytes of memory.
 
-The array items are held together in a block. 
+The array items are held together in a block.
 
 Consider the following array,
 
@@ -250,7 +250,7 @@ int[] arr = new int[4];
 
 If the first item is at memory address 200-203, the second item will be at 204-207, the third item will be at 208-211 and the last item from 212-215.
 
-The array itself holds the starting address, in this case 200. 
+The array itself holds the starting address, in this case 200.
 That's why we say that an array is a *reference*.
 
 We represent this as,
@@ -278,7 +278,7 @@ boolean[] flags = {true, false, false, true, false};
 
 # Exercises
 
-## Exercise 1 
+## Exercise 1
 
 Draw the memory diagram for the following code,
 
@@ -391,10 +391,10 @@ for(int i=0; i < smartSwitches.length; i++) {
 <div class="task" markdown="1">
 Assume that we are encoding birthdays as integers where:
 
-- 1st january is 0, 
-- 2nd january is 1, 
-- and so on till, 
-- 31st december is 365 
+- 1st january is 0,
+- 2nd january is 1,
+- and so on till,
+- 31st december is 365
 
 (remember that 29th february will also be given an integer mapping).
 
@@ -402,7 +402,7 @@ The birthdays of 1000 people is stored in an array `bdays`. Write a piece of cod
 
 <details markdown="1"><summary>Solution</summary>
 ```java
-//assuming bdays is an array containing 1000 items 
+//assuming bdays is an array containing 1000 items
 //such that each item is in range [0...365]
 
 /*
@@ -412,7 +412,7 @@ if a birthday falls on 2nd jan (coded as 1), frequencies[1] increases by 1
 ...
 if a birthday falls on 32st dec (coded as 365), frequencies[365] increases by 1
 */
-int[] frequencies = new int[366]; 
+int[] frequencies = new int[366];
 
 for(int i=0; i < bdays.length; i++) {
 	/*
@@ -441,13 +441,13 @@ println(dayInMonth+"/"+currentMonth);
 </div>
 
 <div class="task" markdown="1">
-I keep track of the time taken (in minutes) to run each kilometer over a 100km race (let me dream!). These times are stored in an array `lapTimes`. For example, if `lapTimes[0]` is 6.23, it means I ran the first kilometer in 6 minutes 13.8 seconds. 
+I keep track of the time taken (in minutes) to run each kilometer over a 100km race (let me dream!). These times are stored in an array `lapTimes`. For example, if `lapTimes[0]` is 6.23, it means I ran the first kilometer in 6 minutes 13.8 seconds.
 
 Write a piece of code that determines my fastest lap (for example, display "Kilometer 0-1" if the first kilometer was the fastest, and "Kilometer 63-64" if the 64th kilometer was the fastest.)
 
 <details markdown="1"><summary>Solution</summary>
 ```java
-//assuming lapTimes is a float array containing 100 items 
+//assuming lapTimes is a float array containing 100 items
 int fastestLap = 0;
 for(int i=1; i < lapTimes.length; i++) {
 	if(lapTimes[i] < lapTimes[fastestLap]) {
@@ -463,5 +463,3 @@ print("Kilometer "+fastestLap+"-"+(fastestLap+1));
 <!--
 better for arrays and functions
 Create an array that holds the first 1000 prime numbers (a number is *prime* if it is more than or equal to 2 and is divisible by only 1 and itself).-->
-
-

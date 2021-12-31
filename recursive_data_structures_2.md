@@ -1,5 +1,5 @@
 ---
-layout: standard
+layout: page
 title: Custom-built linked lists
 within: programming
 ---
@@ -18,7 +18,7 @@ within: programming
 </details>
 
 ## Author: Gaurav Gupta
- 
+
 # Custom built linkedlist
 
 Now that we have taken a look at the [Node](./Node.java) class, we can construct a class that has a single `Node` object as instance variable.
@@ -37,7 +37,7 @@ public class Client {
 		MyLinkedList list1 = new MyLinkedList();
 		Node p = new Node(10, null);
 		list1.head = p;
-		
+
 		MyLinkedList list2 = new MyLinkedList();
 		Node q = new Node(40, null);
 		Node r = new Node(20, q);
@@ -48,9 +48,9 @@ public class Client {
 
 - `list1` has a single instance variable, `head`, that refers to `p`, which in turn, refers to `null`.
 > list1.head -> p -> null
- 
+
 - `list2` has a single instance variable, `head`, that refers to `r`, which in turn refers to `q`, which in turn, refers to `null`.
-> list2.head -> r -> q -> null	
+> list2.head -> r -> q -> null
 
 The idea is that if we start at `head`, we can visit every node in the chain until we hit `null`.
 
@@ -63,14 +63,14 @@ The idea is that if we start at `head`, we can visit every node in the chain unt
 ```java
 public class MyLinkedList {
 	public Node head;
-	
+
 	public void display() {
 		Node current = head; //create temporary reference to update
 		while(current != null) {
 			System.out.println(current.data); //use current for ... whatever
 			current = current.next; //move it to the next node
 		}
-	}	
+	}
 }
 ```
 
@@ -118,7 +118,7 @@ public boolean isEmpty() {
 
 ## Adding an item at the front
 
-```java 
+```java
 public void addToFront(int item) {
 	Node temp = new Node(item, head);
 	head = temp;
@@ -153,7 +153,7 @@ public Integer removeFirst() { //Integer so as to return null as error code
 
 # Homework
 
-#### Task 1 
+#### Task 1
 Add an instance method to class `MyLinkedList` that returns `true` if the list is empty, `false` otherwise.
 
 #### Task 2
@@ -175,15 +175,15 @@ This section will assumes the following definition of `MyLinkedList` class;
 ```java
 public class MyLinkedList {
 	public Node head;
-	
+
 	public void addToFront(int item) {
 		//create a node that has head as the next node
 		Node node = new Node(item, head);
-		
+
 		//update head to new node
 		head = node;
 	}
-	
+
 	public int size() {
 		Node current = head;
 		while(current != null) {
@@ -192,11 +192,11 @@ public class MyLinkedList {
 		}
 		return count;
 	}
-	
+
 	public boolean itemExistsAt(int idx) {
 		return idx >= 0 && idx < size();
 	}
-	
+
 	public String toString() {
 		Node current = head;
 		String result = "List: ";
@@ -225,14 +225,14 @@ Steps involved:
 1. check if an item exists at the given index using `itemExistsAt(int)`
 	1. if not, return `null`
 	2. if it does, go to the item and return its value.
-	 
+
 Now *"going"* to the item requires us to start at `head` and move forward using `next`, one at a time. How many times should we move forward by one?
 
 Lets say, the list is `head -> 10 -> 70 -> 20 -> 90 -> null`.
 
 idx = 0 => move 0 times
 idx = 1 => move 1 time
-idx = 2 => move 2 times 
+idx = 2 => move 2 times
 ...
 
 In general, we need to move forward `idx` times.
@@ -257,7 +257,7 @@ public Integer get(int idx) {
 	if(itemExistsAt(idx) == false) {
 		return null;
 	}
-	
+
 	//guaranteed that item DOES exist at index idx
 	Node current = head;
 	for(int i=0; i < idx; i++) {
@@ -353,18 +353,18 @@ public Integer remove(int idx) {
 	if(itemExistsAt(idx) == false) {
 		return null;
 	}
-	
+
 	if(idx == 0) {
 		int itemRemoved = head.data;
 		head = head.next;
 		return itemRemoved;
 	}
-	
+
 	Node current = head;
 	for(int i=0; i < idx - 1; i++) { //moved forward idx-1 times
 		current = current.next;
 	}
-	
+
 	Node nodeToRemove = current.next;
 	int itemRemoved = nodeToRemove.data;
 
@@ -471,22 +471,22 @@ public boolean insert(int idx, int value) {
 	if(idx < 0 || idx > size()) {
 	   return false;
 	}
-	
+
 	Node node = new Node(value, null);
 	if(idx == 0) {
 		node.next = head;
 		head = node;
 	}
-	
+
 	Node current = head;
 	for(int i=0; i < idx - 1; i++) { //moved forward idx-1 times
 		current = current.next;
 	}
-	
+
 	Node itemAfter = current.next; //itemAfter will be null if node added to end of list
 	current.next = node;
 	node.next = itemAfter; //node.next will be null if node added to end of list
-	
+
 	return true;
 }
 ```
