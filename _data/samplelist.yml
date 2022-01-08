@@ -28,6 +28,8 @@ nav:
         url: /refactoring
       - title: Program Design
         url:  /design
+  - title: Transition to Java
+    url: /transition_to_java
   - title: Debugging in Java
     url: /debugging
   - title: Unit Testing
