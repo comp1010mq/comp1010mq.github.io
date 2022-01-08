@@ -1,0 +1,33 @@
+{%- assign page_paths = site.data.samplelist.nav -%}
+
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+a {
+  padding: 8px;
+}
+
+</style>
+
+<ul>
+{%- for item in page_paths -%}
+    {% if item.subnav %}
+      <ul>
+        {%- for page2 in item.subnav -%}
+          <li><a href="{{ page2.url }}">{{ page2.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    {% else %}
+      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {%- endif -%}
+{%- endfor -%}
+</ul>
