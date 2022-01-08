@@ -123,36 +123,36 @@ _The compiler_ wil convert text to a runnable program.  _Processing_ will work o
 
 Processing insists that if you divide one integer by another, you should get an integer back as the result.  This is simple enough for `4/2` which is `2` but what answer should you get from `4/3`?  Processing will do integer division as a _quotient_ and _remainder_ just like you did in primary school.  `/` gets you the quotient and the new operation `%` gets you the remainder:
 
-  * `4/2` = `2`
-  * `4/3` = `1` because the full answer would be "1 remainder 1"
-  * `8/3` = `2` because the full answer would be "2 remainder 2"
-  * `7/3` = `2` because the full answer would be "2 remainder 1"
-  * `4%3` = `1` because the full answer would be "1 remainder 1"
-  * `8%3` = `2` because the full answer would be "2 remainder 2"
-  * `7%3` = `1` because the full answer would be "2 remainder 1"
+  - `4/2` = `2`
+  - `4/3` = `1` because the full answer would be "1 remainder 1"
+  - `8/3` = `2` because the full answer would be "2 remainder 2"
+  - `7/3` = `2` because the full answer would be "2 remainder 1"
+  - `4%3` = `1` because the full answer would be "1 remainder 1"
+  - `8%3` = `2` because the full answer would be "2 remainder 2"
+  - `7%3` = `1` because the full answer would be "2 remainder 1"
 
 <div class="task" markdown="1">
-Compute the following expressions according to processing's rules:
+Compute the following expressions according to rules of Processing:
 
-  * `3+5`
-  * `-2*5`
-  * `12/3`
-  * `17/5`
-  * `17/6`
-  * `12%3`
-  * `17%5`
-  * `17%6`
-  * `12.0/5.0`
+  - `3+5`
+  - `-2*5`
+  - `12/3`
+  - `17/5`
+  - `17/6`
+  - `12%3`
+  - `17%5`
+  - `17%6`
+  - `12.0/5.0`
 
 <details markdown="1"><summary>solutions</summary>
-  * `3+5` = `8`
-  * `-2*5` = `-10`
-  * `12/3` = `4`
-  * `17/5` = `3`
-  * `17/6` = `2`
-  * `12%3` = `0`
-  * `17%5` = `2`
-  * `17%6` = `5`
-  * `12.0/5.0`= `2.4`
+  - `3+5` = `8`<br>
+  - `-2*5` = `-10`<br>
+  - `12/3` = `4`<br>
+  - `17/5` = `3`<br>
+  - `17/6` = `2`<br>
+  - `12%3` = `0`<br>
+  - `17%5` = `2`<br>
+  - `17%6` = `5`<br>
+  - `12.0/5.0`= `2.4`
 </details>
 </div>
