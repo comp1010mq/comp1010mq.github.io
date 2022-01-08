@@ -62,6 +62,8 @@ nav:
     url: /iteration
   - title: List of Lists
     url: /listOfLists
+  - title: Stacks and Queues
+    url: stacks_queues
   - title: Custom-built ArrayList
     url: /custom-built-arraylist
   - title: Recursive data structures - 1
