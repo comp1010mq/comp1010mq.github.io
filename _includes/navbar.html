@@ -1,31 +1,36 @@
 {%- assign page_paths = site.data.samplelist.nav -%}
 
+<!--- based on https://blog.hubspot.com/website/css-sidebar --->
 <style>
-ul {
-  list-style-type: none;
+.sidebar {
+  width: 200px;
+  position: absolute;
   margin: 0;
-  padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-li {
-  float: left;
-}
-
-a {
+.sidebar div {
   padding: 8px;
+  font-size: 24px;
+  display: block;
 }
 
+.wrapper {
+  margin-left: 200px;
+}
 </style>
 
 <ul>
 {%- for item in page_paths -%}
     {% if item.subnav %}
-      <ul>
+      <li>
+        <a>{{ item.title }} ▼</a>
+        <ul>
         {%- for page2 in item.subnav -%}
           <li><a href="{{ page2.url }}">{{ page2.title }}</a></li>
         {%- endfor -%}
       </ul>
+    </li>
     {% else %}
       <li><a href="{{ item.url }}">{{ item.title }}</a></li>
     {%- endif -%}
