@@ -117,8 +117,6 @@ _The compiler_ wil convert text to a runnable program.  _Processing_ will work o
 </details>
 </div>
 
-{% include basic_inline_ad.html %}
-
 # Integer Division
 
 Processing insists that if you divide one integer by another, you should get an integer back as the result.  This is simple enough for `4/2` which is `2` but what answer should you get from `4/3`?  Processing will do integer division as a _quotient_ and _remainder_ just like you did in primary school.  `/` gets you the quotient and the new operation `%` gets you the remainder:
