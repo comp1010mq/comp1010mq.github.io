@@ -1,38 +1,62 @@
 {%- assign page_paths = site.data.samplelist.nav -%}
 
-<!--- based on https://blog.hubspot.com/website/css-sidebar --->
 <style>
-.sidebar {
-  width: 25%;
-  position: absolute;
-  margin: 0;
-  overflow-x: hidden;
-}
+  .sidebar {
+    width: 25%;
+    position: absolute;
+    margin: 0;
+    overflow-x: hidden;
+  }
 
-.sidebar div {
-  padding: 8px;
-  font-size: 24px;
-  display: block;
-}
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
 
-.wrapper {
-  margin-left: 25%;
-}
+  .sidebar:hover .dropdown-content {
+    display: block;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    text-align: left;
+  }
+
+  .sidebar a{
+    color: black;
+  }
+
+  .dropbtn {
+    color: black;
+    background-color: white;
+    text-align: left;
+    border: none;
+    margin: 0;
+  }
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
 </style>
 
 <ul>
-{%- for item in page_paths -%}
-    {% if item.subnav %}
-      <li>
-        <a>{{ item.title }} ▼</a>
-        <ul>
-        {%- for page2 in item.subnav -%}
-          <li><a href="{{ page2.url }}">{{ page2.title }}</a></li>
-        {%- endfor -%}
-      </ul>
-    </li>
+{%- for page1 in page_paths -%}
+    {% if page1.subnav %}
+      <button type="button" class="dropbtn">{{ page1.title }} ▼</button>
+        <ul class="dropdown-content">
+            {%- for page2 in page1.subnav -%}
+              <a href="{{ page2.url }}">{{ page2.title }}</a>
+            {%- endfor -%}
+        </ul>
     {% else %}
-      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+      <li><a href="{{ page1.url }}">{{ page1.title }}</a></li>
     {%- endif -%}
 {%- endfor -%}
 </ul>
