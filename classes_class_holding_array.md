@@ -145,7 +145,7 @@ Now, both `GoodClient` and `BadClient` will give the same, logically correct, ou
 
 # Class holding an array of objects
 
-This section assumes you are familiar with [Composition](./classes_composition.html).
+This section assumes you are familiar with [Composition](./classes_composition).
 
 For the sake of clarity, we'll use the same `Point` class definition used in that topic.
 

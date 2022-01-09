@@ -219,7 +219,7 @@ void draw(){
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Z8s-7beNP1c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-As discussed in the above video, the fact that processing is always in a "draw loop" can confuse things somewhat.  It is possible to see all the operation of loops free of this constraint if we work only on _the console_.  [The console is the black area below your program](./debugging.html) and it is available even when you do a "static" processing program (one that has no `setup` or `draw`).
+As discussed in the above video, the fact that processing is always in a "draw loop" can confuse things somewhat.  It is possible to see all the operation of loops free of this constraint if we work only on _the console_.  [The console is the black area below your program](./debugging) and it is available even when you do a "static" processing program (one that has no `setup` or `draw`).
 
 <div class="task" markdown="1">
 Using loops, draw five `^` (hat) characters to the console

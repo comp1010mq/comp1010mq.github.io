@@ -235,7 +235,7 @@ sequenceDiagram
 
 # Special methods all objects have
 
-Thanks to a feature of Java [we will learn later](../practice_of_programming/inheritance.html) there are some methods that "come for free" in every class (and thus are attached to every object).  A few of these are interesting to us:
+Thanks to a feature of Java [we will learn later](../practice_of_programming/inheritance) there are some methods that "come for free" in every class (and thus are attached to every object).  A few of these are interesting to us:
 
   * `toString(): String`
   * `equals(Object): boolean`
