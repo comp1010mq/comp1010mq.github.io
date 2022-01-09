@@ -14,18 +14,17 @@
     z-index: 1;
   }
 
-  <!--
   .sidebar:hover .dropdown-content {
-    display: block;
+    /* display: block; */
+    color: #528240;
   }
-  -->
 
   .sidebar ul {
     list-style-type: none;
   }
 
   .dropdown-content a {
-    display: block;
+    /* display: block; */
     color: black;
     text-align: left;
   }
@@ -56,9 +55,9 @@
             {%- for page2 in page1.subnav -%}
               <a href="{{ page2.url }}">{{ page2.title }}</a>
             {%- endfor -%}
-        </ul></details>
+        </ul>
     {% else %}
-    <details><summary><li><a href="{{ page1.url }}">{{ page1.title }}</a></li></summary> 
+    <li><a href="{{ page1.url }}">{{ page1.title }}</a></li>
     {%- endif -%}
 {%- endfor -%}
 </ul>
