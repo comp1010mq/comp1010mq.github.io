@@ -3,7 +3,7 @@ layout: page
 author: gaurav
 ---
 
-# The `list` interface
+# The `List` interface
 
 List is an interface in Java (for the time being, just assume that an interface is a collection of method headers - very loose definition but it will do for now).
 
