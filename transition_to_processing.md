@@ -48,7 +48,7 @@ You should see an X drawn across a small window.  That window is a processing "s
 
 Programmers need to know how the machine they are programming actually work.  This is one of your primary tasks early on.  You can copy-and-paste some programs, and even make small changes to them, without understanding the underlying machine but you will run out of runway very quickly.
 
-So, what exactly occurs when a processing program is run?  If we think of the process as a _conversation_ betwen different _actors_ we would see a conversation like this:
+So, what exactly occurs when a processing program is run?  If we think of the process as a _conversation_ between different _actors_ we would see a conversation like this:
 
 {: .chat.user.left}
 Please run this program
@@ -113,7 +113,7 @@ Which component is responsible for each of the following tasks:
   * work out what occurs in `setup`
 
 <details markdown="1"><summary>Solution</summary>
-_The compiler_ wil convert text to a runnable program.  _Processing_ will work out what occurs in draw.  _The computer (or the operating system)_ will put actual pictures on the screen.  _Processing_ will work out what occurs in `setup`.
+_The compiler_ will convert text to a runnable program.  _Processing_ will work out what occurs in draw.  _The computer (or the operating system)_ will put actual pictures on the screen.  _Processing_ will work out what occurs in `setup`.
 </details>
 </div>
 
