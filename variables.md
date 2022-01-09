@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Primitive Operations](/programming/primitive_operations.html)
-  * [Algorithms](/programming/algorithms.html)
+  * [Primitive Operations](./primitive_operations)
+  * [Algorithms](./algorithms)
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>
@@ -62,7 +62,7 @@ Notice that the assignment statement is made up of two expressions connected wit
 
 ## How memory works
 
-Before we can fully grasp this, we need to update our understanding of how a Processing program runs.  In [an earlier topic](/programming/transition_to_processing.html) we saw program execution as a conversation between user, compiler, processing and computer.  This model still holds but we need to add to it.  When _processing_ is doing its thing, it has access to a bank of memory and it might put things in there or read things out of there.
+Before we can fully grasp this, we need to update our understanding of how a Processing program runs.  In [an earlier topic](./transition_to_processing) we saw program execution as a conversation between user, compiler, processing and computer.  This model still holds but we need to add to it.  When _processing_ is doing its thing, it has access to a bank of memory and it might put things in there or read things out of there.
 
 From here on in, we will tend to leave out the conversation because it is the same every time, but we will often look to the memory bank to see what is going on in our program.
 

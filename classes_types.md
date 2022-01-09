@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Transition to Java](./transition_to_java.html)
-  * [Compound Data](./composite_data.html)
+  * [Transition to Java](./transition_to_java)
+  * [Compound Data](./composite_data)
 
 </details>
 

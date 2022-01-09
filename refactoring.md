@@ -4,12 +4,12 @@ title: "Refactoring"
 within: programming
 ---
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
-  * [Primitive Operations](primitive_operations.html)
-  * [Variables](variables.html)
-  * [Loops](loops.html)
-  * [Functions](functions.html)
-  * [Compound Data](composite_data.html)
-  * [Scope](scope.html)
+  * [Primitive Operations](primitive_operations)
+  * [Variables](variables)
+  * [Loops](loops)
+  * [Functions](functions)
+  * [Compound Data](composite_data)
+  * [Scope](scope)
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>

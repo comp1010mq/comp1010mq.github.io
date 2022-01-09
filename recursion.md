@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Functions](./functions.html)
-  * [Recursion - What goes on during a function call](./recursion_function_call.html)
+  * [Functions](./functions)
+  * [Recursion - What goes on during a function call](./recursion_function_call)
 
 </details>
 

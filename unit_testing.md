@@ -7,8 +7,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Transition to Java](./transition_to_java.html)
-  * [Debugging in Java](./debugging.html)
+  * [Transition to Java](./transition_to_java)
+  * [Debugging in Java](./debugging)
 
 </details>
 

@@ -6,10 +6,10 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Variables](/programming/variables.html)
-  * [Conditions](/programming/conditions.html)
-  * [Loops](/programming/loops.html)
-  * [Functions](/programming/functions.html)
+  * [Variables](./variables)
+  * [Conditions](./conditions)
+  * [Loops](./loops)
+  * [Functions](./functions)
 
 </details>
 

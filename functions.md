@@ -6,9 +6,9 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Primitive Operations](/programming/primitive_operations.html)
-  * [Variables](/programming/variables.html)
-  * [Conditions](/programming/conditions.html)
+  * [Primitive Operations](primitive_operations)
+  * [Variables](variables)
+  * [Conditions](conditions)
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>
@@ -110,7 +110,7 @@ Suppose we have a function that accepts a real number (`double`) and returns its
 Draw a block diagram for the interaction when a caller calls the function with the value 2.5. Assume the name of the formal parameter is `val`, and the value returned by the function is copied into a variable `sqr`.
 
 <details markdown="1"><summary>Solution</summary>
-  ![](/programming/block_ans.png)
+  ![](./block_ans.png)
 </details>
 </div>
 

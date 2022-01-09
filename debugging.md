@@ -6,7 +6,7 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Transition to Java](/programming/transition_to_java.html)
+  * [Transition to Java](transition_to_java)
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>

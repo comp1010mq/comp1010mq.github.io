@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Classes as Types](./classes_types.html)
-  * [Copying objects](./classes_copies.html)
+  * [Classes as Types](./classes_types)
+  * [Copying objects](./classes_copies)
 
 </details>
 

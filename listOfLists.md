@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-* <a href="/programming/lists.html">Lists</a>
-* <a href="/programming/iteration.html">Iterators</a>
+* <a href="./lists">Lists</a>
+* <a href="./iteration">Iterators</a>
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>

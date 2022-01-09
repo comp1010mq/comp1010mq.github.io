@@ -6,14 +6,14 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Primitive Operations](/programming/primitive_operations.html)
-  * [Variables](/programming/variables.html)
-  * [Conditions](/programming/condiations.html)
-  * [Loops](/programming/loops.html)
-  * [Functions](/programming/functions.html)
-  * [Scope](/programming/scope.html)
-  * [Compound Data](/programming/compound_data.html)
-  * [Reference Semantics](/programming/reference_semantics.html)
+  * [Primitive Operations](./primitive_operations)
+  * [Variables](./variables)
+  * [Conditions](./conditions)
+  * [Loops](./loops)
+  * [Functions](./functions)
+  * [Scope](./scope)
+  * [Compound Data](./composite_data)
+  * [Reference Semantics](./reference_semantics)
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>
@@ -44,7 +44,7 @@ We have cut our teeth with Processing, but now it is time to graduate to the sam
 
 # How do programs run in Java (compared to Processing)
 
-[Remind yourself how processing ran](/programming/transition_to_processing.html) programs if you need to refresh your memory.
+[Remind yourself how processing ran](./transition_to_processing) programs if you need to refresh your memory.
 
 In Java, you must perform _two_ steps yourself to get your program to run:
 

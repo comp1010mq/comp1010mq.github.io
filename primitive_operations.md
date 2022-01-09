@@ -6,7 +6,7 @@ within: programming
 
 <details class="prereq" markdown="1">
 <summary>Assumed Knowledge</summary>
-  * [Transition to Processing](/programming/transition_to_processing.html)
+  * [Transition to Processing](./transition_to_processing)
 </details>
 
 <details class="outcomes" markdown="1">

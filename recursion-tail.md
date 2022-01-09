@@ -6,9 +6,9 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-* [Functions](./functions.html)
-* [Recursion](./recursion.html)
-* [Recursion with String data](./recursion-strings.html)
+* [Functions](./functions)
+* [Recursion](./recursion)
+* [Recursion with String data](./recursion-strings)
 
 </details>
 

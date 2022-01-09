@@ -6,7 +6,7 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Classes](./classes_types.html)
+  * [Classes](./classes_types)
 
 </details>
 

@@ -5,8 +5,8 @@ within: programming
 ---
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Primitive Operations](/programming/primitive_operations.html)
-  * [Variables](/programming/variables.html)
+  * [Primitive Operations](primitive_operations)
+  * [Variables](variables)
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>

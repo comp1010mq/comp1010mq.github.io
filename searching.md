@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * [Recursion](/programming/recursion.html)
-  * [Arrays](/programming/composite_data.html)
+  * [Recursion](./recursion)
+  * [Arrays](./composite_data)
 
 </details>
 

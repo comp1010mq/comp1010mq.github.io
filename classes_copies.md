@@ -6,8 +6,8 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Reference Semantics](./reference_semantics.html)
-  * [Classes as Types](./classes_types.html)
+  * [Reference Semantics](./reference_semantics)
+  * [Classes as Types](./classes_types)
 
 </details>
 

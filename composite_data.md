@@ -6,7 +6,7 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge</summary>
 
-  * <a href="/programming/variables.html">Variables</a>
+  * <a href="variables">Variables</a>
 </details>
 
 <details class="outcomes" markdown="1"><summary>Learning Outcomes</summary>

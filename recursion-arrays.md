@@ -6,9 +6,9 @@ within: programming
 
 <details class="prereq" markdown="1"><summary>Assumed Knowledge:</summary>
 
-  * [Functions](./functions.html)
-  * [Classes as Types](./classes_types.html)
-  * [Recursion](./recursion.html)
+  * [Functions](./functions)
+  * [Classes as Types](./classes_types)
+  * [Recursion](./recursion)
 
 </details>
 
