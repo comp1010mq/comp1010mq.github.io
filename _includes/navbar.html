@@ -1,11 +1,21 @@
 {%- assign page_paths = site.data.samplelist.nav -%}
 
 <style>
-  .sidebar {
-    width: 25%;
-    position: absolute;
-    margin: 0;
-    overflow-x: hidden;
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
   }
 
   .sidebar a {
@@ -29,6 +39,7 @@
   .dropdown-content a {
     display: block;
     color: black;
+    background: white;
     text-align: left;
   }
 
