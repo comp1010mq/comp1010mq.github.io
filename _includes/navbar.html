@@ -53,7 +53,7 @@
   <ul>
   {%- for page1 in page_paths -%}
       {% if page1.subnav %}
-        <li class="dropdown"> {{ page1.title }} ▼
+        <li class="dropdown-toggle"> {{ page1.title }} ▼
             <ul class="dropdown-content">
                 {%- for page2 in page1.subnav -%}
                   <a href="{{ page2.url }}">{{ page2.title }}</a>
