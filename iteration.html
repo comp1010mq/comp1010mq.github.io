@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Iterating over lists | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Iterating over lists" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/iteration.html" />
+<meta property="og:url" content="/iteration.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Iterating over lists" />
+<script type="application/ld+json">
+{"url":"/iteration.html","@type":"WebPage","headline":"Iterating over lists","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Iterating over lists</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="./lists">Lists</a></li>
+    <li><a href="./loops">Loops</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Be able to iterate over built in lists</li>
+  </ul>
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="user-defined-class-used">User-defined class used</h1>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">int</span> <span class="n">w</span><span class="o">,</span> <span class="kt">int</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+		<span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">width</span> <span class="o">+</span> <span class="s">" by "</span> <span class="o">+</span> <span class="n">height</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="enhanced-for-loop">Enhanced for loop</h1>
+
+<p>Until now, we’ve use the classic counter-based loop to traverse through arrays and lists (<code class="language-plaintext highlighter-rouge">for int i=0; ...</code>).</p>
+
+<p>But when you don’t really need the index and just want to use a construct where it says,</p>
+
+<blockquote>
+  <p><em>“For every item (current) in the collection, use current for something”</em></p>
+</blockquote>
+
+<p>This kind of traversal is provided by the <em>enhanced for loop</em>.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">type</span> <span class="nl">current:</span> <span class="n">array</span><span class="o">/</span><span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">use</span> <span class="n">current</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="example-with-built-in-class">Example with built-in class</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">70</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">90</span><span class="o">);</span>
+
+<span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="nc">Integer</span> <span class="nl">item:</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">item</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this example, a reference copy of the current item is made into <code class="language-plaintext highlighter-rouge">item</code>, which is then used.</p>
+
+<h3 id="example-with-user-defined-class">Example with user-defined class</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Rectangle</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Rectangle</span><span class="o">&gt;();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">));</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">4</span><span class="o">));</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">8</span><span class="o">));</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">6</span><span class="o">));</span>
+
+<span class="k">for</span><span class="o">(</span><span class="nc">Rectangle</span> <span class="nl">r:</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this example, a reference copy of the current item is made into <code class="language-plaintext highlighter-rouge">r</code>, which is then used.</p>
+
+<h2 id="when-should-one-use-the-enhanced-for-loop">When should one use the enhanced for loop?</h2>
+
+<p>Enhanced for loops are used when you don’t need the index for anything besides accessing the item at that index.</p>
+
+<h3 id="examples-of-when-enhanced-for-loop-should-be-used">Examples of when enhanced for loop should be used</h3>
+
+<ul>
+  <li>Finding the sum of all items in array/list</li>
+  <li>Finding the sum of all items (that optionally satisfy some condition(s)) in array/list</li>
+  <li>Finding the highest/smallest item in an array/list</li>
+</ul>
+
+<h3 id="examples-when-its-better-imo-to-use-a-counter-based-loop">Examples when it’s better (IMO) to use a counter-based loop</h3>
+
+<ul>
+  <li>Checking if array/list is sorted (because you need to compare an item with the item after it, so you need to access items at index <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">i+1</code>).</li>
+  <li>Finding the location of the highest/smallest item in an array/list.</li>
+  <li>Finding if an array/list contains any duplicates.</li>
+  <li>Sorting an array/list.</li>
+  <li>Performing binary search over a sorted array/list.</li>
+</ul>
+
+<h2 id="problem-with-enhanced-for-loop">Problem with enhanced for loop</h2>
+
+<p>You can update the instance variables of items of a list in an enhance for loop but not re-reference them. Similarly, you cannot add or remove items in a list in an enhanced for loop.</p>
+
+<p>For example, assuming the the same <code class="language-plaintext highlighter-rouge">Rectangle</code> class definition, we can increase the <code class="language-plaintext highlighter-rouge">width</code> of all items in an <code class="language-plaintext highlighter-rouge">ArrayList</code> named <code class="language-plaintext highlighter-rouge">rectangles</code> of <code class="language-plaintext highlighter-rouge">Rectangle</code> objects, using:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="nc">Rectangle</span> <span class="nl">r:</span> <span class="n">rectangles</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">r</span><span class="o">.</span><span class="na">width</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, we cannot re-reference the items of the list as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Compiles, but DOES NOT achieve desired result</span>
+<span class="k">for</span><span class="o">(</span><span class="nc">Rectangle</span> <span class="nl">r:</span> <span class="n">rectangles</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is because <code class="language-plaintext highlighter-rouge">r</code> is a reference copy of the current item and what we are re-referencing is that reference copy, and not the reference that is in the list.</p>
+
+<p>Also, we cannot add or remove items.</p>
+
+<h4 id="trying-to-add-items">Trying to add items:</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//throws ConcurrentModificationException</span>
+<span class="k">for</span><span class="o">(</span><span class="nc">Rectangle</span> <span class="nl">r:</span> <span class="n">rectangles</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">height</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span>	<span class="n">rectangles</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+		<span class="n">rectangles</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">idx</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">5</span><span class="o">));</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="trying-to-remove-items">Trying to remove items:</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//throws ConcurrentModificationException</span>
+<span class="k">for</span><span class="o">(</span><span class="nc">Rectangle</span> <span class="nl">r:</span> <span class="n">rectangles</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">width</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">rectangles</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Hence, we look at iterators.</p>
+
+<h1 id="iterator">Iterator</h1>
+
+<p>There is a powerful and consistent way to traverse almost all data structures in Java - <a href="https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Iterator.html">Iterator</a>, and the class that implements the <code class="language-plaintext highlighter-rouge">Iterator</code> interface for lists is <a href="https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/ListIterator.html">ListIterator</a>.</p>
+
+<p>A class that implements <code class="language-plaintext highlighter-rouge">Iterator</code> interface can add other methods too. <a href="https://docs.oracle.com/javase/7/docs/api/java/util/ListIterator.html">ListIterator</a> is one such class.</p>
+
+<p>Following are the instance methods in <code class="language-plaintext highlighter-rouge">ListIterator</code> class:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Method</th>
+      <th>Description</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>boolean</td>
+      <td>hasNext()</td>
+      <td>Returns true if this list iterator has more elements when traversing the list in the forward direction.</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td>next()</td>
+      <td>Returns the next element in the list and advances the cursor position.</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>hasPrevious()</td>
+      <td>Returns true if this list iterator has more elements when traversing the list in the reverse direction.</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td>previous()</td>
+      <td>Returns the previous element in the list and moves the cursor position backwards.</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>nextIndex()</td>
+      <td>Returns the index of the element that would be returned by a subsequent call to next().</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>previousIndex()</td>
+      <td>Returns the index of the element that would be returned by a subsequent call to previous().</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>add(E e)</td>
+      <td>Inserts the specified element into the list (optional operation).</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>remove()</td>
+      <td>Removes from the list the last element that was returned by next() or previous() (optional operation).</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td>set(E e)</td>
+      <td>Replaces the last element returned by next() or previous() with the specified element (optional operation).</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The advantages of using an iterator are,</p>
+
+<ol>
+  <li>It’s consistent across any class that implements the <code class="language-plaintext highlighter-rouge">Iterator</code> interface.</li>
+  <li>It’s intuitive as in <em>“while the collection has another item, access it”</em>.</li>
+  <li>Ability to modify the contents of the list while traversing it (unlike an enhanced for loop).
+    <ol>
+      <li>Provision for <code class="language-plaintext highlighter-rouge">forEachRemaining</code> (not covered in this unit).</li>
+    </ol>
+  </li>
+</ol>
+
+<h3 id="creating-and-using-a-listiterator-on-a-list-object">Creating and using a ListIterator on a List object</h3>
+
+<p>A ListIterator <code class="language-plaintext highlighter-rouge">iter</code> is created on a List object <code class="language-plaintext highlighter-rouge">list</code> as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Assuming the list is [10, 70, 20, 90, 30, 80], the initial state of <code class="language-plaintext highlighter-rouge">iter</code> is represented by the red block.</p>
+
+<p><img src="./fig/06-lists/listIterator/listIterator-figure1.png" alt="" /></p>
+
+<p>You can check if there is an item in front of the current position of the iterator as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">itemExists</span> <span class="o">=</span> <span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Once you check an item exists, you can access it as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Object</span> <span class="n">item</span> <span class="o">=</span> <span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>This (accessing an item) results in the iterator moving forward by one.</p>
+
+<h3 id="complete-example">Complete example</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">()+</span><span class="s">" "</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">//displays 10 70 20 90 30 80</span>
+</code></pre></div></div>
+
+<blockquote>
+  <h3 id="initial-state">Initial state</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure1.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-first-iteration">After first iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure2.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-second-iteration">After second iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure3.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-third-iteration">After third iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure4.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-fourth-iteration">After fourth iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure5.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-fifth-iteration">After fifth iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure6.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-sixth-iteration">After sixth iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure7.png" alt="" /></p>
+</blockquote>
+
+<h3 id="starting-from-a-specific-index">Starting from a specific index</h3>
+
+<p>You can pass the index of the item <strong>BEFORE</strong> which you want the iterator to be placed.</p>
+
+<p>Assuming ArrayList <code class="language-plaintext highlighter-rouge">list</code> holds the values [10, 70, 20, 90, 30, 80], the following code will display <code class="language-plaintext highlighter-rouge">30 80</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">()+</span><span class="s">" "</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <h3 id="initial-state-1">Initial state</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure5.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-first-iteration-1">After first iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure6.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-second-iteration-1">After second iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure7.png" alt="" /></p>
+</blockquote>
+
+<h3 id="back-to-front-iteration">Back to front iteration</h3>
+
+<p>Just like <code class="language-plaintext highlighter-rouge">hasNext()</code> and <code class="language-plaintext highlighter-rouge">next()</code>, the methods <code class="language-plaintext highlighter-rouge">hasPrevious()</code> and <code class="language-plaintext highlighter-rouge">previous()</code> also exist.</p>
+
+<p>You can traverse a list from back to front as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">())</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">()+</span><span class="s">" "</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Assuming ArrayList <code class="language-plaintext highlighter-rouge">list</code> holds the values [10, 70, 20, 90, 30, 80], the following code will display <code class="language-plaintext highlighter-rouge">80, 30, 90, 20, 70, 10</code>.</p>
+
+<blockquote>
+  <h3 id="initial-state-2">Initial state</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure7.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-first-iteration-2">After first iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure6.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-second-iteration-2">After second iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure5.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-third-iteration-1">After third iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure4.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-fourth-iteration-1">After fourth iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure3.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-fifth-iteration-1">After fifth iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure2.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <h3 id="after-sixth-iteration-1">After sixth iteration</h3>
+
+  <p><img src="./fig/06-lists/listIterator/listIterator-figure1.png" alt="" /></p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">())</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">()+</span><span class="s">" "</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="adding-items-using-iterator">Adding items using iterator</h2>
+
+<p>After <code class="language-plaintext highlighter-rouge">add</code> is executed, the cursor is after the added item.</p>
+
+<h3 id="front-to-back-example">Front to back example</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="c1">//list is now 0, 10, 0, 70, 0, 20, 0, 90, 0, 80, 0, 30</span>
+</code></pre></div></div>
+
+<p>One must be careful while using <code class="language-plaintext highlighter-rouge">add</code> during reverse traversal since the cursor is after the added item.</p>
+
+<h3 id="back-to-front-example---buggy">Back to front example - BUGGY</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">())</span> <span class="o">{</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="c1">//INFINITE LOOP</span>
+</code></pre></div></div>
+
+<h3 id="back-to-front-example---correct">Back to front example - CORRECT</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">())</span> <span class="o">{</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">();</span> <span class="c1">//go left before the added 0</span>
+  <span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">();</span> <span class="c1">//go another left before the item already present</span>
+<span class="o">}</span>
+<span class="c1">//list is now 10, 0, 70, 0, 20, 0, 90, 0, 30, 0, 80, 0</span>
+</code></pre></div></div>
+
+<h2 id="removing-items-using-iterator">Removing items using iterator</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">remove</code> method removes from the list, the item most recently accessed using <code class="language-plaintext highlighter-rouge">next()</code> or <code class="language-plaintext highlighter-rouge">previous()</code>. Cursor remains unchanged after calling <code class="language-plaintext highlighter-rouge">remove</code>.</p>
+
+<p>Note: a call to <code class="language-plaintext highlighter-rouge">remove</code> can only be made once per call to <code class="language-plaintext highlighter-rouge">next</code> or <code class="language-plaintext highlighter-rouge">previous</code>. It can be made only if <code class="language-plaintext highlighter-rouge">add</code> has not been called after the last call to <code class="language-plaintext highlighter-rouge">next</code> or <code class="language-plaintext highlighter-rouge">previous</code>.</p>
+
+<h3 id="front-to-back-example-1">Front to back example</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">iter</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">//list is now 10, 20, 30</span>
+</code></pre></div></div>
+
+<h3 id="back-to-front-example">Back to front example</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">())</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">iter</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">//list is now 10, 20, 30</span>
+</code></pre></div></div>
+
+<h2 id="updating-items-using-iterator">Updating items using iterator</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">set</code> method updates the item most recently accessed using <code class="language-plaintext highlighter-rouge">next()</code> or <code class="language-plaintext highlighter-rouge">previous()</code>. Cursor remains unchanged after calling <code class="language-plaintext highlighter-rouge">set</code>.</p>
+
+<h3 id="front-to-back-example-2">Front to back example</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="o">-</span><span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="o">-</span><span class="mi">30</span><span class="o">,</span> <span class="o">-</span><span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">iter</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">//list is now 10, 70, 0, 90, 0, 0</span>
+</code></pre></div></div>
+
+<h3 id="back-to-front-example-1">Back to front example</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="o">-</span><span class="mi">20</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="o">-</span><span class="mi">30</span><span class="o">,</span> <span class="o">-</span><span class="mi">80</span><span class="o">));</span>
+<span class="nc">ListIterator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">listIterator</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">while</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">())</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">previous</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">iter</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">//list is now 0, 0, -20, 0, -30, -80</span>
+</code></pre></div></div>
+
+<!--# Some practical examples
+
+For all examples, the contents of `list` are assumed to be `[10, -70, 20, 0, 0, -90, -30, 80, 0, 20]`, and unless specified a `ListIterator iter` exists whose cursor is before the first item in `list` (10).-->
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

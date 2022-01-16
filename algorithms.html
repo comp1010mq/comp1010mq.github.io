@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Algorithms | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Algorithms" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/algorithms.html" />
+<meta property="og:url" content="/algorithms.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Algorithms" />
+<script type="application/ld+json">
+{"url":"/algorithms.html","@type":"WebPage","headline":"Algorithms","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Algorithms</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="/primitive_operations">Primitive Operations</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Understand what an algorithm is</li>
+    <li>Be able to relate an algorithm to a function</li>
+    <li>Be able to pass values into a function</li>
+    <li>Be able to get values back from a function</li>
+    <li>Be able to write your own functions</li>
+  </ul>
+</details>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/e_WfC8HwVB8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>So, “computer programming is all about writing <em>algorithms</em>” is it?  Lets now think more about these algorithms.  Let’s think about the different forms they might take, pulling our inspiration from “real life”.</p>
+
+<p>Here, we will call algorithms “tasks” because that better matches our intuition.  Tasks can be done by you or by someone else, just as you might program an algorithm yourself or you may call a function to run that algorithm for you.</p>
+
+<p>The easiest way to learn this is to think about real-life tasks such as:</p>
+
+<ul>
+  <li>personal tasks like getting dressed</li>
+  <li>mechanical tasks like washing clothes</li>
+  <li>computer tasks like working out the fastest route somewhere</li>
+  <li>etc.</li>
+</ul>
+
+<p>A task should have a simple purpose, it might need some resources and carrying out the task might effect other things.</p>
+
+<h4 id="basic-elements-of-an-algorithm">Basic elements of an algorithm</h4>
+
+<p>We will define every task according to its:</p>
+
+<ul>
+  <li><strong>purpose</strong></li>
+  <li><strong>inputs</strong></li>
+  <li><strong>effect on the world</strong></li>
+  <li><strong>outputs</strong></li>
+</ul>
+
+<p>Lets consider some tasks and put them into this framework</p>
+
+<h3 id="make-some-toast">Make some toast</h3>
+
+<ul>
+  <li><strong>purpose:</strong> create toast</li>
+  <li><strong>inputs:</strong> bread or crumpet and a darkness setting</li>
+  <li><strong>effects:</strong> none</li>
+  <li><strong>output:</strong> toasted bread</li>
+</ul>
+
+<p>so the inputs have told us we can’t just say <em>“make some toast”</em>, we need to say <em>“make some toast from rye bread on setting 3”</em>.  This is useful.  Breaking down the tasks has helped us understand it better and be more precise about it.  Lets look at another.</p>
+
+<h3 id="make-me-a-sandwich">Make me a sandwich</h3>
+
+<ul>
+  <li><strong>purpose:</strong> make a sandwich</li>
+  <li><strong>input:</strong> type of sandwich</li>
+  <li><strong>effects:</strong> none</li>
+  <li><strong>output:</strong> sandwich of the correct type</li>
+</ul>
+
+<p>Again we can see we were not precise enough.  We should have said “make me a corn beef and pickle sandwich”.</p>
+
+<h3 id="mow-the-lawn">Mow the lawn</h3>
+
+<ul>
+  <li><strong>purpose:</strong> make the grass short</li>
+  <li><strong>input:</strong> area to mow lawn</li>
+  <li><strong>effects:</strong> the grass in that area is shorter, the air smells of two-stroke.</li>
+  <li><strong>outputs:</strong> hay</li>
+</ul>
+
+<p>Here we are (assuming we ignore grass clippings) not interested in the <em>output</em> of the task, we are interested in its <em>effect</em>.  This lawn mowing example brings up another axis we have not considered yet.  How you mow the lawn depends on the length of the grass.  If the grass is too long you have to mow on a high setting, then go back and mow again on the final setting.  So we really should have another dimension for our tasks, “globals”.  Globals are things from the world that effect the tasks, the opposite of “effects” (things from the task that effect the world).</p>
+
+<ul>
+  <li><strong>purpose:</strong> make the grass short</li>
+  <li><strong>input:</strong> area to mow lawn</li>
+  <li><strong>effects:</strong> the grass in that area is shorter, the air smells of two-stroke.</li>
+  <li><strong>outputs:</strong> none</li>
+</ul>
+
+<p>Mathematical tasks are a particular type, they generally don’t have effects, they have only inputs and outputs.</p>
+
+<h3 id="add-two-numbers">Add two numbers</h3>
+
+<ul>
+  <li><strong>purpose:</strong> get the sum of two numbers</li>
+  <li><strong>input:</strong> two numbers</li>
+  <li><strong>effects:</strong> none</li>
+  <li><strong>output:</strong> a number</li>
+</ul>
+
+<p>So, we have four axis on which to think about any task/algorithm/function.  We can give each combination a nickname, making it easier to remember</p>
+
+<ul>
+  <li>the purpose of a task is its <em>name</em></li>
+  <li>if a task has inputs it is <em>informed</em>.</li>
+  <li>if a task has effects is a <em>changer</em></li>
+  <li>if a task has outputs it is a <em>producer</em></li>
+</ul>
+
+<p>We can give out tasks nicknames now.  “create toast” is an <em>informed producer</em>.  “make a sandwich” is an <em>informed producer</em>.  “make the grass short” is an <em>informed changer</em> and most mathematical tasks are <em>informed producer</em> s.  You will find some nicknames come up much more often than others.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cDA3_5982h8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<h1 id="algorithms-in-processing">Algorithms in Processing</h1>
+
+<p>Programming itself is the creation of algorithms, of creating <em>recipies</em> for the computer to follow.</p>
+
+<p>But, we never write our programs from scratch, we always write them with help from existing algorithms.  That is exactly what you have been doing with your basic Processing programs.  Every time you write <code class="language-plaintext highlighter-rouge">line(0,0, 100, 100)</code> in Processing, you are saying “please do the <em>line</em> algorithm with the inputs <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">100</code>, and <code class="language-plaintext highlighter-rouge">100</code>”.  Such algorithms are called <em>built-in functions</em> or <em>library functions</em>.</p>
+
+<p>As you use these build-in functions, you should think about what type of algorithm they are, i.e. which nickname should you give them.</p>
+
+<div class="task">
+  <p>What is the most appropriate nickname for each of the following processing built-in functions?  You may like to consult the <a href="https://processing.org/reference/">processing reference</a> to help you work out the answer:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">arc</code></li>
+    <li><code class="language-plaintext highlighter-rouge">hue</code></li>
+    <li><code class="language-plaintext highlighter-rouge">%</code></li>
+    <li><code class="language-plaintext highlighter-rouge">floor</code></li>
+  </ul>
+
+  <details>
+    <summary>Solution</summary>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">arc</code> is an “informed changer”</li>
+      <li><code class="language-plaintext highlighter-rouge">hue</code> is an “informed producer”</li>
+      <li><code class="language-plaintext highlighter-rouge">%</code> is an “informed producer”</li>
+      <li><code class="language-plaintext highlighter-rouge">floor</code> is an “informed producer”</li>
+    </ul>
+  </details>
+</div>
+
+<h1 id="basic-functions">Basic Functions</h1>
+
+<p>Let’s start by reviewing some functions we have seen in Primitive Operations.</p>
+
+<p>Draw line:</p>
+
+<ul>
+  <li>inputs: <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">float</code>
+    <ul>
+      <li>first two give x, y location for first point</li>
+      <li>last two give x, y location for second point</li>
+    </ul>
+  </li>
+  <li>effects: draws line at the specified position</li>
+  <li>output: none</li>
+</ul>
+
+<p>Draw-line is an informed changer. The draw-line task is implemented in Processing by the <code class="language-plaintext highlighter-rouge">line</code> function.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line(30, 50, 80, 70); 	// draw line from (30, 50) to (80, 70)
+						// remember, you CAN pass integers as float
+</code></pre></div></div>
+
+<h4 id="draw-rectangle">Draw rectangle</h4>
+
+<ul>
+  <li>inputs: <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">float</code>
+    <ul>
+      <li>first two give x, y location of the top-left corner</li>
+      <li>third value gives width of the rectangle</li>
+      <li>fourth value gives height of the rectangle</li>
+    </ul>
+  </li>
+  <li>effects: draws rectangle as specified</li>
+  <li>output: none</li>
+</ul>
+
+<p>implemented in Processing as function <code class="language-plaintext highlighter-rouge">rect</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rect(40, 30, 10, 15); 	// draw rectangle with top left corner
+						// at (40, 30) with width 10 and height 15
+</code></pre></div></div>
+
+<h4 id="set-interior-colour">Set interior colour</h4>
+
+<ul>
+  <li>input: red, green, blue</li>
+  <li>effects: affects subsequent shapes that are drawn</li>
+  <li>output: none</li>
+</ul>
+
+<p>implemented in Processing as function <code class="language-plaintext highlighter-rouge">fill</code>and it is an informed changer.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fill(0, 200, 0);             // set interior colour to a shade of green
+rect(40, 30, 10, 15);  // rectangle drawn as before but now with a green interior
+</code></pre></div></div>
+
+<p>We can create our own function that creates such a green rectangle.</p>
+
+<p>Draw box:</p>
+
+<ul>
+  <li>input: none</li>
+  <li>global: none</li>
+  <li>effects: draws a green rectangle</li>
+  <li>output: none</li>
+</ul>
+
+<p>In Processing we can implement this as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void drawBox() {
+    fill(0, 200, 0);      // set interior colour to a shade of green
+    rect(40, 30, 10, 15); // draw rectangle
+}
+</code></pre></div></div>
+
+<p>This is a simple function that doesn’t take any input.</p>
+
+<p>Now we can draw that green rectangle by doing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void draw() {
+    drawBox();
+}
+</code></pre></div></div>
+
+<p>Function <code class="language-plaintext highlighter-rouge">draw</code> will be explained shortly.</p>
+
+<div class="task">
+  <p>Write a series of functions that draw parts of a face; use those functions in <code class="language-plaintext highlighter-rouge">draw</code> to draw the whole face.</p>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">drawBox</code> is not a very exciting function because it always draws the same rectangle in the same position. It would be nice to have a function that would allow us to draw the rectangle at whatever position we wanted.</p>
+
+<p>draw box (version 2):</p>
+
+<ul>
+  <li>input: where we want the top left corner of the rectangle (say <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">y</code>)</li>
+  <li>effects: draws a green rectangle at the specified position</li>
+  <li>output: none</li>
+</ul>
+
+<p>Draw-box has progressed from an uninformed changer to an informer changer.</p>
+
+<p>We can implement it in Processing as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void drawBox2(int x, int y) {
+    fill(0, 200, 0);      // set interior colour to a shade of green
+    rect(x, y, 10, 15);   // draw rectangle
+}
+</code></pre></div></div>
+
+<p>Now we can see that the first line of the function has two input parameters <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code>. In Processing we need to say what sort of thing they are; we are supplying a and b as integer coordinates so they are integers and we tell Processing this by putting int before each parameter.
+Now we can create a complete program that will draw three of our rectangles:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void setup() {
+    drawBox2(10, 20);
+    drawBox2(70, 40);
+    drawBox2(20, 80);
+}
+
+void drawBox2(int a, int b) {
+    fill(0, 200, 0);      // set interior colour to a shade of green
+    rect(a, b, 10, 15);   // draw rectangle
+}
+
+</code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">setup</code> is needed because it is the function that Processing runs. Anything that you want run needs to be invoked directly or indirectly from setup.</p>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">drawBox2</code> we can see that the function gets two parameters as input and they are the coordinates of the top left corner of the rectangle, so they get used as such when rect is used:</p>
+
+<ul>
+  <li>the first time <code class="language-plaintext highlighter-rouge">drawBox2</code> is used, <code class="language-plaintext highlighter-rouge">x</code> is <code class="language-plaintext highlighter-rouge">10</code> and <code class="language-plaintext highlighter-rouge">y</code> is <code class="language-plaintext highlighter-rouge">20</code></li>
+  <li>the second time, <code class="language-plaintext highlighter-rouge">x</code> is <code class="language-plaintext highlighter-rouge">70</code> and <code class="language-plaintext highlighter-rouge">y</code> is <code class="language-plaintext highlighter-rouge">40</code></li>
+  <li>the third time, <code class="language-plaintext highlighter-rouge">x</code> is <code class="language-plaintext highlighter-rouge">20</code> and <code class="language-plaintext highlighter-rouge">y</code> is <code class="language-plaintext highlighter-rouge">80</code></li>
+</ul>
+
+<p>Although Processing already has <code class="language-plaintext highlighter-rouge">+</code> built into it, we can write our own <code class="language-plaintext highlighter-rouge">add</code> function:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void setup() {
+    add(3, 4);
+}
+
+int add(int p, int q) {
+    return p + q;
+}
+</code></pre></div></div>
+
+<p>We note:</p>
+
+<ul>
+  <li>since add is producing output, we need to say what kind of output it is producing; the sum of two integers is an integer so we want to say that the result is an integer; we do this by putting int before the function name</li>
+  <li>inside the function, we need to say what it is that we want to be the output, so we put return before the value we want output</li>
+  <li>Our program will calculate 3+4 but nothing is done with that value so the program will appear to do nothing. To get it to show us the result we use another function:</li>
+</ul>
+
+<p>print line:</p>
+
+<ul>
+  <li>input: some value</li>
+  <li>global: none</li>
+  <li>effects: displays the input value</li>
+  <li>output: none</li>
+</ul>
+
+<p>implemented in Processing as function <code class="language-plaintext highlighter-rouge">println</code></p>
+
+<p>Now add(3, 4) produces a value (7) which we can use as the input for println:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    println(add(3, 4));      // instead of just add(3, 4);
+</code></pre></div></div>
+
+<div class="task">
+  <p>Write an algorithm to describe <a href="https://www.youtube.com/watch?v=X1TAdd9Vm7s">putting an animation on a computer screen</a>.</p>
+  <details class="solution">
+    <summary>solution</summary>
+
+    <ul>
+      <li>input: nothing</li>
+      <li>effects: images appear on screen</li>
+      <li>output: none</li>
+    </ul>
+
+    <p>24 times a second, update the picture a little bit, put it on the screen, then go back and do it all again.</p>
+
+  </details>
+</div>
+
+<div class="task">
+  <p>Create another variant of drawBox that allows you to change some other aspect of the rectangle</p>
+</div>
+
+<div class="task">
+  <p>Write an algorithm that always returns the number 7</p>
+</div>
+
+<div class="task">
+  <p>Write an algorithm that returns the square of the number you give as input. For example, if the value passed is 6, it returns 36. If the value passed is 2.5, it returns 6.25.</p>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

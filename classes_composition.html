@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Classes - Composition | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Classes - Composition" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/classes_composition.html" />
+<meta property="og:url" content="/classes_composition.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Classes - Composition" />
+<script type="application/ld+json">
+{"url":"/classes_composition.html","@type":"WebPage","headline":"Classes - Composition","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Classes - Composition</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./classes_types">Classes as Types</a></li>
+    <li><a href="./classes_copies">Copying objects</a></li>
+    <li><a href="./classes_methods">Instance methods</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Understand composition in terms of classes.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="composition">Composition</h1>
+
+<p>Consider the following class <code class="language-plaintext highlighter-rouge">Point</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nf">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">_x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">_y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">_x</span><span class="o">;</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">_y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Next, consider class <code class="language-plaintext highlighter-rouge">Line</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Line</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Point</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nf">Line</span><span class="o">(</span><span class="nc">Point</span> <span class="n">p1</span><span class="o">,</span> <span class="nc">Point</span> <span class="n">p2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">start</span> <span class="o">=</span> <span class="n">p1</span><span class="o">;</span>
+		<span class="n">end</span> <span class="o">=</span> <span class="n">p2</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Pay attention to the following statement very carefully!</p>
+
+<p>Each <strong>instance</strong> of class <code class="language-plaintext highlighter-rouge">Line</code> holds <strong>references</strong> to two <strong>instances</strong> of class <code class="language-plaintext highlighter-rouge">Point</code>.</p>
+
+<p>(Informally, we say, <em>each Line contains two Point objects</em>)</p>
+
+<p>If I create an object of <code class="language-plaintext highlighter-rouge">Line</code> as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+<span class="nc">Point</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="mi">60</span><span class="o">);</span>
+<span class="nc">Line</span> <span class="n">line</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Line</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>There are 5 references and 3 instances.</p>
+
+<p>References (and types):</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">line</code>: <code class="language-plaintext highlighter-rouge">Line</code></li>
+  <li><code class="language-plaintext highlighter-rouge">line.start</code>: <code class="language-plaintext highlighter-rouge">Point</code></li>
+  <li><code class="language-plaintext highlighter-rouge">line.end</code>: <code class="language-plaintext highlighter-rouge">Point</code></li>
+  <li><code class="language-plaintext highlighter-rouge">p</code>: <code class="language-plaintext highlighter-rouge">Point</code></li>
+  <li><code class="language-plaintext highlighter-rouge">q</code>: <code class="language-plaintext highlighter-rouge">Point</code></li>
+</ol>
+
+<p>Instances (and types):</p>
+
+<ol>
+  <li>instance to which <code class="language-plaintext highlighter-rouge">line</code> refers: <code class="language-plaintext highlighter-rouge">Line</code></li>
+  <li>instance to which <code class="language-plaintext highlighter-rouge">p</code> and <code class="language-plaintext highlighter-rouge">line.start</code> refer: <code class="language-plaintext highlighter-rouge">Point</code></li>
+  <li>instance to which <code class="language-plaintext highlighter-rouge">q</code> and <code class="language-plaintext highlighter-rouge">line.end</code> refer: <code class="language-plaintext highlighter-rouge">Point</code></li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p><img src="./fig/03-classes-and-objects/composition/composition-figure0.png" alt="" /></p>
+
+<p>&nbsp;</p>
+
+<p>One can also create anonymous objects thereby reducing the number of references to keep track of.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Line</span> <span class="n">line</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Line</span><span class="o">(</span><span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">40</span><span class="o">),</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="mi">60</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>&nbsp;</p>
+
+<p><img src="./fig/03-classes-and-objects/composition/composition-figure1.png" alt="" /></p>
+
+<p>&nbsp;</p>
+
+<h2 id="adding-methods-to-the-mix">Adding methods to the mix</h2>
+
+<p>Consider a slightly modified class definition of <code class="language-plaintext highlighter-rouge">Point</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">_x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">_y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">_x</span><span class="o">;</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">_y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">double</span> <span class="nf">distanceFromOrigin</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareTo</span><span class="o">(</span><span class="nc">Point</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//compare based on distance from origin</span>
+		<span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">distanceFromOrigin</span><span class="o">();</span>
+		<span class="kt">double</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="na">distanceFromOrigin</span><span class="o">();</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">d1</span> <span class="o">&gt;</span> <span class="n">d2</span><span class="o">)</span>
+			<span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">d1</span> <span class="o">&lt;</span> <span class="n">d2</span><span class="o">)</span>
+			<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can then update the class <code class="language-plaintext highlighter-rouge">Line</code> to get the point on the line that is further from the origin, as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Line</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Point</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Line</span><span class="o">(</span><span class="nc">Point</span> <span class="n">p1</span><span class="o">,</span> <span class="nc">Point</span> <span class="n">p2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">start</span> <span class="o">=</span> <span class="n">p1</span><span class="o">;</span>
+		<span class="n">end</span> <span class="o">=</span> <span class="n">p2</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">Point</span> <span class="nf">getPointFurtherFromOrigin</span><span class="o">()</span> <span class="o">{</span>
+		<span class="cm">/*
+		 * left for you as an exercise
+		 * return p1 or p2 based on whichever is further from the origin
+		 * return p1 if they are both equidistant from the origin
+		 */</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="homework---1">Homework - 1</h1>
+
+<h3 id="task-1">Task 1</h3>
+
+<p>Draw the memory diagram for the objects created inside the <code class="language-plaintext highlighter-rouge">main</code> method in the following code. Also, state the number of instances and references in the diagram.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Date</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">day</span><span class="o">,</span> <span class="n">month</span><span class="o">,</span> <span class="n">year</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Date</span><span class="o">(</span><span class="kt">int</span> <span class="n">d</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">date</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+  		<span class="n">month</span> <span class="o">=</span> <span class="n">m</span><span class="o">;</span>
+  		<span class="n">year</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+  	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Time</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">hour</span><span class="o">,</span> <span class="n">minute</span><span class="o">,</span> <span class="n">second</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Time</span><span class="o">(</span><span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">hour</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+  		<span class="n">minute</span> <span class="o">=</span> <span class="n">m</span><span class="o">;</span>
+  		<span class="n">second</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+  	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">DateTime</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">Date</span> <span class="n">date</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="nc">Time</span> <span class="n">time</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Date</span><span class="o">(</span><span class="nc">Date</span> <span class="n">d</span><span class="o">,</span> <span class="nc">Time</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">date</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+  		<span class="n">time</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+  	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Date</span> <span class="n">d1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="mi">26</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">2020</span><span class="o">);</span>
+    <span class="nc">Time</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Time</span><span class="o">(</span><span class="mi">19</span><span class="o">,</span> <span class="mi">54</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="nc">DateTime</span> <span class="n">dt1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DateTime</span><span class="o">(</span><span class="n">d1</span><span class="o">,</span> <span class="n">t1</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="task-2">Task 2</h3>
+
+<p>Draw the memory diagram for the objects created inside the <code class="language-plaintext highlighter-rouge">main</code> method in the following code. Also, state the number of instances and references in the diagram.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Date</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">day</span><span class="o">,</span> <span class="n">month</span><span class="o">,</span> <span class="n">year</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Date</span><span class="o">(</span><span class="kt">int</span> <span class="n">d</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+  		<span class="n">month</span> <span class="o">=</span> <span class="n">m</span><span class="o">;</span>
+  		<span class="n">year</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+  	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Time</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">hour</span><span class="o">,</span> <span class="n">minute</span><span class="o">,</span> <span class="n">second</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Time</span><span class="o">(</span><span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">hour</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+  		<span class="n">minute</span> <span class="o">=</span> <span class="n">m</span><span class="o">;</span>
+  		<span class="n">second</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+  	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">DateTime</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">Date</span> <span class="n">date</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="nc">Time</span> <span class="n">time</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Date</span><span class="o">(</span><span class="nc">Date</span> <span class="n">d</span><span class="o">,</span> <span class="nc">Time</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">date</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+  		<span class="n">time</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+  	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">QuizAttempt</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">DateTime</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">marksObtained</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">QuizAttempt</span><span class="o">(</span><span class="nc">DateTime</span> <span class="n">s</span><span class="o">,</span> <span class="nc">DateTime</span> <span class="n">e</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+  		<span class="n">start</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+  		<span class="n">end</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+  		<span class="n">marksObtained</span> <span class="o">=</span> <span class="n">m</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Date</span> <span class="n">d1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="mi">26</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">2020</span><span class="o">);</span>
+    <span class="nc">Time</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Time</span><span class="o">(</span><span class="mi">19</span><span class="o">,</span> <span class="mi">54</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="nc">DateTime</span> <span class="n">dt1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DateTime</span><span class="o">(</span><span class="n">d1</span><span class="o">,</span> <span class="n">t1</span><span class="o">);</span>
+    <span class="nc">Date</span> <span class="n">d2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="mi">27</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">2020</span><span class="o">);</span>
+    <span class="nc">Time</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Time</span><span class="o">(</span><span class="mo">01</span><span class="o">,</span> <span class="mi">13</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+    <span class="nc">DateTime</span> <span class="n">dt2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DateTime</span><span class="o">(</span><span class="n">d2</span><span class="o">,</span> <span class="n">t2</span><span class="o">);</span>
+    <span class="nc">QuizAttempt</span> <span class="n">attempt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">QuizAttempt</span><span class="o">(</span><span class="n">dt1</span><span class="o">,</span> <span class="n">dt2</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="task-3">Task 3</h3>
+
+<p>For the same code as task 2, write down statements that store the following values in variable of the correct type.</p>
+
+<ul>
+  <li>The date on which the attempt began.</li>
+  <li>The time at which the attempt ended.</li>
+  <li>The minute at which the attempt began.</li>
+  <li>The hour at which the attempt ended.</li>
+  <li>The marks obtained in the attempt.</li>
+  <li>
+    <p>Assuming the existence of the following method in class <code class="language-plaintext highlighter-rouge">DateTime</code>, the number of seconds taken for the attempt</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSecondsTo</span><span class="o">(</span><span class="nc">DateTime</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">//returns number of seconds between calling object</span>
+      <span class="c1">//and parameter object. returned value is positive if</span>
+      <span class="c1">//parameter object is after calling object in</span>
+      <span class="c1">//the chronological sense.</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

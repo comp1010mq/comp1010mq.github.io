@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Custom-built linked lists | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Custom-built linked lists" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/recursive_data_structures_2.html" />
+<meta property="og:url" content="/recursive_data_structures_2.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Custom-built linked lists" />
+<script type="application/ld+json">
+{"url":"/recursive_data_structures_2.html","@type":"WebPage","headline":"Custom-built linked lists","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Custom-built linked lists</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="./recursion">Recursion</a></li>
+    <li><a href="./lists">Lists</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Understand the internal operation of recursively defined lists</li>
+    <li>Be able to create standard list operations for a recursivly defined list</li>
+    <li>Understand the time costs of various list operations</li>
+  </ul>
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="custom-built-linkedlist">Custom built linkedlist</h1>
+
+<p>Now that we have taken a look at the <a href="./Node.java">Node</a> class, we can construct a class that has a single <code class="language-plaintext highlighter-rouge">Node</code> object as instance variable.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyLinkedList</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Node</span> <span class="n">head</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As we saw in the last section, this node holds a reference to another node. That node could be <code class="language-plaintext highlighter-rouge">null</code> or could be a valid instance. A sample client:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">MyLinkedList</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyLinkedList</span><span class="o">();</span>
+		<span class="nc">Node</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+		<span class="n">list1</span><span class="o">.</span><span class="na">head</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+
+		<span class="nc">MyLinkedList</span> <span class="n">list2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyLinkedList</span><span class="o">();</span>
+		<span class="nc">Node</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">40</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+		<span class="nc">Node</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+		<span class="n">list2</span><span class="o">.</span><span class="na">head</span> <span class="o">=</span> <span class="n">r</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">list1</code> has a single instance variable, <code class="language-plaintext highlighter-rouge">head</code>, that refers to <code class="language-plaintext highlighter-rouge">p</code>, which in turn, refers to <code class="language-plaintext highlighter-rouge">null</code>.
+    <blockquote>
+      <p>list1.head -&gt; p -&gt; null</p>
+    </blockquote>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">list2</code> has a single instance variable, <code class="language-plaintext highlighter-rouge">head</code>, that refers to <code class="language-plaintext highlighter-rouge">r</code>, which in turn refers to <code class="language-plaintext highlighter-rouge">q</code>, which in turn, refers to <code class="language-plaintext highlighter-rouge">null</code>.
+    <blockquote>
+      <p>list2.head -&gt; r -&gt; q -&gt; null</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>The idea is that if we start at <code class="language-plaintext highlighter-rouge">head</code>, we can visit every node in the chain until we hit <code class="language-plaintext highlighter-rouge">null</code>.</p>
+
+<!--<iframe width="560" height="315" src="https://www.youtube.com/embed/pYyZ__roUZk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+-->
+<p><br />
+ 
+<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyLinkedList</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Node</span> <span class="n">head</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="c1">//create temporary reference to update</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">current</span><span class="o">.</span><span class="na">data</span><span class="o">);</span> <span class="c1">//use current for ... whatever</span>
+			<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//move it to the next node</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The same logic can be used to add up all the items in the list, as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//in class MyLinkedList</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="c1">//create temporary reference to update</span>
+	<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">current</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//move it to the next node</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="size-of-the-list">Size of the list</h3>
+
+<p>We can add a method to determine size of the list, as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//in class MyLinkedList</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="c1">//create temporary reference to update</span>
+	<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//move it to the next node</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="checking-if-list-is-empty">Checking if list is empty</h3>
+
+<p>If the list is empty, head is null</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//if head is null, return true, else return false</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="adding-an-item-at-the-front">Adding an item at the front</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">addToFront</span><span class="o">(</span><span class="kt">int</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+	<span class="nc">Node</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+	<span class="n">head</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that if the list is empty, <code class="language-plaintext highlighter-rouge">head</code> is null, and so the newly added node has <code class="language-plaintext highlighter-rouge">null</code> as next node, which is correct.</p>
+
+<p>If the list is not empty, <code class="language-plaintext highlighter-rouge">temp</code> has the current head as the next node, and then <code class="language-plaintext highlighter-rouge">head</code> is updated to refer to the added node.</p>
+
+<h2 id="removing-the-first-item-in-the-list">Removing the first item in the list</h2>
+
+<p>We also want to return the item removed.</p>
+
+<p>If head is null, nothing can be removed, so we return null.</p>
+
+<p>If head is not null, we store the item in a variable, update <code class="language-plaintext highlighter-rouge">head</code> to refer to the node after the current <code class="language-plaintext highlighter-rouge">head</code> and return the item removed</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">removeFirst</span><span class="o">()</span> <span class="o">{</span> <span class="c1">//Integer so as to return null as error code</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+	<span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//update head</span>
+	<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="indexing-items">Indexing items</h2>
+
+<h1 id="homework">Homework</h1>
+
+<h4 id="task-1">Task 1</h4>
+<p>Add an instance method to class <code class="language-plaintext highlighter-rouge">MyLinkedList</code> that returns <code class="language-plaintext highlighter-rouge">true</code> if the list is empty, <code class="language-plaintext highlighter-rouge">false</code> otherwise.</p>
+
+<h4 id="task-2">Task 2</h4>
+<p>Add an instance method to class <code class="language-plaintext highlighter-rouge">MyLinkedList</code> that returns the first item in the list, if any, <code class="language-plaintext highlighter-rouge">null</code> otherwise. Based on this (<code class="language-plaintext highlighter-rouge">null</code> is returned if list is empty), think about the return type of the method before anything else.</p>
+
+<h4 id="task-3">Task 3</h4>
+<p>Add an instance method to class <code class="language-plaintext highlighter-rouge">MyLinkedList</code> that returns the sum of all items in the list. Return 0 if the list is empty.</p>
+
+<h4 id="task-4">Task 4</h4>
+<p>Add an instance method to class <code class="language-plaintext highlighter-rouge">MyLinkedList</code> that returns the sum of all positive items in the list. Return 0 if the list is empty or none of the items are positive.</p>
+
+<h4 id="task-5">Task 5</h4>
+<p>Add an instance method to class <code class="language-plaintext highlighter-rouge">MyLinkedList</code> that returns <code class="language-plaintext highlighter-rouge">true</code> if all the items of the list are even numbers, <code class="language-plaintext highlighter-rouge">false</code> otherwise. Return <code class="language-plaintext highlighter-rouge">true</code> if the list is empty.</p>
+
+<h1 id="important-methods-in-custom-linkedlist">Important methods in custom linkedlist</h1>
+
+<p>This section will assumes the following definition of <code class="language-plaintext highlighter-rouge">MyLinkedList</code> class;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyLinkedList</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Node</span> <span class="n">head</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addToFront</span><span class="o">(</span><span class="kt">int</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//create a node that has head as the next node</span>
+		<span class="nc">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+
+		<span class="c1">//update head to new node</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">count</span><span class="o">++;</span>
+			<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">itemExistsAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"List: "</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">current</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span> <span class="s">" "</span><span class="o">;</span>
+			<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">+</span><span class="s">"\n"</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="getting-an-item-at-a-specific-index-if-any">Getting an item at a specific index (if any)</h2>
+
+<h3 id="method-header">Method header</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @param idx: index of the node whose value should be returned
+ * @return: data value in the node if node exists, null otherwise
+ */</span>
+<span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Steps involved:</p>
+
+<ol>
+  <li>check if an item exists at the given index using <code class="language-plaintext highlighter-rouge">itemExistsAt(int)</code>
+    <ol>
+      <li>if not, return <code class="language-plaintext highlighter-rouge">null</code></li>
+      <li>if it does, go to the item and return its value.</li>
+    </ol>
+  </li>
+</ol>
+
+<p>Now <em>“going”</em> to the item requires us to start at <code class="language-plaintext highlighter-rouge">head</code> and move forward using <code class="language-plaintext highlighter-rouge">next</code>, one at a time. How many times should we move forward by one?</p>
+
+<p>Lets say, the list is <code class="language-plaintext highlighter-rouge">head -&gt; 10 -&gt; 70 -&gt; 20 -&gt; 90 -&gt; null</code>.</p>
+
+<p>idx = 0 =&gt; move 0 times
+idx = 1 =&gt; move 1 time
+idx = 2 =&gt; move 2 times
+…</p>
+
+<p>In general, we need to move forward <code class="language-plaintext highlighter-rouge">idx</code> times.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idx</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>When the loop terminates, <code class="language-plaintext highlighter-rouge">current</code> holds a reference to the <code class="language-plaintext highlighter-rouge">Node</code> object whose value needs to be returned.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">current</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="putting-it-together-getint-is-defined-as">Putting it together, get(int) is defined as:</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">get</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">itemExistsAt</span><span class="o">(</span><span class="n">idx</span><span class="o">)</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="c1">//guaranteed that item DOES exist at index idx</span>
+	<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idx</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">current</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="removing-and-returning-an-item-at-a-specific-index-if-any">Removing (and returning) an item at a specific index (if any)</h2>
+
+<h3 id="method-header-1">Method header</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @param idx: index of the node which should be removed
+ * @return: data value in the node if node existed and is now removed, null otherwise
+ */</span>
+<span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>In the same manner as <code class="language-plaintext highlighter-rouge">get(int)</code>, we will first check if an item exists at the given index. If it doesn’t, we return <code class="language-plaintext highlighter-rouge">null</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">itemExistsAt</span><span class="o">(</span><span class="n">idx</span><span class="o">)</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If it exists, there are two sub-cases.</p>
+
+<h4 id="case-1-removing-item-at-index-0-head-is-updated">Case 1: removing item at index 0 (<code class="language-plaintext highlighter-rouge">head</code> is updated)</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">itemRemoved</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+	<span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+	<span class="k">return</span> <span class="n">itemRemoved</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="case-2-removing-item-at-index-1-or-beyond-head-is-not-updated">Case 2: removing item at index 1 or beyond (<code class="language-plaintext highlighter-rouge">head</code> is not updated)</h4>
+
+<p>We need a reference to the node <strong>BEFORE</strong> the node to be removed. That is, the item at index <code class="language-plaintext highlighter-rouge">idx - 1</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//moved forward idx-1 times</span>
+	<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure24.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure25.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure26.png" alt="" /></p>
+
+<p>Then we make a backup copy of the value of the node to be removed.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">nodeToRemove</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">itemRemoved</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Finally, we make the node before the node to be removed refer (using next) to the node <strong>after</strong> the node to be removed, and return the value of the node removed.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="k">return</span> <span class="n">itemRemoved</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure27.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure28.png" alt="" /></p>
+
+<h3 id="putting-it-together-removeint-is-defined-as">Putting it together, remove(int) is defined as:</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">itemExistsAt</span><span class="o">(</span><span class="n">idx</span><span class="o">)</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">itemRemoved</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="k">return</span> <span class="n">itemRemoved</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//moved forward idx-1 times</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Node</span> <span class="n">nodeToRemove</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">itemRemoved</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+
+	<span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodeToRemove</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+	<span class="k">return</span> <span class="n">itemRemoved</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="inserting-an-item-at-a-given-index">Inserting an item at a given index</h2>
+
+<h3 id="method-header-2">Method header</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @param idx: index at which node should be inserted
+ * @param value: data value of the node to be inserted
+ * @return: true if node can be inserted at given index, false otherwise
+ */</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">insert</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">,</span> <span class="kt">int</span> <span class="n">value</span><span class="o">)</span>
+</code></pre></div></div>
+
+<!--<iframe width="560" height="315" src="https://www.youtube.com/embed/pYyZ__roUZk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+
+<p>In the same manner as <code class="language-plaintext highlighter-rouge">get(int)</code> and <code class="language-plaintext highlighter-rouge">remove(int)</code>, we will first check if the item can be inserted at the given index.</p>
+
+<p>If the list currently contains 4 items (at indices 0 through 3), a new node can be inserted at index 0 (before the first item) through 4 (after the last item).</p>
+
+<p>Thus, the following condition checks if the item <strong>cannot</strong> be inserted and the method can return <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="n">size</span><span class="o">())</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now there are two sub-cases.</p>
+
+<h4 id="case-1-inserting-item-at-index-0-head-is-updated">Case 1: inserting item at index 0 (<code class="language-plaintext highlighter-rouge">head</code> is updated)</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+	<span class="n">head</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="case-2-inserting-item-at-index-1-or-beyond-head-is-not-updated">Case 2: inserting item at index 1 or beyond (<code class="language-plaintext highlighter-rouge">head</code> is not updated)</h4>
+
+<p>We get a reference to the item <strong>before</strong> where the item needs to be inserted.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//moved forward idx-1 times</span>
+	<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the diagrams, we illustrate the process when inserting value 50 between 10 and 70.</p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure17.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure18.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure19.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure20.png" alt="" /></p>
+
+<p>Finally, we insert the new node after it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">itemAfter</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//itemAfter will be null if node added to end of list</span>
+<span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+<span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">itemAfter</span><span class="o">;</span> <span class="c1">//node.next will be null if node added to end of list</span>
+
+<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure22.png" alt="" /></p>
+
+<p><img src="./fig/06-lists/customBuiltLinkedList/linkedlists-figure23.png" alt="" /></p>
+
+<h3 id="putting-it-together-insertint-int-is-defined-as">Putting it together, insert(int, int) is defined as:</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">insert</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">,</span> <span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="n">size</span><span class="o">())</span> <span class="o">{</span>
+	   <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//moved forward idx-1 times</span>
+		<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Node</span> <span class="n">itemAfter</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//itemAfter will be null if node added to end of list</span>
+	<span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+	<span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">itemAfter</span><span class="o">;</span> <span class="c1">//node.next will be null if node added to end of list</span>
+
+	<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="homework---3">Homework - 3</h1>
+
+<h4 id="task-1-advanced">Task 1 (advanced)</h4>
+
+<p>Add an instance method to class <code class="language-plaintext highlighter-rouge">MyLinkedList</code> that reverses the list represented by the calling object. If the state of the list before calling the method is <code class="language-plaintext highlighter-rouge">head -&gt; 10 -&gt; 70 -&gt; 20 -&gt; 90 -&gt; null</code>, its state, after the method executes, should be <code class="language-plaintext highlighter-rouge">head -&gt; 90 -&gt; 20 -&gt; 70 -&gt; 10 -&gt; null</code>.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

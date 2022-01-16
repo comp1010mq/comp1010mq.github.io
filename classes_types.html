@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Classes - Writing your own types | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Classes - Writing your own types" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/classes_types.html" />
+<meta property="og:url" content="/classes_types.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Classes - Writing your own types" />
+<script type="application/ld+json">
+{"url":"/classes_types.html","@type":"WebPage","headline":"Classes - Writing your own types","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Classes - Writing your own types</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./transition_to_java">Transition to Java</a></li>
+    <li><a href="./composite_data">Compound Data</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Be able to create and use a custom type via classes.</li>
+    <li>Be able to identify, add, and access instance variables of values of custom types.</li>
+    <li>Understand how an object is built from a class template.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<p>We have seen quite a few different types that data can be:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">int</code> for simple numbers</li>
+  <li><code class="language-plaintext highlighter-rouge">boolean</code> for true/false</li>
+  <li><code class="language-plaintext highlighter-rouge">float</code> for more precise numbers</li>
+  <li><code class="language-plaintext highlighter-rouge">String</code> for text</li>
+  <li><code class="language-plaintext highlighter-rouge">PVector</code> for two or three numbers bundled up</li>
+  <li>arrays for many values bundled up</li>
+</ul>
+
+<p>We have also seen that these are split into primitive/value types (<code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">boolean</code>, <code class="language-plaintext highlighter-rouge">float</code>, etc) and compound/reference types (<code class="language-plaintext highlighter-rouge">String</code>, <code class="language-plaintext highlighter-rouge">PVector</code>, arrays).</p>
+
+<p>But what if we want to make our own types?</p>
+
+<p>To warm-up, lets see a situation where a custom type might help.</p>
+
+<p>There are 11 players in my soccer team and we want to track the number of shots taken by each player during the season, number of goals scored, and the number of red cards they get.  So, for each player I need to store a <code class="language-plaintext highlighter-rouge">String</code> for their name, and three <code class="language-plaintext highlighter-rouge">int</code>s for their shots, goals, and red cards.  With what I have now, I might consider the following variables.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String[] names;
+int[] shots;
+int[] goals;
+int[] redCards;
+</code></pre></div></div>
+
+<p>If you have done something like this before, you know it can be hard to keep everything in order.  Player 0 has values in three different arrays, all at slot 0 (hopefully).  It would be easier if there was a <code class="language-plaintext highlighter-rouge">Player</code> type that could store one <code class="language-plaintext highlighter-rouge">String</code> and three <code class="language-plaintext highlighter-rouge">int</code>s, then we could define</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Player[] players
+</code></pre></div></div>
+
+<p>You might have experienced this benefit when using <code class="language-plaintext highlighter-rouge">PVector</code>s back in your Processing days.</p>
+
+<h1 id="classes-are-custom-types">Classes are Custom Types</h1>
+
+<p>In Java, you can create this custom type with a <em>class</em>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Player {
+	public String name;
+	public int goals;
+	public int shots;
+	public int redCards;
+}
+</code></pre></div></div>
+
+<p>You should be thinking at this point “but how do I make values of this type?”.  I make an <code class="language-plaintext highlighter-rouge">int</code> with a number (<code class="language-plaintext highlighter-rouge">1</code>), I make a <code class="language-plaintext highlighter-rouge">String</code> with inverted commas, I make a <code class="language-plaintext highlighter-rouge">PVector</code> with <code class="language-plaintext highlighter-rouge">PVector(1,2)</code>.  This last example is your clue!</p>
+
+<p>All custom types are reference types and follow the same rules as other reference types:</p>
+
+<ul>
+  <li>You need an allocation step with <code class="language-plaintext highlighter-rouge">new</code></li>
+  <li>You use the name of the type to create values, passing in necessary parameters.</li>
+</ul>
+
+<p>In the case of our custom type, the “necessary parameters” are the <code class="language-plaintext highlighter-rouge">String</code> and three <code class="language-plaintext highlighter-rouge">int</code>s</p>
+
+<h2 id="jargon-instance-variables">Jargon: Instance Variables</h2>
+
+<p>The variables we declare in our custom type are called “instance variables”.  They are still variables, and they act just like the primitive variables we know and love, but to distinguish them (because they can do some special things), we give them a special name.</p>
+
+<p>This means we say “you construct a value of a custom type by giving the name of the type and each of the instance variables”.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Player player;
+player = new Player("Gaurav", 1, 26, 0);
+</code></pre></div></div>
+
+<h1 id="why-public">Why <code class="language-plaintext highlighter-rouge">public</code>?</h1>
+
+<p>Classes can also act to “encapsulate” things, which is dealt with later.  So you have to be explicit in saying that the instance variables of a class are available to everyone else by declaring them <code class="language-plaintext highlighter-rouge">public</code>.  We won’t concern ourselves with the alternatives yet.</p>
+
+<h2 id="jargon-object">Jargon: Object</h2>
+
+<p>We have avoided the term so far, but now it is time to embrace it.  Any value created in a reference type is called an “object”.  So <code class="language-plaintext highlighter-rouge">player</code> and <code class="language-plaintext highlighter-rouge">name</code> are both objects.  We say <code class="language-plaintext highlighter-rouge">player</code> is an object of type <code class="language-plaintext highlighter-rouge">Player</code> and <code class="language-plaintext highlighter-rouge">name</code> is an object of type <code class="language-plaintext highlighter-rouge">String</code>.  All objects are values (which was the name we used for them until now).  Just as instance variables are like variables with extras, objects are values with extras - we will see the extras soon.</p>
+
+<h1 id="defining-class-and-creating-objects">Defining class and creating objects</h1>
+
+<h2 id="defining-classes">Defining classes</h2>
+
+<ul>
+  <li>
+    <p>Each class is defined in a separate file with the same name and
+ending with <code class="language-plaintext highlighter-rouge">.java</code></p>
+  </li>
+  <li>
+    <p>All Java class definitions are separate files in the same folder
+(for now).</p>
+  </li>
+</ul>
+
+<h2 id="adding-instance-variables">Adding instance variables</h2>
+
+<p>Instance variables can be declared as in the following two examples.
+Note the <code class="language-plaintext highlighter-rouge">public</code> modifier (for now):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kt">int</span>     <span class="n">instanceVar1</span><span class="o">;</span>
+ <span class="kd">public</span> <span class="nc">String</span>  <span class="n">instanceVar2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h2 id="example---defining-a-class">Example - Defining a class</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">height</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that the above class definition merely
+provides a template or blueprint for the class. No complete program
+using this class has yet been written, and no object (instance) of this
+class has yet been created.</p>
+
+<p><img src="./fig/03-classes-and-objects/classesObjects1-figure1.png" alt="" /></p>
+
+<div class="task">
+  <p>Define a class for a Circle that is represented by its radius.</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Circle</span> <span class="o">{</span>
+     <span class="kd">public</span> <span class="kt">double</span> <span class="n">radius</span><span class="o">;</span>
+     <span class="cm">/*
+     * note that int is a wrong choice as radius
+     * CAN be a floating-point value like 1.5 or 2.4
+     */</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<h2 id="declaration-and-instantiation">Declaration and instantiation</h2>
+
+<h3 id="declaration">Declaration</h3>
+
+<p>Declaration creates a <em>reference</em> in the memory, which doesn’t refer to
+any storage space yet.</p>
+
+<p>An object of the new class type is declared in main as follows:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ClassName</span>  <span class="n">classVar</span><span class="o">;</span> <span class="c1">//declaration</span>
+</code></pre></div></div>
+
+<p>In the following example, <code class="language-plaintext highlighter-rouge">r</code> is an object of class <code class="language-plaintext highlighter-rouge">Rectangle1</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span> <span class="n">r</span><span class="o">;</span> <span class="c1">//example</span>
+</code></pre></div></div>
+
+<p><img src="./fig/03-classes-and-objects/classesObjects1-figure2.png" alt="" /></p>
+
+<h3 id="instantiation">Instantiation</h3>
+
+<p>We create an instance that holds the instance variables and the object holds its address. We say that the object refers to the instance, and represent it by an arrow going from the object to the instance.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">classVar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClassName</span><span class="o">();</span> <span class="c1">//instantiation</span>
+</code></pre></div></div>
+
+<p>In the following example, <code class="language-plaintext highlighter-rouge">new Rectangle()</code> creates an instance (the green block in the diagram following the code) and the object <code class="language-plaintext highlighter-rouge">r</code> refers to it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">();</span> <span class="c1">//example</span>
+</code></pre></div></div>
+
+<p><img src="./fig/03-classes-and-objects/classesObjects1-figure3.png" alt="" /></p>
+
+<h3 id="combining-declaration-and-instantiation">Combining declaration and instantiation</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ClassName</span> <span class="n">classVar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClassName</span><span class="o">();</span>
+<span class="c1">//declaration + instantiation</span>
+
+<span class="nc">Rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">();</span> <span class="c1">//example</span>
+</code></pre></div></div>
+<div class="task">
+  <p>Declare and instantiate an object <code class="language-plaintext highlighter-rouge">myCircle</code> of class <code class="language-plaintext highlighter-rouge">Circle</code>.</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+         <span class="nc">Circle</span> <span class="n">myCircle</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">();</span>
+     <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+    <p>Although, you can just write the relevant part in written exams:</p>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Circle</span> <span class="n">myCircle</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">();</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<h2 id="the-dot--operator">The dot (.) operator</h2>
+
+<p>The dot operator gives us access to the members (instance variables and
+methods) for an object. Think of it as the <code class="language-plaintext highlighter-rouge">apostrophe s (’s)</code> of the
+human language (as in <em>“Gaurav’s class”</em> or <em>“Matt’s workshop”</em>)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">();</span> <span class="c1">//example</span>
+<span class="n">r</span><span class="o">.</span><span class="na">width</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The expression <code class="language-plaintext highlighter-rouge">r</code> gives us access to the instance variable <code class="language-plaintext highlighter-rouge">width</code>
+of object <code class="language-plaintext highlighter-rouge">r</code>.</li>
+</ul>
+
+<div class="task">
+  <p>Write a piece of code that sits outside the class definition and displays the radius of the object <code class="language-plaintext highlighter-rouge">myCircle</code></p>
+  <details class="solution">
+    <summary>solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">radius</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<h2 id="are-there-any-default-values">Are there any default values?</h2>
+
+<ul>
+  <li>
+    <p>Each <em>instance variable</em> is automatically initialised
+to the default value for its type when an object of the class is
+created.</p>
+  </li>
+  <li>
+    <p>For example, an instance variable of type <code class="language-plaintext highlighter-rouge">int</code> is given the default
+value 0;</p>
+  </li>
+  <li>
+    <p>And an instance variable of type <code class="language-plaintext highlighter-rouge">String</code> (or any class type) is
+given the default value <code class="language-plaintext highlighter-rouge">null</code>. (More about <code class="language-plaintext highlighter-rouge">null</code> later.)</p>
+  </li>
+</ul>
+
+<h1 id="i-wish-creating-objects-was-easier-aka-constructors">I wish creating objects was easier (aka constructors)</h1>
+
+<p>Let’s say that the user wants to create a <code class="language-plaintext highlighter-rouge">Rectangle</code> whose <code class="language-plaintext highlighter-rouge">width</code> is 5
+and <code class="language-plaintext highlighter-rouge">height</code> is 8. The following code achieves this,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">();</span>
+<span class="n">r</span><span class="o">.</span><span class="na">width</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="n">r</span><span class="o">.</span><span class="na">height</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>However, it would be really nice if one could pass the values for the
+instance variables in the instantiation statement itself, as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">8</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This is done through <code class="language-plaintext highlighter-rouge">constructors</code>.</p>
+
+<h2 id="constructors">Constructors</h2>
+
+<ul>
+  <li>
+    <p>A constructor is a special function defined in the class.</p>
+  </li>
+  <li>
+    <p>A constructor must have the same name as the class.</p>
+  </li>
+  <li>
+    <p>A constructor has no return type (not even void).</p>
+  </li>
+  <li>
+    <p>There may be multiple constructors, each distinguished by its
+parameter list. Thus, we may have one constructor with no
+parameters, and another with one <code class="language-plaintext highlighter-rouge">int</code> parameter.</p>
+  </li>
+  <li>
+    <p>A suitable constructor is automatically called during instantiation
+based on number of parameters passed. If an appropriate constructor
+is not found, a compilation error is generated.</p>
+  </li>
+</ul>
+
+<h2 id="example---constructors">Example - Constructors</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">()</span> <span class="o">{</span> <span class="c1">//default constructor</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//parameterized constructor for a square</span>
+    <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">side</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">side</span><span class="o">;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">side</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//parameterized constructor - generic</span>
+    <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">w</span><span class="o">,</span> <span class="kt">double</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="constructors-should-initialise-all-the-instance-variables">Constructors should initialise all the instance variables</h2>
+
+<p>This is your one chance to get some sensible values into those instance variables.  After this, the object is created and other code might try to use the values in the instance variables, so put <em>something</em> in every one.</p>
+
+<h2 id="default-constructor">Default constructor</h2>
+
+<p>It should be noted that a default constructor (without any parameters)
+is pre-defined for you by Java and that’s why you can instantiate
+objects without defining it yourself.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>The default constructor assigns the default values for the appropriate
+data types to the instance variables. However, once you define a
+parameterized constructor, the built-in default constructor is taken
+away by Java. Thus, if you want to construct an object with default
+initial values for the instance variables, you need to re-define that!</p>
+
+<h2 id="defining-the-default-constructor">Defining the default constructor</h2>
+
+<p>Let’s say the default <code class="language-plaintext highlighter-rouge">Rectangle</code> instance should be of unit length. We
+can define the default constructor as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="n">breadth</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="task">
+  <p>Add a default constructor to the class <code class="language-plaintext highlighter-rouge">Circle</code> that assigns the value 1.0 to instance variable <code class="language-plaintext highlighter-rouge">radius</code>.</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">//default constructor</span>
+ <span class="kd">public</span> <span class="nf">Circle</span><span class="o">()</span> <span class="o">{</span>
+     <span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>Add a parameterized constructor to the class <code class="language-plaintext highlighter-rouge">Circle</code> that assigns the value of the parameter passed to instance variable <code class="language-plaintext highlighter-rouge">radius</code>.</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">//parameterized constructor</span>
+ <span class="kd">public</span> <span class="nf">Circle</span><span class="o">(</span><span class="kt">double</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">radius</span> <span class="o">=</span> <span class="n">r</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

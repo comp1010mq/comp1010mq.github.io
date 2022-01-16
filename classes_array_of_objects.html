@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Array of objects | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Array of objects" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/classes_array_of_objects.html" />
+<meta property="og:url" content="/classes_array_of_objects.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Array of objects" />
+<script type="application/ld+json">
+{"url":"/classes_array_of_objects.html","@type":"WebPage","headline":"Array of objects","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Array of objects</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./classes_types">Classes as Types</a></li>
+    <li><a href="./classes_copies">Copying objects</a></li>
+    <li><a href="./classes_methods">Instance methods</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Creating and operating on an array of objects.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="array-of-objects">Array of objects</h1>
+
+<h2 id="class-under-consideration">Class under consideration</h2>
+
+<p>We will use the following class for this discussion:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">w</span><span class="o">,</span> <span class="kt">double</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+		<span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">width</span> <span class="o">+</span> <span class="s">" by "</span> <span class="o">+</span> <span class="n">height</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="creating-an-array-of-objects">Creating an array of objects</h2>
+
+<h4 id="step-1---instantiate-the-array">STEP 1 - Instantiate the array</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Rectangle</span><span class="o">[]</span> <span class="n">blocks</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can go through each item of the array and display it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">blocks</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">blocks</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You’ll get the following output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>null
+null
+null
+null
+null
+</code></pre></div></div>
+
+<p>Each item of the array is a <code class="language-plaintext highlighter-rouge">Rectangle</code> reference, and initialized to the default value (which, for objects, is <code class="language-plaintext highlighter-rouge">null</code>).</p>
+
+<p>The memory diagram for the current state of the array is</p>
+
+<p><img src="./fig/03-classes-and-objects/array-of-objects-figure0.png" alt="" /></p>
+
+<p>Any attempt to access an instance variable or instance method on any of the items of the array will raise a <code class="language-plaintext highlighter-rouge">NullPointerException</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">blocks</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">width</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span> <span class="c1">//NullPointerException</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">blocks</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">toString</span><span class="o">();</span> <span class="c1">//NullPointerException</span>
+</code></pre></div></div>
+
+<h2 id="hence">Hence…</h2>
+
+<h4 id="step-2---instantiating-each-object">STEP 2 - Instantiating each object</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">blocks</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">blocks</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="o">);</span> <span class="c1">//instantiate item at index i</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">blocks</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span> <span class="c1">//display it</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="./fig/03-classes-and-objects/array-of-objects-figure1.png" alt="" /></p>
+
+<p>This time, you will get the following output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.0 by 0.0
+2.0 by 2.0
+3.0 by 4.0
+4.0 by 6.0
+5.0 by 8.0
+</code></pre></div></div>
+
+<h2 id="exercise-creating-filtered-deep-copy-of-an-object-array">Exercise: Creating (filtered) deep copy of an object array</h2>
+
+<p>Consider the array <code class="language-plaintext highlighter-rouge">source</code> populated as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span><span class="o">[]</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">[</span><span class="mi">20</span><span class="o">];</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="kt">double</span> <span class="n">randWidth</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">rand</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+	<span class="kt">double</span> <span class="n">randHeight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">rand</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+	<span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="n">randWidth</span><span class="o">,</span> <span class="n">randHeight</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Create a second array containing Rectangles that have an area of 10 or more.</p>
+
+<h4 id="step-1-count-the-number-of-rectangles-with-area-of-10-or-more">STEP 1: Count the number of rectangles with area of 10 or more</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">area</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">count</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="step-2-create-an-array-of-required-size">STEP 2: Create an array of required size</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span><span class="o">[]</span> <span class="n">bigRectangles</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">[</span><span class="n">count</span><span class="o">];</span>
+</code></pre></div></div>
+
+<h4 id="step-3-populate-the-array">STEP 3: Populate the array</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">destIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">area</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">bigRectangles</span><span class="o">[</span><span class="n">destIndex</span><span class="o">]</span> <span class="o">=</span> <span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="n">destIndex</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <h2 id="given-an-array-data-of-rectangle-objects-create-an-array-wider-with-those-rectangles-whose-width-is-more-than-their-height">Given an array <code class="language-plaintext highlighter-rouge">data</code> of <code class="language-plaintext highlighter-rouge">Rectangle</code> objects, create an array <code class="language-plaintext highlighter-rouge">wider</code> with those rectangles whose width is more than their height</h2>
+  <blockquote>
+    <h2 id="solution">SOLUTION</h2>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">width</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">height</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">count</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="nc">Rectangle</span><span class="o">[]</span> <span class="n">wider</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">[</span><span class="n">count</span><span class="o">];</span>
+<span class="kt">int</span> <span class="n">destIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">width</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">height</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">wider</span><span class="o">[</span><span class="n">destIndex</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="n">destIndex</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<p>You can also access an instance variable or instance method on any of the items of the array.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">blocks</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">width</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span> <span class="c1">//change the width of the first item to 5</span>
+<span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">blocks</span><span class="o">[</span><span class="mi">3</span><span class="o">].</span><span class="na">height</span><span class="o">;</span> <span class="c1">//store height of fourth item into h</span>
+</code></pre></div></div>
+
+<p>Complete code is provided in <a href="./codes/ArrayOfObjects.java">ArrayOfObjects.java</a></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

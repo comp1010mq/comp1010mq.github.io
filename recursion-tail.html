@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Tail recursion | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Tail recursion" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/recursion-tail.html" />
+<meta property="og:url" content="/recursion-tail.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tail recursion" />
+<script type="application/ld+json">
+{"url":"/recursion-tail.html","@type":"WebPage","headline":"Tail recursion","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Tail recursion</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./functions">Functions</a></li>
+    <li><a href="./recursion">Recursion</a></li>
+    <li><a href="./recursion-strings">Recursion with String data</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Have an understanding of <em>tail</em> recursion.</li>
+    <li>Be able to <em>tail-optimize</em> a recursive function.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="the-problem-with-recursion">The problem with recursion</h1>
+
+<p>Every call to a function requires keeping the formal parameters and other variables in the memory for as long as the function doesn’t return control back to the caller.</p>
+
+<p>These variables and the function’s stack frame (the entry in the call stack) must be retained until it’s no longer required.</p>
+
+<p>For example, consider the following function definition:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="n">contribution</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">sub</span> <span class="o">=</span> <span class="n">factorial</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">contribution</span> <span class="o">*</span> <span class="n">sub</span><span class="o">;</span>
+	<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Each call to function <code class="language-plaintext highlighter-rouge">factorial</code> has to wait for the next call to return the value to it, before it can be terminated, and the frame stack removed.</p>
+
+<p>Let’s say the origin call is <code class="language-plaintext highlighter-rouge">factorial(4)</code> (which calls <code class="language-plaintext highlighter-rouge">factorial(3)</code>,  which calls <code class="language-plaintext highlighter-rouge">factorial(2)</code>, which calls the terminal case in <code class="language-plaintext highlighter-rouge">factorial(1)</code>). Green represents the stack frame on the top of the call stack (active function).</p>
+
+<p>At the time <code class="language-plaintext highlighter-rouge">factorial(1)</code> executes, the call stack looks like the following:</p>
+
+<p><img src="./fig/04-recursion/callStackWithoutTail.png" alt="" /></p>
+
+<h2 id="eureka">Eureka!</h2>
+
+<p>Instead of creating all these variables inside the function, if we can (and pay attention to the statement carefully), <em>pass the state of the stack so far as parameters</em>, we wouldn’t need to maintain the previous stack frames. Oh my several Gods - that would be amazing!</p>
+
+<p><strong>P.S.</strong> Java still doesn’t support tail optimization… 😞</p>
+
+<h3 id="definition-tail-optimized-design-is-when-every-last-possible-statement-typically-a-return-statement-in-a-function-is-a-just-the-recursive-call-or-the-end-case-value">(Definition) Tail-optimized design is when every last possible statement (typically a return statement) in a function is a just the recursive call (or the end case value).</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">currentState</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">currentState</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">factorial</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">currentState</span> <span class="o">*</span> <span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The value for <code class="language-plaintext highlighter-rouge">currentState</code> in the initial call should be 1. Sample client:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">factorial</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span> <span class="c1">//1 being the initial value of currentState</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, only the current stack frame needs to be kept in the memory and the previous stack frames for the recursive function can be discarded.</p>
+
+<p>At the time <code class="language-plaintext highlighter-rouge">factorial(1, 24)</code> executes, the call stack looks like the following:</p>
+
+<p><img src="./fig/04-recursion/callStackWithTail.png" alt="" /></p>
+
+<p>You can also create a second <em>proxy</em> function so that you don’t have to pass the second parameter during the initial call, like,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="nf">factorial</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As long as the number (or order) of parameters is different, two functions can have the same name.</p>
+
+<h2 id="benefits">Benefits</h2>
+
+<ol>
+  <li>As already mentioned, stack frames of previous calls need not be kept on the stack.</li>
+  <li>Achieves natural speedup (see example 6 at the bottom of the page).</li>
+</ol>
+
+<h1 id="some-more-examples">Some more examples</h1>
+
+<h3 id="example-1">Example 1</h3>
+
+<h4 id="without-tail-optimization">Without tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumDigits</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//assuming n &gt;= 0</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">n</span><span class="o">%</span><span class="mi">10</span> <span class="o">+</span> <span class="n">sumDigits</span><span class="o">(</span><span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="with-tail-optimization">With tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumDigits</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">currentState</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">currentState</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">sumDigits</span><span class="o">(</span><span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">,</span> <span class="n">currentState</span> <span class="o">+</span> <span class="n">n</span><span class="o">%</span><span class="mi">10</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="example-2-small-increment-over-example-1">Example 2 (small increment over example 1)</h3>
+
+<h4 id="without-tail-optimization-1">Without tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumEvenDigits</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//assuming n &gt;= 0</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">n</span><span class="o">%</span><span class="mi">10</span> <span class="o">+</span> <span class="n">sumEvenDigits</span><span class="o">(</span><span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">sumEvenDigits</span><span class="o">(</span><span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="with-tail-optimization-1">With tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumEvenDigits</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">currentState</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//assuming n &gt;= 0</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">currentState</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">sumEvenDigits</span><span class="o">(</span><span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">,</span> <span class="n">currentState</span> <span class="o">+</span> <span class="n">n</span><span class="o">%</span><span class="mi">10</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">sumEvenDigits</span><span class="o">(</span><span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">,</span> <span class="n">currentState</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="example-3">Example 3</h3>
+
+<h4 id="without-tail-optimization-2">Without tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">!=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">))</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">isPalindrome</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="with-tail-optimization-2">With tail optimization</h4>
+
+<p>No change needed, already tail-optimized as the last statement is the recursive call and nothing else.</p>
+
+<h3 id="example-4">Example 4</h3>
+
+<h4 id="without-tail-optimization-3">Without tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">reverse</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="kt">char</span> <span class="n">last</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="nc">String</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">return</span> <span class="n">last</span> <span class="o">+</span> <span class="n">reverse</span><span class="o">(</span><span class="n">remaining</span><span class="o">)</span> <span class="o">+</span> <span class="n">first</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The current version is not convenient for tail optimization, so we’ll do a slight modification.</p>
+
+<h4 id="without-tail-optimization---version-2">Without tail optimization - version 2</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">reverse</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="nc">String</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">return</span> <span class="nf">reverse</span><span class="o">(</span><span class="n">remaining</span><span class="o">)</span> <span class="o">+</span> <span class="n">first</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, it’s ready to tail optimize.</p>
+
+<h4 id="with-tail-optimization-3">With tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">reverse</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">,</span> <span class="nc">String</span> <span class="n">constructed</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">constructed</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">reverse</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">constructed</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="example-5">Example 5</h3>
+
+<h4 id="without-tail-optimization-4">Without tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">gcd</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//assuming a, b &gt;= 0</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">gcd</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="with-tail-optimization-4">With tail optimization</h4>
+
+<p>Already tail-optimized.</p>
+
+<h3 id="example-6">Example 6</h3>
+
+<h4 id="without-tail-optimization-5">Without tail optimization</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="with-tail-optimization-5">With tail optimization</h4>
+
+<p>*This is a tricky one. Please see <a href="https://www.geeksforgeeks.org/tail-recursion-fibonacci/">1</a> and <a href="https://medium.com/@frank.tan/fibonacci-tail-recursive-explained-876edf5e86fc">2</a> for some nice explanations.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//initially called as fib(n, 0, 1)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//it will only ever be called directly from client,</span>
+		<span class="c1">//never from another fib call</span>
+		<span class="k">return</span> <span class="n">a</span><span class="o">;</span> <span class="c1">//which WILL be 0</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

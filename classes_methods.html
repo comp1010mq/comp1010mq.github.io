@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Objects - Data and Functions combined | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Objects - Data and Functions combined" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/classes_methods.html" />
+<meta property="og:url" content="/classes_methods.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Objects - Data and Functions combined" />
+<script type="application/ld+json">
+{"url":"/classes_methods.html","@type":"WebPage","headline":"Objects - Data and Functions combined","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Objects - Data and Functions combined</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./classes_types">Classes as Types</a></li>
+    <li><a href="./classes_copies">Copying objects</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Recognise that objects have functions attached</li>
+    <li>Be able to use such functions</li>
+    <li>Be able to write such functions</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<p>Did you know an object can have a function “attached” to it.  In fact, any object can have lots of functions attached to it.  Even more exciting, all objects that are of the same type (i.e. were built from the same class) all have the <em>same</em> functions attached to them.</p>
+
+<h1 id="methods">Methods</h1>
+
+<p>A function attached to an object is called an <em>instance method</em> and it has two differences from a normal function:</p>
+
+<ul>
+  <li>you call it via the object with dot-notation</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">object</span><span class="o">&gt;.&lt;</span><span class="n">instanceMethod</span><span class="o">&gt;(&lt;</span><span class="n">optional</span> <span class="n">parameters</span><span class="o">&gt;);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>it can access the instance members (instance variables  and other instance methods) of the object it is attached to.</li>
+</ul>
+
+<p>This lifts object from mere custom-compound-data to something more, something profound…. objects!  All right, we already called them objects, but things with lots of data fields and lots of functions all bundled up together are so incredibly useful they have become the basis of most programming in the 21st century.  We really don’t do much with boring old ‘int’ or ‘char’ values, we are much more likely to use some object, after all - it has methods attached!</p>
+
+<p>You will see striking uses of methods especially after we cover <em>Composition</em>.</p>
+
+<h1 id="using-methods">Using Methods</h1>
+
+<p>There were methods just waiting for us already, on the <code class="language-plaintext highlighter-rouge">String</code> objects we have been using:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">charAt(int): char</code> (this means <code class="language-plaintext highlighter-rouge">charAt</code> accepts an <code class="language-plaintext highlighter-rouge">int</code> as a parameter and returns a <code class="language-plaintext highlighter-rouge">char</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">substring(int): String</code></li>
+  <li><code class="language-plaintext highlighter-rouge">equals(String): boolean</code></li>
+</ul>
+
+<p>An example of how these methods are called on a <code class="language-plaintext highlighter-rouge">String</code> objected <code class="language-plaintext highlighter-rouge">str</code> is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"Engorgio!"</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'g'</span><span class="o">);</span>
+<span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="kt">char</span> <span class="n">last</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">chatAt</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+<span class="kt">char</span> <span class="n">allButFirst</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="kt">char</span> <span class="n">allButLast</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In each of the above cases, we call the method <strong>on</strong> an object (in this case <code class="language-plaintext highlighter-rouge">str</code>). This object, on which an instance method is caled, is known as the <em>calling object</em>.</p>
+
+<h1 id="creating-our-own-methods">Creating our own methods</h1>
+
+<p>When we want to operate on an instance of a class, we can put that behaviour inside the class as an <em>instance method</em>. An instance method has access to the variables of the instance on which it is called. In other words, an instance method has access to the instance variables of the calling object.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">w</span><span class="o">,</span> <span class="kt">double</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+		<span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">double</span> <span class="nf">area</span><span class="o">()</span> <span class="o">{</span>
+		<span class="kt">double</span> <span class="n">result</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="o">;</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In a separate client code, we call this method on an instance of class <code class="language-plaintext highlighter-rouge">Rectangle</code> as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Rectangle</span> <span class="n">r1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+		<span class="kt">double</span> <span class="n">area1</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="na">area</span><span class="o">();</span>
+
+		<span class="nc">Rectangle</span> <span class="n">r2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">30</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+		<span class="kt">double</span> <span class="n">area2</span> <span class="o">=</span> <span class="n">r2</span><span class="o">.</span><span class="na">area</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We don’t have to pass values of instance variables to instance methods.</p>
+
+<h2 id="a-special-reference---this">A special reference - <em>“this”</em></h2>
+
+<p>When we call the instance method <code class="language-plaintext highlighter-rouge">area</code> on object <code class="language-plaintext highlighter-rouge">r1</code>, a reference copy of <code class="language-plaintext highlighter-rouge">r1</code> is made into <code class="language-plaintext highlighter-rouge">this</code> which is available while <code class="language-plaintext highlighter-rouge">r1.area</code> executes. When we access <code class="language-plaintext highlighter-rouge">width</code> (or <code class="language-plaintext highlighter-rouge">this.width</code>), it’s the instance variable <code class="language-plaintext highlighter-rouge">width</code> of the calling object (<code class="language-plaintext highlighter-rouge">r1</code> in this case) that is accessed. Same goes for <code class="language-plaintext highlighter-rouge">height</code>.</p>
+
+<p>However, if the instance method needs some parameters outside of the instance variables, those must be passed. For example, if you need to resize a Rectangle object, the factor by which it must be resized needs to be passed to the method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">w</span><span class="o">,</span> <span class="kt">double</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+		<span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">resize</span><span class="o">(</span><span class="kt">double</span> <span class="n">factor</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">factor</span><span class="o">;</span>
+		<span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="o">*</span> <span class="n">factor</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The method call to shrink object <code class="language-plaintext highlighter-rouge">r1</code> used in the previous example by 50% in each direction would be <code class="language-plaintext highlighter-rouge">r1.resize(0.5);</code>.</p>
+
+<h1 id="a-method-returning-an-object-typically-of-the-same-class">A method returning an object (typically of the same class)</h1>
+
+<p>Inside a method, one must (typically) not modify the calling object.</p>
+
+<p>Hence, instead of the method <code class="language-plaintext highlighter-rouge">resize</code> that we wrote in the previous section, we should create a resized <code class="language-plaintext highlighter-rouge">Rectangle</code> object and return it instead.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="nc">Rectangle</span> <span class="nf">getResized</span><span class="o">(</span><span class="kt">double</span> <span class="n">factor</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">double</span> <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">factor</span><span class="o">;</span>
+		<span class="kt">double</span> <span class="n">h</span> <span class="o">=</span> <span class="n">height</span> <span class="o">*</span> <span class="n">factor</span><span class="o">;</span>
+
+		<span class="c1">//create a new object with the fresh values</span>
+		<span class="nc">Rectangle</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">);</span>
+
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Fraction</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="n">den</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Fraction</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//assume d is not 0</span>
+		<span class="n">num</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+		<span class="n">den</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">Fraction</span> <span class="nf">getInverse</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//x/0 is undefined</span>
+		<span class="o">}</span>
+
+		<span class="k">return</span> <span class="k">new</span> <span class="nf">Fraction</span><span class="o">(</span><span class="n">den</span><span class="o">,</span> <span class="n">num</span><span class="o">);</span> <span class="c1">//switch numerator and denomenator</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="special-mention---compareto">Special mention - compareTo</h1>
+
+<p>It is very common to have to compare objects. This is done through the <code class="language-plaintext highlighter-rouge">compareTo</code> method, that is called on an object (calling object) with another object of a comparable type (usually an object of the same class) being passed as a parameter (parameter object). It returns,</p>
+
+<ul>
+  <li>1, if calling object is “more than” parameter object</li>
+  <li>-1, if calling object is “less than” parameter object</li>
+  <li>0, if calling object is “same as” parameter object</li>
+</ul>
+
+<p>The definition of <em>more</em> or <em>less</em> or <em>same</em> is determined by domain-specific criterion/ criteria.</p>
+
+<p>For example, two rectangles can be compared on the basis of area as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="kt">double</span> <span class="n">w</span><span class="o">,</span> <span class="kt">double</span> <span class="n">h</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+		<span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">double</span> <span class="nf">area</span><span class="o">()</span> <span class="o">{</span>
+		<span class="kt">double</span> <span class="n">result</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="o">;</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareTo</span><span class="o">(</span><span class="nc">Rectangle</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">area</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="na">area</span><span class="o">())</span>
+			<span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+
+		<span class="k">if</span><span class="o">(</span><span class="n">area</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="na">area</span><span class="o">())</span>
+			<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+
+		<span class="c1">//in all other cases</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the above example, <code class="language-plaintext highlighter-rouge">area()</code> calls the method <code class="language-plaintext highlighter-rouge">area</code> on the calling object, and <code class="language-plaintext highlighter-rouge">other.area()</code> calls the method <code class="language-plaintext highlighter-rouge">area</code> on the parameter object.</p>
+
+<p>Let’s see an example of how we call <code class="language-plaintext highlighter-rouge">compareTo</code> and what happens in the memory:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Rectangle</span> <span class="n">r1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">1.2</span><span class="o">,</span> <span class="mf">3.5</span><span class="o">);</span>
+		<span class="nc">Rectangle</span> <span class="n">r2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">1.4</span><span class="o">,</span> <span class="mf">2.5</span><span class="o">);</span>
+		<span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">r2</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="./fig/03-classes-and-objects/compareTo-figure4.png" alt="" /></p>
+
+<ol>
+  <li>A reference copy of the calling object (<code class="language-plaintext highlighter-rouge">r1</code> in this case) is made into <code class="language-plaintext highlighter-rouge">this</code>.</li>
+  <li>A reference copy of the passed object (<code class="language-plaintext highlighter-rouge">r2</code> in this case) is made into the formal parameter (<code class="language-plaintext highlighter-rouge">other</code> in this case).</li>
+  <li>Control is transferred to <code class="language-plaintext highlighter-rouge">compareTo</code>.</li>
+  <li>Following execution ensues:</li>
+</ol>
+
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdENsaWVudC0-Pit0aGlzOiBjb21wYXJlVG8ob3RoZXIpXG5cdHRoaXMtPj50aGlzOiBhcmVhKClcbiAgdGhpcy0tPj50aGlzOiBhcmVhIG9mIGNhbGxpbmcgb2JqZWN0XG5cdHRoaXMtPj4rb3RoZXI6IGFyZWEoKVxuICBvdGhlci0tPj50aGlzOiBhcmVhIG9mIHBhcmFtZXRlciBvYmplY3Rcblx0dGhpcy0tPj5DbGllbnQ6IHZhbHVlIGJhc2VkIG9uIGNvbXBhcmlzb24gb2YgYXJlYXNcblx0XHRcdFx0XHQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cdENsaWVudC0-Pit0aGlzOiBjb21wYXJlVG8ob3RoZXIpXG5cdHRoaXMtPj50aGlzOiBhcmVhKClcbiAgdGhpcy0tPj50aGlzOiBhcmVhIG9mIGNhbGxpbmcgb2JqZWN0XG5cdHRoaXMtPj4rb3RoZXI6IGFyZWEoKVxuICBvdGhlci0tPj50aGlzOiBhcmVhIG9mIHBhcmFtZXRlciBvYmplY3Rcblx0dGhpcy0tPj5DbGllbnQ6IHZhbHVlIGJhc2VkIG9uIGNvbXBhcmlzb24gb2YgYXJlYXNcblx0XHRcdFx0XHQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" alt="" /></a></p>
+
+<!--
+```mermaid
+sequenceDiagram
+	Client->>+this: compareTo(other)
+	this->>this: area()
+  	this->>this: area of calling object
+	this->>+other: area()
+  	other->>this: area of parameter object
+	this->>Client: value based on comparison of areas
+```
+-->
+
+<h1 id="special-methods-all-objects-have">Special methods all objects have</h1>
+
+<p>Thanks to a feature of Java <a href="../practice_of_programming/inheritance">we will learn later</a> there are some methods that “come for free” in every class (and thus are attached to every object).  A few of these are interesting to us:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">toString(): String</code></li>
+  <li><code class="language-plaintext highlighter-rouge">equals(Object): boolean</code></li>
+</ul>
+
+<h1 id="distinction-between-static-and-non-static">Distinction between static and non-static</h1>
+
+<p>Members (both variables and methods) in a class can be declared as,</p>
+
+<ol>
+  <li>static members or class members: these are properties of the collective class, not a specific instance, and can be invoked on the class directly, or an object of that class.</li>
+  <li>non-static members or instance members: these are properties of a specific instance and can only be invoked on instances.</li>
+</ol>
+
+<p>The following example illustrates the differences:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">bar</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">pog</span> <span class="o">=</span> <span class="mi">101</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">pac</span><span class="o">()</span> <span class="o">{</span>
+	   <span class="k">return</span> <span class="n">bar</span> <span class="o">*</span> <span class="n">bar</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">man</span><span class="o">()</span> <span class="o">{</span>
+	   <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()*</span><span class="n">pog</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Foo</span> <span class="n">rig</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Foo</span><span class="o">();</span>
+		<span class="c1">//System.out.println(Foo.bar); //INVALID</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rig</span><span class="o">.</span><span class="na">bar</span><span class="o">);</span> <span class="c1">//0</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Foo</span><span class="o">.</span><span class="na">pog</span><span class="o">);</span> <span class="c1">//101</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rig</span><span class="o">.</span><span class="na">pog</span><span class="o">);</span> <span class="c1">//101</span>
+		<span class="c1">//System.out.println(Foo.pac()); //INVALID</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rig</span><span class="o">.</span><span class="na">pac</span><span class="o">());</span> <span class="c1">//0</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Foo</span><span class="o">.</span><span class="na">man</span><span class="o">());</span> <span class="c1">//an integer value between 0 and pog-1</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rig</span><span class="o">.</span><span class="na">man</span><span class="o">());</span> <span class="c1">//an integer value between 0 and pog-1</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

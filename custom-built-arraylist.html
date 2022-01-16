@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Custom-built ArrayList | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Custom-built ArrayList" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/custom-built-arraylist.html" />
+<meta property="og:url" content="/custom-built-arraylist.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Custom-built ArrayList" />
+<script type="application/ld+json">
+{"url":"/custom-built-arraylist.html","@type":"WebPage","headline":"Custom-built ArrayList","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Custom-built ArrayList</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="lists">Lists</a></li>
+    <li><a href="loops">Loops</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Be able to build a custom list class</li>
+    <li>Understand the time costs of various list operations</li>
+  </ul>
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="custom-built-arraylist">Custom-built arraylist</h1>
+
+<p>In this chapter, we’ll see how an arraylist holds items and how to implement it.</p>
+
+<p><span style="color:red"><strong>NOTE!</strong></span> The built-in class for ArrayList in Java holds a collection of objects, not primitive data type, but in our example, we’ll create a collection of <code class="language-plaintext highlighter-rouge">double</code> items, for simplicity.</p>
+
+<h2 id="what-an-arraylist-class-looks-like">What an ArrayList class looks like</h2>
+
+<p>The ArrayList class has an instance variable array that holds the items. If, at the time of triying to add an item, the array is full, then:</p>
+
+<ol>
+  <li>a bigger array is created,</li>
+  <li>items from the instance variable array are copied over</li>
+  <li>instance variable array is re-referenced to refer to the new, bigger array</li>
+</ol>
+
+<p>Let’s create one such class holding an array of doubles</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyArrayList</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">double</span><span class="o">[]</span> <span class="n">data</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">nItems</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">MyArrayList</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+		<span class="n">nItems</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">//no item added yet</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="kt">double</span> <span class="n">itemToAdd</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//THERE IS A PROBLEM HERE</span>
+		<span class="n">data</span><span class="o">[</span><span class="n">nItems</span><span class="o">]</span> <span class="o">=</span> <span class="n">itemToAdd</span><span class="o">;</span>
+		<span class="n">nItems</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The client can create an object of class <code class="language-plaintext highlighter-rouge">MyArrayList</code> as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MyArrayList</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyArrayList</span><span class="o">();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">70</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">90</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Five items were added to the list, which is ok. But as soon as you try to add a sixth item using,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">80</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>The method <code class="language-plaintext highlighter-rouge">add</code> will cause,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="o">=</span> <span class="mi">80</span><span class="o">;</span> <span class="c1">//ArrayIndexOutOfBoundsException</span>
+</code></pre></div></div>
+
+<p>Therefore, we must first check if the internal array is full.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//inside class MyArrayList</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isFull</span><span class="o">()</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">nItems</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The method <code class="language-plaintext highlighter-rouge">add</code> should be modified as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//inside class MyArrayList</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="kt">double</span> <span class="n">itemToAdd</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">isFull</span><span class="o">())</span> <span class="o">{</span>
+		<span class="o">???</span>
+	<span class="o">}</span>
+	<span class="n">data</span><span class="o">[</span><span class="n">nItems</span><span class="o">]</span> <span class="o">=</span> <span class="n">itemToAdd</span><span class="o">;</span>
+	<span class="n">nItems</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If the internal array is full,</p>
+
+<ol>
+  <li>a bigger array is created,</li>
+  <li>items from the instance variable array are copied over</li>
+  <li>instance variable array is re-referenced to refer to the new, bigger array</li>
+</ol>
+
+<p>These steps are performed in a method <code class="language-plaintext highlighter-rouge">grow()</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kt">double</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">5</span><span class="o">];</span> <span class="c1">//5 extra items</span>
+
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//copy all items over</span>
+		<span class="n">temp</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="o">}</span>
+
+	<span class="n">data</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span> <span class="c1">//make instance variable array refer to the bigger array</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="updated-class-definition">Updated class definition</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyArrayList</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">double</span><span class="o">[]</span> <span class="n">data</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">nItems</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">MyArrayList</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+		<span class="n">nItems</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">//no item added yet</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isFull</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">nItems</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+			<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="k">else</span>
+			<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">()</span> <span class="o">{</span> <span class="c1">//should not be called by outside code</span>
+		<span class="kt">double</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">5</span><span class="o">];</span> <span class="c1">//5 extra items</span>
+
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//copy all items over</span>
+			<span class="n">temp</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="o">}</span>
+
+		<span class="n">data</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span> <span class="c1">//make instance variable array refer to the bigger array</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="kt">double</span> <span class="n">itemToAdd</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">isFull</span><span class="o">())</span> <span class="o">{</span>
+			<span class="n">grow</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="n">data</span><span class="o">[</span><span class="n">nItems</span><span class="o">]</span> <span class="o">=</span> <span class="n">itemToAdd</span><span class="o">;</span>
+		<span class="n">nItems</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="method-to-add-an-item-at-an-arbitrary-index">Method to add an item at an arbitrary index</h2>
+
+<p>Say, the list contains items [12.5, 6.4, 8.5, 9.6, -3.4] and we want to add an item 16.42 at index 0. All items in the array need to move forward by 1.</p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/customBuiltArraylist/customBuiltArraylist-figure3.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">,</span> <span class="kt">double</span> <span class="n">itemToAdd</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="n">nItems</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">//to indicate failure</span>
+	<span class="o">}</span>
+
+	<span class="k">if</span><span class="o">(</span><span class="n">isFull</span><span class="o">())</span> <span class="o">{</span>
+		<span class="n">grow</span><span class="o">();</span>
+	<span class="o">}</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">nItems</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">idx</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+		<span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="o">}</span>
+
+	<span class="n">data</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span> <span class="o">=</span> <span class="n">itemToAdd</span><span class="o">;</span>
+	<span class="n">nItems</span><span class="o">++;</span>
+
+	<span class="k">return</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">//to indicate success</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="method-to-remove-an-item-from-an-arbitrary-index">Method to remove an item from an arbitrary index</h2>
+
+<p>Say, the list contains items [12.5, 6.4, 8.5, 9.6, -3.4] and we want to remove the item at index 0. All items in the array need to move backward by 1.</p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/customBuiltArraylist/customBuiltArraylist-figure5.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p>The method should return the item removed.</p>
+
+<p>If we keep the return type as <code class="language-plaintext highlighter-rouge">double</code>, what do we return if the index is invalid and therefore no item exists at that index?</p>
+
+<p>Hence, we keep the return type <code class="language-plaintext highlighter-rouge">Double</code> since we can return <code class="language-plaintext highlighter-rouge">null</code> as error code.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Double</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">int</span> <span class="n">idx</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="n">nItems</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//error code</span>
+	<span class="o">}</span>
+
+	<span class="kt">double</span> <span class="n">itemRemoved</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">idx</span><span class="o">];</span>
+
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span> <span class="n">idx</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nItems</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">];</span>
+	<span class="o">}</span>
+	<span class="n">nItems</span><span class="o">--;</span>
+
+	<span class="k">return</span> <span class="n">itemRemoved</span><span class="o">;</span> <span class="c1">//can return double variable as Double</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="complete-class-and-client-including-homework">Complete class and client (including homework)</h1>
+
+<ul>
+  <li><a href="./MyArrayList.java">MyArrayList.java</a> (contains several incomplete methods for practice)</li>
+  <li><a href="./MyArrayListClient.java">MyArrayListClient.java</a></li>
+</ul>
+
+<h1 id="homework-tasks">Homework tasks</h1>
+
+<h3 id="1-percentage-used">1. Percentage used</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">percentageUsed</code> that returns the percentage of the instance array being used. For example, if <code class="language-plaintext highlighter-rouge">data.length = 15</code> and <code class="language-plaintext highlighter-rouge">nItems = 12</code>,  method returns the value <code class="language-plaintext highlighter-rouge">80.0</code>.</p>
+
+<h3 id="2-indexof">2. indexOf</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">indexOf</code> that when passed a <code class="language-plaintext highlighter-rouge">double</code>, returns the index of the first occurrence of the item. Return -1 if item doesn’t exist. Method header is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">indexOf</span><span class="o">(</span><span class="kt">double</span> <span class="n">target</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="3-lastindexof">3. lastIndexOf</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">lastIndexOf</code> that when passed a <code class="language-plaintext highlighter-rouge">double</code>, returns the index of the last occurrence of the item. Return -1 if item doesn’t exist. Method header is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">lastIndexOf</span><span class="o">(</span><span class="kt">double</span> <span class="n">target</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="4-isvalidindex">4. isValidIndex</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">isValidIndex</code> that when passed an <code class="language-plaintext highlighter-rouge">int</code> (index), returns <code class="language-plaintext highlighter-rouge">true</code> if the index is valid, and <code class="language-plaintext highlighter-rouge">false</code> otherwise. Method header is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValidIndex</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>For example, if <code class="language-plaintext highlighter-rouge">nItems = 7</code>, indices from 0 to 6 (inclusive on both sides) are valid, and all other indices are invalid.</p>
+
+<h3 id="5-set">5. set</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">set</code> that when passed an <code class="language-plaintext highlighter-rouge">int</code> (index) and a  <code class="language-plaintext highlighter-rouge">double</code> (updated value), sets the item at given index (if within range) to the updated value and returns <code class="language-plaintext highlighter-rouge">true</code>. If the index is invalid, return <code class="language-plaintext highlighter-rouge">false</code>. Method header is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">double</span> <span class="n">updated</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="6-modified-growth">6. Modified growth</h3>
+
+<p>Modify the method <code class="language-plaintext highlighter-rouge">grow</code> such that the array grows only if full. If the array is not full, it should not grow. Original method (that grows the array irresepective of being full or not) provided below:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kt">double</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">5</span><span class="o">];</span> <span class="c1">//5 extra items</span>
+
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//copy all items over</span>
+		<span class="n">temp</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="o">}</span>
+
+	<span class="n">data</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span> <span class="c1">//make instance variable array refer to the bigger array</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="7-remove-an-item">7. Remove an item</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">remove</code> that when passed a <code class="language-plaintext highlighter-rouge">double</code>, removes the first occurrence of the item from the list (if any).  The method should return <code class="language-plaintext highlighter-rouge">true</code> if there was an instance of the item that was removed, and <code class="language-plaintext highlighter-rouge">false</code> if there was no instance of the item in the list. Method header is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">remove</span><span class="o">(</span><span class="kt">double</span> <span class="n">itemToRemove</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="8-remove-all">8. Remove all</h3>
+
+<p>Add an instance method <code class="language-plaintext highlighter-rouge">removeAll</code> that when passed a <code class="language-plaintext highlighter-rouge">double</code>, removes all occurrences of the item from the list. You <strong>can</strong> use the method <code class="language-plaintext highlighter-rouge">remove</code> already implemented. The method should return <code class="language-plaintext highlighter-rouge">true</code> if there was an instance of the item that was removed, and <code class="language-plaintext highlighter-rouge">false</code> if there was no instance of the item in the list. Method header is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">removeAll</span><span class="o">(</span><span class="kt">double</span> <span class="n">itemToRemove</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h1 id="array-based-lists-operation-analysis">Array-based lists operation analysis</h1>
+
+<p>At the end of the day, an array-based list is an array. In this section, we’ll take a look at the three core operations on arrays:</p>
+
+<ol>
+  <li>accessing at item at a given index</li>
+  <li>adding an item at a given index</li>
+  <li>removing an item from a given index</li>
+</ol>
+
+<h2 id="accessing-an-item-at-a-given-index">Accessing an item at a given index</h2>
+
+<p>We need to understand how an array is stored to understand how array items are accessed.</p>
+
+<p>An array is stored as a contiguous block of memory. So, if you have 100 items, you need a block of 400 bytes (given each integer is 4 bytes).</p>
+
+<p>As an example, consider the following array containing 6 integers.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="o">{</span><span class="mi">20</span><span class="o">,</span> <span class="mi">50</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mi">30</span><span class="o">};</span>
+</code></pre></div></div>
+
+<p>24 bytes are reserved for this instance, 4 bytes per integer. The first item is stored in the first four bytes, the second item in the next four bytes and so on.</p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/lists-figure0.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p>Thus,</p>
+
+<ul>
+  <li>The address of the first item (at index 0) is the base address of the array (in this example, 600).</li>
+  <li>The address of the second item (at index 1) is the base address of the array + 4 bytes.</li>
+  <li>The address of the third item (at index 2) is the base address of the array + 2 * 4 bytes.</li>
+  <li>…</li>
+  <li>
+    <p>The address of the last item (at index 5) is:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">base address of the array</code> + <code class="language-plaintext highlighter-rouge">5</code> * <code class="language-plaintext highlighter-rouge">4</code> bytes.</p>
+  </li>
+</ul>
+
+<p>With a little tweak we can see:</p>
+
+<ul>
+  <li>Address(<code class="language-plaintext highlighter-rouge">data[0]</code>) = <code class="language-plaintext highlighter-rouge">baseAddress</code> + <em>0 * 4</em></li>
+  <li>Address(<code class="language-plaintext highlighter-rouge">data[1]</code>) = <code class="language-plaintext highlighter-rouge">baseAddress</code> + <em>1 * 4</em></li>
+  <li>Address(<code class="language-plaintext highlighter-rouge">data[2]</code>) = <code class="language-plaintext highlighter-rouge">baseAddress</code> + <em>2 * 4</em></li>
+  <li>…</li>
+  <li>Address(<code class="language-plaintext highlighter-rouge">data[data.length - 1]</code>) = <code class="language-plaintext highlighter-rouge">baseAddress</code> + <em>(data.length - 1) * 4</em></li>
+</ul>
+
+<p>Putting it all together,</p>
+
+<p><code class="language-plaintext highlighter-rouge">(address of item at index idx)</code> = <code class="language-plaintext highlighter-rouge">(base address of array)</code> +
+                                 <code class="language-plaintext highlighter-rouge">(size of each item)</code> * <code class="language-plaintext highlighter-rouge">(idx)</code>;</p>
+
+<p>This means, irrespective of the index accessed, it takes the same time to return an item. A sample table illustrating time taken against index is provided below. In this, <code class="language-plaintext highlighter-rouge">x</code> is the amount of time taken and could be any value more than 0.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>index</th>
+      <th>time taken</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>x milliseconds</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>(around) x milliseconds</td>
+    </tr>
+    <tr>
+      <td>800</td>
+      <td>(around) x milliseconds</td>
+    </tr>
+    <tr>
+      <td>60000</td>
+      <td>(around) x milliseconds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you plot a chart with index on x-axis and time taken on y-axis, you’ll get a (near) flat-line. We can this <strong>O(1)</strong> operation in terms of time complexity (but don’t stress, we will teach the formal terminology in subsequent units).</p>
+
+<h3 id="example-accessing-an-item">Example: Accessing an item</h3>
+
+<p>Let’s say we want to access <code class="language-plaintext highlighter-rouge">data[3]</code> in the following statement:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">item</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+</code></pre></div></div>
+
+<p>We start off with the reference held by <code class="language-plaintext highlighter-rouge">data</code> and getting the base address (600).</p>
+
+<p>To that, we add 3 * 4 = 12 (3 being the index and 4 being size of each item), giving us the starting address of the item 612.</p>
+
+<p>We grab 4 bytes starting at that address (so bytes 612 to 615) and present it packed as an integer: 90.</p>
+
+<h2 id="growing-the-array">Growing the array</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">grow</code> method is as follows:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">grow</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kt">double</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">5</span><span class="o">];</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="n">temp</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="o">}</span>
+
+	<span class="n">data</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span> 	
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The key operation in this method is the loop that iterates <code class="language-plaintext highlighter-rouge">data.length</code> number of times. The following table summarizes the time behaviour of the loop.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>current size</th>
+      <th>time taken</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5</td>
+      <td>x milliseconds</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>(around) 2 times x milliseconds</td>
+    </tr>
+    <tr>
+      <td>500</td>
+      <td>(around) 100 times x milliseconds</td>
+    </tr>
+    <tr>
+      <td>10000</td>
+      <td>(around) 2000 times x milliseconds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A chart plotted for this with current size on x-axis and time taken on y-axis would yield a <strong>straight</strong> (rising) line. We call this <strong>O(n)</strong> operation in terms of time complexity.</p>
+
+<h2 id="inserting-an-item-at-a-given-index">Inserting an item at a given index</h2>
+
+<p>There are four cases for inserting an item:</p>
+
+<ol>
+  <li>
+    <p>Array is not full and you are inserting an item at the end of the array: None of items need to be moved, array doesn’t need to be grown. This requires a fixed number of operations, irrespective of the current state of the array and hence <strong>O(1)</strong> operation.</p>
+  </li>
+  <li>
+    <p>Array is full and you are inserting an item at the end of the array: None of items need to be moved but array needs to be grown. Growing the array is <strong>O(n)</strong>. Therefore, this is an <strong>O(n)</strong> scenario.</p>
+  </li>
+  <li>
+    <p>Array is not full but you are inserting an item somewhere (not at the end): Some items need to be moved but array doesn’t need to be grown. The worst case is when you are adding an item at index 0, in which case all items need to move, which is <strong>O(n)</strong>. Therefore, this is also an <strong>O(n)</strong> scenario.</p>
+
+    <p>For example, if there are 5 items currently being used in an array of size 8, and we try to insert an item 5.6 at index 0, all 5 items need to be moved forward.</p>
+  </li>
+</ol>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/lists-figure2.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p>These shifts are illustrated in the following diagram:</p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/lists-figure3.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<ol>
+  <li>Array is full and you are inserting an item somewhere (not at the end): Double whammy, but  <strong>O(n)</strong> + <strong>O(n)</strong> is still <strong>O(n)</strong>, just the straight line is steeper.</li>
+</ol>
+
+<h2 id="removing-at-item-at-a-given-index">Removing at item at a given index</h2>
+
+<p>There are two relevant cases for removing an item:</p>
+
+<ol>
+  <li><strong>Best case</strong>: removing the last item: No items need to be moved. <strong>O(1)</strong>.</li>
+  <li>
+    <p><strong>Worst case</strong>: Removing the first item: All the items need to be moved. <strong>O(n)</strong> because of the loop that needs to iterate over each item.</p>
+
+    <p>For example, if there are 5 items currently being used in an array of size 8, and we try to remove the first item, all 5 items need to be moved backward by one.</p>
+  </li>
+</ol>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/lists-figure4.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p>These shifts are illustrated in the following diagram:</p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<p><img src="./fig/06-lists/lists-figure5.png" alt="" /></p>
+
+<p></p>
+<p> </p>
+<p></p>
+
+<h2 id="homework-exercises">Homework exercises</h2>
+
+<ol>
+  <li>
+    <p>Explain the calculations performed during calculating the address of <code class="language-plaintext highlighter-rouge">data[6]</code> if the base address is 4000 and the array is of type <code class="language-plaintext highlighter-rouge">double[]</code>. Each <code class="language-plaintext highlighter-rouge">double</code> variable needs 8 bytes of memory.</p>
+  </li>
+  <li>
+    <p>Explain the calculations performed during calculating the address of <code class="language-plaintext highlighter-rouge">data[40]</code> if the base address is 3000 and the array is of type <code class="language-plaintext highlighter-rouge">char[]</code>. Each <code class="language-plaintext highlighter-rouge">char</code> variable needs 2 bytes of memory.</p>
+  </li>
+  <li>
+    <p>Consider an array <code class="language-plaintext highlighter-rouge">data = {10, 70, 20, 90, 30, 80, 60}</code>. Explain, with the help of a diagram, the shifts involved while removing the item 70.</p>
+  </li>
+  <li>
+    <p>Consider an array <code class="language-plaintext highlighter-rouge">data = {10, 70, 20, 90, 30, 80, 60}</code>. Explain, with the help of a diagram, the shifts involved during the process of adding the item 30 at index 1.</p>
+  </li>
+</ol>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

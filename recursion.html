@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Recursion | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Recursion" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/recursion.html" />
+<meta property="og:url" content="/recursion.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recursion" />
+<script type="application/ld+json">
+{"url":"/recursion.html","@type":"WebPage","headline":"Recursion","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Recursion</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./functions">Functions</a></li>
+    <li><a href="./recursion_function_call">Recursion - What goes on during a function call</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Recognise difference between iterative and recursive code.</li>
+    <li>Be able to trace recursive functions.</li>
+    <li>Be able to write recursive functions.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="what-is-recursion">What is recursion?</h1>
+
+<p>There are two common approaches to solving algorthmic problems:</p>
+
+<ol>
+  <li>Iterative</li>
+  <li>Recursive</li>
+</ol>
+
+<h2 id="iterative-solution">Iterative solution</h2>
+
+<p>The distinctive property of <em>iterative</em> solutions is that they do not reduce a problem to a simpler form of itself.</p>
+
+<h3 id="example">EXAMPLE</h3>
+
+<p>Add all integers between <code class="language-plaintext highlighter-rouge">low</code> and <code class="language-plaintext highlighter-rouge">high</code> (inclusive on both sides, and assuming <code class="language-plaintext highlighter-rouge">low</code> &lt;= <code class="language-plaintext highlighter-rouge">high</code>), I can go through each integer and add it to an accumulating variable, say <code class="language-plaintext highlighter-rouge">total</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">high</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">low</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">high</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">i</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">total</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="recursive-solution">Recursive solution</h2>
+
+<p>The distinctive property of <em>recursive</em> solutions is that they reduce a problem to a simpler form of itself.</p>
+
+<h3 id="example-1">EXAMPLE</h3>
+
+<p>For the same problem statement used for iterative solutions, we can say that the sum of all integers from <code class="language-plaintext highlighter-rouge">low</code> to <code class="language-plaintext highlighter-rouge">high</code> is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if low &gt; high:
+	return 0
+else
+	sub = sum of all integers from (low+1) to high
+	return (low + sub)
+</code></pre></div></div>
+
+<p>Focus on the part,</p>
+
+<blockquote>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sum of all integers from `low+1` to `high`
+</code></pre></div>  </div>
+</blockquote>
+
+<p>It is the same problem as the original problem, except there is one less number to handle, and thus is <em>simpler</em>.</p>
+
+<p>&lt;iframe width=”560”<code class="language-plaintext highlighter-rouge"> height="315"</code> src=”https://www.youtube.com/embed/KEEKn7Me-ms”<code class="language-plaintext highlighter-rouge"> frameborder="0"</code> allow=”autoplay; encrypted-media”` allowfullscreen&gt;&lt;/iframe&gt;</p>
+
+<h2 id="equivalence">Equivalence</h2>
+
+<p>It has been proven that there is a recursive solution for every iterative solution and vice versa. We will soon look at some of the aspects to consider while deciding on which approach to take.</p>
+
+<h2 id="advantages">Advantages</h2>
+
+<h4 id="1-intuitiveness">1. Intuitiveness</h4>
+
+<p>Some solutions have an intuitive recursive design. Some examples (we assume n &gt;= 0 for all examples):</p>
+
+<ol>
+  <li>x to the power of n:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">x</code><sup><code class="language-plaintext highlighter-rouge">n</code></sup> = <code class="language-plaintext highlighter-rouge">x</code><sup><code class="language-plaintext highlighter-rouge">n-1</code></sup> * <code class="language-plaintext highlighter-rouge">x</code> if n &gt; 0</li>
+      <li><code class="language-plaintext highlighter-rouge">x</code><sup><code class="language-plaintext highlighter-rouge">0</code></sup> = 1</li>
+    </ul>
+  </li>
+  <li>number of digits in an integer:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">nDigits(n)</code> = <code class="language-plaintext highlighter-rouge">nDigits(n/10) + 1</code> if n &gt; 0</li>
+      <li><code class="language-plaintext highlighter-rouge">nDigits(0)</code> = 0</li>
+    </ul>
+  </li>
+  <li>sum of the first n positive integers (1 + 2 + … + n):
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sum(n) = sum(n-1) + n</code> if n &gt; 0</li>
+      <li><code class="language-plaintext highlighter-rouge">sum(0)</code> = 0</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="2-complex-problems">2. Complex problems</h4>
+
+<p>While trivial problems have fairly obvious recursive <strong>and</strong> iterative solutions, it’s much easier to find a recursive solution to the more complex problems. For example, creating a random permutation of the word `“super”.</p>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"super"</code>
+= random character from <code class="language-plaintext highlighter-rouge">"super"</code> (say <code class="language-plaintext highlighter-rouge">'u'</code>) + random permutation of the word <code class="language-plaintext highlighter-rouge">"sper"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"sper"</code>
+= random character from <code class="language-plaintext highlighter-rouge">"sper"</code> (say <code class="language-plaintext highlighter-rouge">'r'</code>) + random permutation of the word <code class="language-plaintext highlighter-rouge">"spe"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"spe"</code>
+= random character from <code class="language-plaintext highlighter-rouge">"spe"</code> (say <code class="language-plaintext highlighter-rouge">'s'</code>) + random permutation of the word <code class="language-plaintext highlighter-rouge">"pe"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"pe"</code>
+= random character from <code class="language-plaintext highlighter-rouge">"pe"</code> (say <code class="language-plaintext highlighter-rouge">'e'</code>) + random permutation of the word <code class="language-plaintext highlighter-rouge">"p"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"p"</code>
+= random character from <code class="language-plaintext highlighter-rouge">"p"</code> (has to be <code class="language-plaintext highlighter-rouge">'p'</code>) + random permutation of the word <code class="language-plaintext highlighter-rouge">""</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">""</code>
+= <code class="language-plaintext highlighter-rouge">""</code> (end case)</p>
+</blockquote>
+
+<p>Plugging the values back:</p>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"p"</code>
+= <code class="language-plaintext highlighter-rouge">'p'</code> + <code class="language-plaintext highlighter-rouge">""</code>
+= <code class="language-plaintext highlighter-rouge">"p"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"pe"</code>
+= <code class="language-plaintext highlighter-rouge">'e'</code> + <code class="language-plaintext highlighter-rouge">"p"</code>
+= <code class="language-plaintext highlighter-rouge">"ep"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"spe"</code>
+= <code class="language-plaintext highlighter-rouge">'s'</code> + <code class="language-plaintext highlighter-rouge">"ep"</code>
+= <code class="language-plaintext highlighter-rouge">"sep"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"sper"</code>
+= <code class="language-plaintext highlighter-rouge">'r'</code> + <code class="language-plaintext highlighter-rouge">"sep"</code>
+= <code class="language-plaintext highlighter-rouge">"rsep"</code></p>
+</blockquote>
+
+<blockquote>
+  <p>random permutation of the word <code class="language-plaintext highlighter-rouge">"super"</code>
+= <code class="language-plaintext highlighter-rouge">'u'</code> + <code class="language-plaintext highlighter-rouge">"rsep"</code>
+= <code class="language-plaintext highlighter-rouge">"ursep"</code></p>
+</blockquote>
+
+<h4 id="3-recursive-data-structures">3. Recursive data structures</h4>
+
+<p>Advanced data structures (such as linked lists, trees and graphs) are recursive in nature and it is logical to operate recursively on them.</p>
+
+<h1 id="when-should-i-not-use-recursion">When should I NOT use recursion?</h1>
+
+<p>Recursion has it’s own set of disadvantages. Each method call requires,</p>
+
+<ol>
+  <li>Variables associated with that call to be stored in the memory, thereby requiring more memory.</li>
+  <li>Caller to transfer the control to the method called (callee), and then the callee to execute and return control, possible with a value, back to the caller, thus adding to processing time. Hence, recursive solutions have overhead in terms of time.</li>
+</ol>
+
+<p>We will see concrete examples of this once we talk about recursive implementation.</p>
+
+<h1 id="method-calling-itself">Method calling itself</h1>
+
+<p>When a method calls itself, another entry is added to the top of the method stack.</p>
+
+<p>Consider the following code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="o">{</span>
+	<span class="n">foo</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is the most basic recursive example, where the method <code class="language-plaintext highlighter-rouge">foo</code> calls itself, placing another instance on top of the stack.</p>
+
+<p>Of course, since this process never terminates, the stack keeps growing infinitely. As you might imagine, there is a limit to the number of entries in the method stack and when this is reached, we get <code class="language-plaintext highlighter-rouge">StackOverflowError</code>.</p>
+
+<p>Thus, our job is to ensure that methods don’t call themselves infinitely.</p>
+
+<p>Consider the following code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+	<span class="n">foo</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+	<span class="n">foo</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The output you will get before finally getting a <code class="language-plaintext highlighter-rouge">StackOverflowError</code> is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+3
+2
+1
+0
+-1
+-2
+-3
+-4
+and on and on and on ...
+</code></pre></div></div>
+
+<p>An illustration of memory transactions is given below</p>
+
+<h3 id="step-1-main-calls-foo4">STEP 1: main calls foo(4)</h3>
+
+<p><img src="./fig/04-recursion/recursiveCall-figure0.png" alt="" /></p>
+
+<h3 id="step-2-foo4-calls-foo3">STEP 2: foo(4) calls foo(3)</h3>
+
+<p><img src="./fig/04-recursion/recursiveCall-figure1.png" alt="" /></p>
+
+<p>… and it repeats forever (ends with <code class="language-plaintext highlighter-rouge">StackOverflowError</code>)</p>
+
+<h1 id="end-case-or-terminal-case-is-critical">End-case or terminal case is CRITICAL</h1>
+
+<p>It is critical that we have an <em>end case</em> of a <em>terminal case</em>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+		<span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+		<span class="n">foo</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the above modified method, we have enclosed the entire code in a conditional block. As soon as <code class="language-plaintext highlighter-rouge">n</code> drops below 1, it’s effectively an empty method body and it returns the control back to the caller.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main(null) calls foo(4)
+	foo(4) displays 4 and calls foo(3)
+		foo(3) displays 3 and calls foo(2)
+			foo(2) displays 2 and calls foo(1)
+				foo(1) displays 1 and calls foo(0)
+				foo(0) does nothing and returns control to foo(1)
+			foo(1) returns control to foo(2)
+		foo(2) returns control to foo(3)
+	foo(3) returns control to foo(4)
+foo(4) returns control to main(null)
+</code></pre></div></div>
+
+<p>The output you get is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+3
+2
+1
+</code></pre></div></div>
+
+<p>Following are two different ways of handling the terminal case:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="first-look-at-a-recursive-solution">First look at a recursive solution</h1>
+
+<h3 id="problem-statement">PROBLEM STATEMENT</h3>
+
+<p>Define a method that when passed an integer, returns the sum of all integers from 1 to that integer.</p>
+
+<p>Examples:</p>
+
+<blockquote>
+  <p>Input = 4 -&gt; return 1 + 2 + 3 + 4 (10)</p>
+</blockquote>
+
+<blockquote>
+  <p>Input = 6 -&gt; return 1 + 2 + 3 + 4 + 5 + 6 (21)</p>
+</blockquote>
+
+<p>Let’s call the method <code class="language-plaintext highlighter-rouge">sum</code> and the the formal parameter <code class="language-plaintext highlighter-rouge">n</code></p>
+
+<blockquote>
+  <p>sum(n) = 1 + 2 + … + (n-1) + n</p>
+</blockquote>
+
+<p>can be written as:</p>
+
+<blockquote>
+  <p>sum(n) = [1 + 2 + … + (n-1)] + n</p>
+</blockquote>
+
+<p>But</p>
+
+<blockquote>
+  <p>[1 + 2 + … + (n-1)] is sum(3)</p>
+</blockquote>
+
+<p>(by the problem statement)</p>
+
+<p>Hence,</p>
+
+<blockquote>
+  <p>sum(n) = sum(n-1) + n</p>
+</blockquote>
+
+<h3 id="first-attempt">First attempt</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="nf">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>But this version will result in the method calling itself indefinitely, until JVM causes <code class="language-plaintext highlighter-rouge">StackOverflowError</code>.</p>
+
+<p>We need to address the end case:</p>
+
+<blockquote>
+  <p>sum(0) = 0</p>
+</blockquote>
+
+<h3 id="second-attempt">Second attempt</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="c1">//control reaches here only if n is not 0</span>
+	<span class="k">return</span> <span class="nf">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What happens if the client, maliciously, calls the method with parameter -3?</p>
+
+<p><code class="language-plaintext highlighter-rouge">sum(-3)</code> → <code class="language-plaintext highlighter-rouge">sum(-4)</code> → <code class="language-plaintext highlighter-rouge">sum(-5)</code> …</p>
+
+<p>Since the parameter is never equal to 0, the method, when initially called with a negative value, calls itself indefinitely.</p>
+
+<p>Eventually JVM causes <code class="language-plaintext highlighter-rouge">StackOverflowError</code>.</p>
+
+<h3 id="third-and-correct-version">Third (and correct) version</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//return 0 for anything less than 1</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="c1">//control reaches here only if n is more than 0</span>
+	<span class="k">return</span> <span class="nf">sum</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">n</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="trace">Trace</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>client calls <span class="nb">sum</span><span class="o">(</span>4<span class="o">)</span>
+<span class="nb">sum</span><span class="o">(</span>4<span class="o">)</span>	<span class="o">=</span> <span class="nb">sum</span><span class="o">(</span>3<span class="o">)</span> + 4
+	<span class="nb">sum</span><span class="o">(</span>3<span class="o">)</span>	<span class="o">=</span> <span class="nb">sum</span><span class="o">(</span>2<span class="o">)</span> + 3
+		<span class="nb">sum</span><span class="o">(</span>2<span class="o">)</span>	<span class="o">=</span> <span class="nb">sum</span><span class="o">(</span>1<span class="o">)</span> + 2
+			<span class="nb">sum</span><span class="o">(</span>1<span class="o">)</span> <span class="o">=</span> <span class="nb">sum</span><span class="o">(</span>0<span class="o">)</span> + 1
+				<span class="nb">sum</span><span class="o">(</span>0<span class="o">)</span>	returns 0 to <span class="nb">sum</span><span class="o">(</span>1<span class="o">)</span> <span class="o">(</span>terminal <span class="k">case</span><span class="p">)</span>
+			<span class="nb">sum</span><span class="o">(</span>1<span class="o">)</span> returns 0 + 1 <span class="o">(</span>1<span class="o">)</span> to <span class="nb">sum</span><span class="o">(</span>2<span class="o">)</span>
+		<span class="nb">sum</span><span class="o">(</span>2<span class="o">)</span> returns 1 + 2 <span class="o">(</span>3<span class="o">)</span> to <span class="nb">sum</span><span class="o">(</span>3<span class="o">)</span>
+	<span class="nb">sum</span><span class="o">(</span>3<span class="o">)</span> returns 3 + 3 <span class="o">(</span>6<span class="o">)</span> to <span class="nb">sum</span><span class="o">(</span>4<span class="o">)</span>
+<span class="nb">sum</span><span class="o">(</span>4<span class="o">)</span> returns 6 + 4 <span class="o">(</span>10<span class="o">)</span> to client
+</code></pre></div></div>
+
+<h2 id="variations">Variations</h2>
+
+<p>Some variations of <code class="language-plaintext highlighter-rouge">sum</code> function are provided to help you understand recursion better:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sumOdd(int)</code>: sum of positive ODD numbers up to, and including, the parameter</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumOdd</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//when initially called with an even parameter</span>
+         <span class="k">return</span> <span class="nf">sumOdd</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+     <span class="o">}</span>
+
+     <span class="c1">//guaranteed: n &gt;= 1 AND n%2 != 0 =&gt; n is a positive, odd number</span>
+
+     <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">sumOdd</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+     <span class="c1">//add the current odd number to</span>
+     <span class="c1">//the sum of all odd numbers up to, and including n-2</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sumSquares(int)</code>: sum of squares pf positive integers up to, and including, the parameter</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumSquares</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">n</span> <span class="o">+</span> <span class="n">sumSquares</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+     <span class="c1">//add the square of the current number to</span>
+     <span class="c1">//the sum of all square integers up to, and including n-1</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sumSquareOdds(int)</code>: sum of squares of positive ODD numbers up to, and including, the parameter</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumSquareOdds</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="nf">sumSquareOdds</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+     <span class="o">}</span>
+
+     <span class="c1">//guaranteed: n &gt;= 1 AND n%2 != 0 =&gt; n is a positive, odd number</span>
+
+     <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">n</span> <span class="o">+</span> <span class="n">sumSquares</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+     <span class="c1">//add the square of the current number to</span>
+     <span class="c1">//the sum of all square integers up to, and including n-2</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sumDigits(int)</code>: sum of the digits of a number</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumDigits</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//just in case n is negative</span>
+         <span class="k">return</span> <span class="nf">sumDigits</span><span class="o">(-</span><span class="n">n</span><span class="o">);</span>
+     <span class="o">}</span>
+
+     <span class="kt">int</span> <span class="n">lastDigit</span> <span class="o">=</span> <span class="n">n</span><span class="o">%</span><span class="mi">10</span><span class="o">;</span>
+     <span class="kt">int</span> <span class="n">remainingNumber</span> <span class="o">=</span> <span class="n">n</span><span class="o">/</span><span class="mi">10</span><span class="o">;</span>
+
+     <span class="k">return</span> <span class="n">lastDigit</span> <span class="o">+</span> <span class="n">sumDigits</span><span class="o">(</span><span class="n">remainingNumber</span><span class="o">);</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">getReversed(String)</code>: get reverse of a String</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getReversed</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+     <span class="nc">String</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+     <span class="k">return</span> <span class="nf">getReversed</span><span class="o">(</span><span class="n">remaining</span><span class="o">)</span> <span class="o">+</span> <span class="n">first</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">isPalindrome(String)</code>: return <code class="language-plaintext highlighter-rouge">true</code> if String is same when reversed, <code class="language-plaintext highlighter-rouge">false</code> otherwise</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+     <span class="o">}</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="k">return</span> <span class="n">str</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">getReversed</span><span class="o">(</span><span class="n">str</span><span class="o">));</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Note that this method uses <code class="language-plaintext highlighter-rouge">getReversed</code> as a <em>helper</em>, which, in turn, is recursive.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

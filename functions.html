@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Functions | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Functions" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/functions.html" />
+<meta property="og:url" content="/functions.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functions" />
+<script type="application/ld+json">
+{"url":"/functions.html","@type":"WebPage","headline":"Functions","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Functions</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="primitive_operations">Primitive Operations</a></li>
+    <li><a href="variables">Variables</a></li>
+    <li><a href="conditions">Conditions</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Know the syntax of functions</li>
+    <li>Understand how functions relate to algorithms</li>
+    <li>Be able to pass values into a function</li>
+    <li>Be able to get values back from a function</li>
+    <li>Be able to write your own functions</li>
+    <li>Be able to reason about the flow of a program that uses functions</li>
+  </ul>
+
+</details>
+
+<p class="keypoint">A function is a named piece of code that can be supplied with some inputs (known as parameters) and may return a value back to the caller.</p>
+
+<p class="readings">Chapter 7 of <a href="https://learningprocessing.com">Learning Processing</a> by Danel Shiffman.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zBo2D3Myo6Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/j_XyeWg_3EE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b9AYvekwKIg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h1 id="details">Details</h1>
+
+<p>Let’s be precise about functions.</p>
+
+<center><img src="functionsFigs/functionMemoryDiagrams-figure0.png" style="width: 300px;" /></center>
+
+<p>For example, we may have a function that determines the higher of two integers. We can call it by passing it two integers. If we pass the values 2 and 5, it should return 5.</p>
+
+<center><img src="functionsFigs/functionMemoryDiagrams-figure1.png" style="width: 300px;" /></center>
+
+<p>However, if we pass only one value, it cannot be executed, as it expects two integers.</p>
+
+<center><img src="functionsFigs/functionMemoryDiagrams-figure2.png" style="width: 300px;" /></center>
+
+<p>Similarly, you cannot pass it more than 2 values.</p>
+
+<center><img src="functionsFigs/functionMemoryDiagrams-figure3.png" style="width: 300px;" /></center>
+
+<p>Even if you pass two values, you must ensure they are of the right type. For example, we cannot pass a <code class="language-plaintext highlighter-rouge">boolean</code> instead of an integer.</p>
+
+<center><img src="functionsFigs/functionMemoryDiagrams-figure4.png" style="width: 300px;" /></center>
+
+<h2 id="defining-a-function">Defining a function</h2>
+
+<p>All functions have <em>just one</em> function definition - the place that the function itself is described.  Syntax of a function <em>definition</em> is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">returnType</span> <span class="nf">function</span><span class="o">(&lt;</span><span class="n">parameters</span><span class="o">&gt;)</span> <span class="o">{</span>
+    <span class="o">&lt;</span><span class="n">some</span> <span class="n">code</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="k">if</span><span class="o">&gt;</span>
+    	<span class="o">&lt;</span><span class="k">return</span> <span class="n">statement</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">endif</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">some</span> <span class="n">code</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="k">return</span> <span class="n">statement</span><span class="o">&gt;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Once this exists, you can have <em>many</em> function calls - the place that the code asks the function to run.  Syntax of a function <em>call</em> is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">functionName</span> <span class="o">(&lt;</span><span class="n">parameters</span><span class="o">&gt;);</span>
+</code></pre></div></div>
+
+<p>For example, the following function <em>definition</em></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">foo</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>can be run by any of these function <em>calls</em></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">foo</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">3</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">foo</span><span class="o">(</span><span class="mi">12</span><span class="o">,</span> <span class="mi">13</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">foo</span><span class="o">(</span><span class="n">foo</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">3</span><span class="o">),</span> <span class="mi">8</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Note the feature in the above example, anywhere an <code class="language-plaintext highlighter-rouge">int</code> is expected, you can put a calls to <code class="language-plaintext highlighter-rouge">foo</code> because it returns an <code class="language-plaintext highlighter-rouge">int</code>.</p>
+
+<h2 id="formal-and-actual-parameters">Formal and Actual parameters</h2>
+
+<p>Since we have both function definitions and function calls, and parameters appear in each, it is useful to be able to distinguish the two uses.</p>
+<ul>
+  <li>Parameters appearing in the top line (signature) of a function definition are called <em>formal parameters</em> and are defined in the same way as any other variable declaration</li>
+  <li>Parameters appearing in a function call are called <em>actual paramters</em> and work like any other value in Processing.</li>
+</ul>
+
+<p>When the function is executed, the actual paramters are copied into the formal paramter slots and the function is run.</p>
+
+<div class="task">
+  <p>Suppose we have a function that accepts a real number (<code class="language-plaintext highlighter-rouge">double</code>) and returns its square.</p>
+
+  <p>Draw a block diagram for the interaction when a caller calls the function with the value 2.5. Assume the name of the formal parameter is <code class="language-plaintext highlighter-rouge">val</code>, and the value returned by the function is copied into a variable <code class="language-plaintext highlighter-rouge">sqr</code>.</p>
+
+  <details>
+    <summary>Solution</summary>
+    <p><img src="./block_ans.png" alt="" /></p>
+  </details>
+</div>
+
+<div class="task">
+  <p>Consider the following function definition,</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">roundOff</span><span class="o">(</span><span class="kt">float</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="n">a</span><span class="o">+</span><span class="mf">0.5</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>  </div>
+
+  <p>Write a statement that calls the function <code class="language-plaintext highlighter-rouge">roundOff</code> with the parameter 6.8 and stores the value returned in a variable <code class="language-plaintext highlighter-rouge">result</code>.</p>
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span><span class="o">;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">roundOff</span><span class="o">(</span><span class="mf">6.8</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>Which of the following are valid calls to function <code class="language-plaintext highlighter-rouge">roundOff</code>?</p>
+
+  <ol>
+    <li><code class="language-plaintext highlighter-rouge">int a = roundOff(4.5);</code></li>
+    <li><code class="language-plaintext highlighter-rouge">int b = roundOff(8);</code></li>
+    <li><code class="language-plaintext highlighter-rouge">roundOff(2.6);</code></li>
+    <li><code class="language-plaintext highlighter-rouge">float c = roundOff(-1.53);</code></li>
+    <li><code class="language-plaintext highlighter-rouge">int d = roundOff(3.2, 4.8);</code></li>
+    <li><code class="language-plaintext highlighter-rouge">int e = roundOff();</code></li>
+    <li><code class="language-plaintext highlighter-rouge">int e = roundOff(true);</code></li>
+  </ol>
+
+  <details>
+    <summary>Solution</summary>
+
+    <ol>
+      <li>Yes</li>
+      <li>Yes, the integer is treated like a float when it arrives in the formal parameter.  It is identical to writing <code class="language-plaintext highlighter-rouge">float a = 8</code></li>
+      <li>Yes, the return value is thrown away, but that is allowed</li>
+      <li>Yes, the return value is treated like a float when it arrives in <code class="language-plaintext highlighter-rouge">c</code></li>
+      <li>No, too many actual parameters</li>
+      <li>No, not enough acutal parameters</li>
+      <li>No, actual parameter type does not match formal parameter type.</li>
+    </ol>
+  </details>
+</div>
+
+<div class="task">
+
+  <p>Define a function that when passed two integers, returns their average. Remember that 15/2 is 7 while 15/2.0 is 7.5.</p>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="nf">average</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)/</span><span class="mf">2.0</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<h2 id="statements-or-expressions">Statements or Expressions?</h2>
+
+<ul>
+  <li>function declarations are statements.</li>
+  <li>function calls are statements if the function returns <code class="language-plaintext highlighter-rouge">void</code>.</li>
+  <li>function calls are statements <em>and</em> expressions if they return a value.</li>
+  <li>formal parameters are statements.</li>
+  <li>actual parameters are expressions.</li>
+</ul>
+
+<p>The fact that a function call in processing can <em>do</em> something and also <em>evaluate to a value</em> makes them special.  In fact, this double-life is a bit of a point of friction in language design.  Some languages insist that functions must be statements and others insist they must be expressions, but those are rare.  The situation we have here, while strange, is quite common.</p>
+
+<h1 id="furthering-your-understanding">Furthering your Understanding</h1>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VU284tKC_HY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<div class="task">
+
+  <p>Define a function that when passed an integer, returns the number of digits in the integer.</p>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">digits</span><span class="o">(</span><span class="kt">int</span> <span class="n">input</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">totalSoFar</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">input</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">totalSoFar</span><span class="o">++;</span>
+        <span class="n">intput</span> <span class="o">=</span> <span class="n">input</span> <span class="o">/</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">totalSoFar</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+
+  <p>Given two integers (store in formal parameters <code class="language-plaintext highlighter-rouge">a, b</code>), define a function that determines if either of them is divisible by the other. Some input-output mappings are:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">a = 14, b = 6</code> –&gt; return <code class="language-plaintext highlighter-rouge">false</code></li>
+    <li><code class="language-plaintext highlighter-rouge">a = 14, b = 7</code> –&gt; return <code class="language-plaintext highlighter-rouge">true</code></li>
+    <li><code class="language-plaintext highlighter-rouge">a = 9, b = 30</code> –&gt; return <code class="language-plaintext highlighter-rouge">false</code></li>
+    <li><code class="language-plaintext highlighter-rouge">a = 9, b = 36</code> –&gt; return <code class="language-plaintext highlighter-rouge">true</code></li>
+    <li><code class="language-plaintext highlighter-rouge">a = 12, b = 0</code> –&gt; return <code class="language-plaintext highlighter-rouge">true</code> (0 is divisible by 12)</li>
+  </ul>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">isDivisible</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>An year is leap if it satisfies one of the two conditions,</p>
+
+  <ol>
+    <li>it’s divisible by 400, or,</li>
+    <li>it’s divisible by 4 but <strong>NOT</strong> by 100.</li>
+  </ol>
+
+  <p>Define a function that determines if an year passed (store in formal parameter <code class="language-plaintext highlighter-rouge">year</code>) is <code class="language-plaintext highlighter-rouge">leap</code>. Return <code class="language-plaintext highlighter-rouge">true</code> if it’s a leap year, and <code class="language-plaintext highlighter-rouge">false</code> otherwise. Some input-output mappings are:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">year = 2016</code> –&gt; return <code class="language-plaintext highlighter-rouge">true</code></li>
+    <li><code class="language-plaintext highlighter-rouge">year = 1800</code> –&gt; return <code class="language-plaintext highlighter-rouge">false</code></li>
+    <li><code class="language-plaintext highlighter-rouge">year = 2018</code> –&gt; return <code class="language-plaintext highlighter-rouge">false</code></li>
+    <li><code class="language-plaintext highlighter-rouge">year = 1600</code> –&gt; return <code class="language-plaintext highlighter-rouge">true</code></li>
+  </ul>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="nf">isLeapYear</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">){</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">isDivisible</span><span class="o">(</span><span class="n">year</span><span class="o">,</span> <span class="mi">400</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="n">isDivisible</span><span class="o">(</span><span class="n">year</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isDivisible</span><span class="o">(</span><span class="n">year</span> <span class="mi">100</span><span class="o">)));</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+
+  <p>I would like to count the number of non-trivial (apart from 1 and itself) divisors of a given integer. Some input-output mappings are:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">n = 18</code> –&gt; return <code class="language-plaintext highlighter-rouge">4</code> (as there are 4 non-trivial divisors: 2, 3, 6, 9)</li>
+    <li><code class="language-plaintext highlighter-rouge">n = 31</code> –&gt; return <code class="language-plaintext highlighter-rouge">0</code> (as there is no non-trivial divisor of 31)</li>
+    <li><code class="language-plaintext highlighter-rouge">n = 77</code> –&gt; return <code class="language-plaintext highlighter-rouge">2</code> (as there are 2 non-trivial divisors: 7, 11)</li>
+  </ul>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">divisors</span><span class="o">(</span><span class="kt">int</span> <span class="n">input</span><span class="o">){</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">isDivisible</span><span class="o">(</span><span class="n">input</span><span class="o">,</span> <span class="n">i</span><span class="o">){</span>
+            <span class="n">found</span><span class="o">++;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">found</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

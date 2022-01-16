@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="author" content="gaurav" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/listInterface.html" />
+<meta property="og:url" content="/listInterface.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="COMP1010 - Fundamentals of Computer Science" />
+<script type="application/ld+json">
+{"url":"/listInterface.html","@type":"WebPage","headline":"COMP1010 - Fundamentals of Computer Science","author":{"@type":"Person","name":"gaurav"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="the-list-interface">The <code class="language-plaintext highlighter-rouge">List</code> interface</h1>
+
+<p>List is an interface in Java (for the time being, just assume that an interface is a collection of method headers - very loose definition but it will do for now).</p>
+
+<p>The <strong>most frequently used</strong> methods from <code class="language-plaintext highlighter-rouge">List</code> are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">get(int): Object</code></td>
+      <td>returns Object at passed index (IndexOutOfBoundsException if the index is out of range)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">size(): int</code></td>
+      <td>returns number of items in the list (0 if empty)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">isEmpty(): boolean</code></td>
+      <td>returns <code class="language-plaintext highlighter-rouge">true</code> if list is empty, <code class="language-plaintext highlighter-rouge">false</code> otherwise</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">add(Object)</code></td>
+      <td>adds passed object at the end of the list</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">add(int, Object)</code></td>
+      <td>adds (at the given index) the object passed (IndexOutOfBoundsException if the index is out of range)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">remove(int): Object</code></td>
+      <td>removes and returns Object at given index. (IndexOutOfBoundsException if the index is out of range)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">remove(Object): boolean</code></td>
+      <td>removes first occurrence of given Object and returns <code class="language-plaintext highlighter-rouge">true</code>. Returns <code class="language-plaintext highlighter-rouge">false</code> if item not found</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">contains(Object): boolean</code></td>
+      <td>returns true if passed object exists in the list, false otherwise</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">indexOf(Object): int</code></td>
+      <td>returns first index at which passed object exists (-1 if it doesn’t exist in the list)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lastIndexOf(Object): int</code></td>
+      <td>returns last index at which passed object exists (-1 if it doesn’t exist in the list)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">toString():String</code></td>
+      <td>returns String representation of the list (comma-separated items inside square brackets)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="classes-implementing-list-interface">Classes implementing List interface</h2>
+
+<p>The two classes that implement the methods from <code class="language-plaintext highlighter-rouge">List</code> interface are: (<strong>Details discussed in the lectures</strong>)</p>
+
+<ul>
+  <li><strong>ArrayList</strong></li>
+  <li><strong>LinkedList</strong></li>
+</ul>
+
+<h2 id="creating-and-operating-on-list-objects">Creating and operating on List objects</h2>
+
+<h3 id="creating-a-list">Creating a list</h3>
+
+<p>A list cannot hold variables of primitive data types (like <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">boolean</code>, <code class="language-plaintext highlighter-rouge">double</code>, <code class="language-plaintext highlighter-rouge">char</code>). Instead it must hold objects of corresponding classes provided by Java (<code class="language-plaintext highlighter-rouge">Integer</code>, <code class="language-plaintext highlighter-rouge">Boolean</code>, <code class="language-plaintext highlighter-rouge">Double</code>, <code class="language-plaintext highlighter-rouge">Character</code> respectively)</p>
+
+<p>A list is typically parameterized with the type of objects it must hold.</p>
+
+<p>For those interested in learning about this, check out <a href="https://docs.oracle.com/javase/tutorial/java/generics/index.html">Java Generics</a></p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="creating-a-list-1">Creating a List</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;();</span>
+</code></pre></div></div>
+
+<p>This creates a list that can hold integer values (as <code class="language-plaintext highlighter-rouge">Integer</code> objects).</p>
+
+<p>You can similarly create a <code class="language-plaintext highlighter-rouge">LinkedList</code> object as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Double</span><span class="o">&gt;</span> <span class="n">grades</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Double</span><span class="o">&gt;();</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-1"><strong>Student activity 1</strong></h4>
+
+<p>Create a list (as an <code class="language-plaintext highlighter-rouge">ArrayList</code>) to hold outcomes of a dice roll. The dice can be rolled an arbitrary number of times. Give it the name <code class="language-plaintext highlighter-rouge">outcomes</code>.</p>
+
+<p><strong>NOTE:</strong> You will need to import <code class="language-plaintext highlighter-rouge">ArrayList</code> library to do this. To import the library, hover over the keyword <code class="language-plaintext highlighter-rouge">ArrayList</code> and choose the option <code class="language-plaintext highlighter-rouge">import ArrayList (java.util)</code>.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="storing-list-contents-in-a-string-or-displaying-it">Storing list contents in a String or displaying it</h3>
+
+<p>When you display a <code class="language-plaintext highlighter-rouge">list</code> object, <code class="language-plaintext highlighter-rouge">toString</code> is invoked and displays the items inside square brackets. You can also store the outcome in a <code class="language-plaintext highlighter-rouge">String</code> by explicitly calling <code class="language-plaintext highlighter-rouge">toString</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>     <span class="c1">//toString() called, displays [30, 10, 70, 30]</span>
+<span class="nc">String</span> <span class="n">rep</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span> <span class="c1">//rep = "[30, 10, 70, 30]"</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-2"><strong>Student activity 2</strong></h4>
+
+<p>Display the list <code class="language-plaintext highlighter-rouge">outcomes</code>. You should see the output <code class="language-plaintext highlighter-rouge">[]</code>.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="adding-items-at-the-end">Adding items at the end</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">70</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">90</span><span class="o">);</span>
+<span class="c1">//list = [10, 70, 20, 90]</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-3"><strong>Student activity 3</strong></h4>
+
+<p>Add the items 5, 6, and -2 (in that order) to <code class="language-plaintext highlighter-rouge">outcomes</code>. Display the list. You should see the output <code class="language-plaintext highlighter-rouge">[5, 6, -2]</code>.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="getting-number-of-items-in-a-list">Getting number of items in a list</h3>
+
+<p>The method <code class="language-plaintext highlighter-rouge">size()</code> returns the number of items in a list. Returns <code class="language-plaintext highlighter-rouge">null</code> if empty. Throws <code class="language-plaintext highlighter-rouge">NullPointerException</code> if list is <code class="language-plaintext highlighter-rouge">null</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//assuming list = [10, 70, 20, 90]</span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="c1">//size = 4</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-4"><strong>Student activity 4</strong></h4>
+
+<p>Store the number of items in list <code class="language-plaintext highlighter-rouge">outcomes</code> in a variable <code class="language-plaintext highlighter-rouge">nRolls</code>. Display <code class="language-plaintext highlighter-rouge">nRolls</code>. You should see the output 3.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="getting-item-at-a-specific-index">Getting item at a specific index</h3>
+
+<p>The method <code class="language-plaintext highlighter-rouge">get(int)</code> returns the item at passed index. Throws <code class="language-plaintext highlighter-rouge">NullPointerException</code> if list is <code class="language-plaintext highlighter-rouge">null</code>. Throws <code class="language-plaintext highlighter-rouge">IndexOutOfBoundsException</code> if index is invalid.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//assuming list = [10, 70, 20, 90]</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> <span class="c1">//a = 10</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span> <span class="c1">//b = 90 (last item)</span>
+<span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(-</span><span class="mi">3</span><span class="o">);</span> <span class="c1">//throws IndexOutOfBoundsException</span>
+<span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">nullList</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">nullList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> <span class="c1">//throws NullPointerException</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-5"><strong>Student activity 5</strong></h4>
+
+<p>Store the first item of list <code class="language-plaintext highlighter-rouge">outcomes</code> in variable <code class="language-plaintext highlighter-rouge">first</code>. Display <code class="language-plaintext highlighter-rouge">first</code>. You should see the output 5.</p>
+
+<p>Store the last item of list <code class="language-plaintext highlighter-rouge">outcomes</code> in variable <code class="language-plaintext highlighter-rouge">last</code>. <strong>Do not hard-code the index as 2.</strong> Assume you don’t know the number of items in the list. Display <code class="language-plaintext highlighter-rouge">last</code>. You should see the output -2.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="adding-items-at-arbitrary-index">Adding items at arbitrary index</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">30</span><span class="o">);</span>
+<span class="c1">//list = [30, 10, 70, 20, 90]</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+<span class="c1">//list = [30, 10, 4, 70, 20, 90]</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">(),</span> <span class="mi">30</span><span class="o">);</span> <span class="c1">//after the last item</span>
+<span class="c1">//list = [30, 10, 4, 70, 20, 90, 30]</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="o">-</span><span class="mi">60</span><span class="o">);</span> <span class="c1">//throws IndexOutOfBoundsException</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-6"><strong>Student activity 6</strong></h4>
+
+<p>Add the item 4 between the first two items (5 and 6) of list <code class="language-plaintext highlighter-rouge">outcomes</code>. Display the list. You should see the output <code class="language-plaintext highlighter-rouge">[5, 4, 6, -2]</code>.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="removing-an-item-at-a-specific-index">Removing an item at a specific index</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+<span class="c1">//list = [30, 10, 4, 70, 20, 30]</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(-</span><span class="mi">3</span><span class="o">);</span> <span class="c1">//throws IndexOutOfBoundsException</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span> <span class="c1">//throws IndexOutOfBoundsException</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-7"><strong>Student activity 7</strong></h4>
+
+<p>Remove the first item from list <code class="language-plaintext highlighter-rouge">outcomes</code>. Display the list. You should see the output <code class="language-plaintext highlighter-rouge">[4, 6, -2]</code>.</p>
+
+<p>Remove the last item from list <code class="language-plaintext highlighter-rouge">outcomes</code>. <strong>Do not hard-code the index as 3</strong>.
+Assume that you do not know how many items are in the list. Display the list. You should see the output <code class="language-plaintext highlighter-rouge">[4, 6]</code>.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h3 id="removing-a-specific-object">Removing a specific object</h3>
+
+<p>The only scenario in which this is tricky is a list containing Integers, because the type of the object and the type of the index is the same (int or Integer).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+<span class="c1">//removes item at index 4, not the item 4. list = [30, 10, 4, 70, 30]</span>
+
+<span class="c1">//if you want to remove THE ITEM 4, you must pass it as Integer object</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">((</span><span class="nc">Integer</span><span class="o">)</span><span class="mi">4</span><span class="o">);</span>
+<span class="c1">//removes item 4. list = [30, 10, 70, 30]</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-8"><strong>Student activity 8</strong></h4>
+
+<p>Remove the item 4 from list <code class="language-plaintext highlighter-rouge">outcomes</code>. Display the list. You should see the output <code class="language-plaintext highlighter-rouge">[6]</code>.</p>
+
+<p>Re-populate the list by adding the items 3, 5, and -2 (in that order) to <code class="language-plaintext highlighter-rouge">outcomes</code>. Display the list. You should see the output <code class="language-plaintext highlighter-rouge">[6, 3, 5, -2]</code>.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h4 id="iterating-over-the-list">Iterating over the list</h4>
+
+<p>Following example adds the items in the list</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">//total = 30+10+70+30 = 140</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-9"><strong>Student activity 9</strong></h4>
+
+<p>Count the number of items in <code class="language-plaintext highlighter-rouge">outcomes</code> that are greater than 2. Store in variable <code class="language-plaintext highlighter-rouge">moreThanTwo</code>. Display <code class="language-plaintext highlighter-rouge">moreThanTwo</code>. You should see the output 3.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; 
+———</p>
+
+<h3 id="checking-existence-and-location-of-items-in-list">Checking existence and location of items in list</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//note: list = [30, 10, 70, 30]</span>
+<span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>   <span class="c1">//flag = true</span>
+<span class="kt">boolean</span> <span class="n">status</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span> <span class="c1">//status = false</span>
+
+<span class="kt">int</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="mi">70</span><span class="o">);</span>        <span class="c1">//idx1 = 2</span>
+<span class="kt">int</span> <span class="n">idx2</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="mi">40</span><span class="o">);</span>        <span class="c1">//idx2 = -1</span>
+<span class="kt">int</span> <span class="n">idx3</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>        <span class="c1">//idx3 = 0</span>
+<span class="kt">int</span> <span class="n">idx4</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="mi">30</span><span class="o">);</span>    <span class="c1">//idx4 = 3</span>
+</code></pre></div></div>
+
+<h4 id="student-activity-10"><strong>Student activity 10</strong></h4>
+
+<p>Add item 6 to the list. The list should now become <code class="language-plaintext highlighter-rouge">[6, 3, 5, -2, 6]</code>.
+Display the first index at which the item 6 exists in list <code class="language-plaintext highlighter-rouge">outcomes</code>. You should see the output 0.
+Display the last index at which the item 6 exists in list <code class="language-plaintext highlighter-rouge">outcomes</code>. You should see the output 4.
+Display the first index at which the item 1 exists in list <code class="language-plaintext highlighter-rouge">outcomes</code>. You should see the output -1.</p>
+
+<p>&lt;/br&gt; 
+&lt;/br&gt; 
+&lt;/br&gt; </p>
+
+<hr />
+
+<h2 id="passing-lists-to-methods">Passing lists to methods</h2>
+
+<p>Lists are passed just like an array or an object. If you modify the contents of a list in a method, contents of the actual list that was passed are also modified.</p>
+
+<p>Examples are provided in <code class="language-plaintext highlighter-rouge">ListMethods.java</code></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

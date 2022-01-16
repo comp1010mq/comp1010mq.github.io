@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Recursion with String data | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Recursion with String data" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/recursion-strings.html" />
+<meta property="og:url" content="/recursion-strings.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recursion with String data" />
+<script type="application/ld+json">
+{"url":"/recursion-strings.html","@type":"WebPage","headline":"Recursion with String data","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Recursion with String data</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./functions">Functions</a></li>
+    <li><a href="./classes_types">Classes as Types</a></li>
+    <li><a href="./recursion">Recursion</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Be able to trace recursive functions in the context of String data.</li>
+    <li>Be able to write recursive functions in the context of String data.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="useful-string-methods">Useful String methods</h1>
+
+<p>To use recursion on Strings, following methods are very useful:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">str.charAt(int)</code>: returns character at given index, raises <code class="language-plaintext highlighter-rouge">StringIndexOutOfBoundsException </code> if index invalid. Note: first character is at index 0, last character at index <code class="language-plaintext highlighter-rouge">str.length()-1</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">str.substring(int)</code>: returns String object starting at given index (inclusive) to the end of the String, raises <code class="language-plaintext highlighter-rouge">StringIndexOutOfBoundsException </code> if index invalid.</li>
+  <li><code class="language-plaintext highlighter-rouge">str.substring(int, int)</code>: returns String object starting at first index (inclusive) to the second index (exclusive), raises <code class="language-plaintext highlighter-rouge">StringIndexOutOfBoundsException </code> if indices or range invalid.</li>
+  <li><code class="language-plaintext highlighter-rouge">str.indexOf(char/String)</code>: returns the index of the first occurrence (if any) of the passed character or String, -1 if not found.</li>
+  <li><code class="language-plaintext highlighter-rouge">str.indexOf(char/String, int)</code>: returns the index of the first occurrence (if any) of the passed character or String, <strong>starting the search</strong> at passed index (second parameter), -1 if not found.</li>
+  <li><code class="language-plaintext highlighter-rouge">str.equals(String)</code>: returns <code class="language-plaintext highlighter-rouge">true</code> if the two Strings are identical (case sensitive).</li>
+  <li><code class="language-plaintext highlighter-rouge">str.equalsIgnoreCase(String)</code>: returns <code class="language-plaintext highlighter-rouge">true</code> if the two Strings are identical (case insensitive).</li>
+</ol>
+
+<p>Examples of these methods in action:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">a</span> <span class="o">=</span> <span class="s">"Super Nintendo Chalmers is in?"</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">b</span> <span class="o">=</span> <span class="s">"Me fail English!? That's unpossible!"</span><span class="o">;</span>
+
+<span class="kt">char</span> <span class="n">ch1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> <span class="c1">//'p'</span>
+<span class="kt">char</span> <span class="n">ch2</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> <span class="c1">//' ' (space)</span>
+<span class="kt">char</span> <span class="n">ch3</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">charAt</span><span class="o">(-</span><span class="mi">1</span><span class="o">);</span> <span class="c1">//INVALID - StringIndexOutOfBoundsException</span>
+<span class="kt">char</span> <span class="n">ch4</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">//INVALID - StringIndexOutOfBoundsException</span>
+
+<span class="kt">int</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'e'</span><span class="o">);</span> <span class="c1">//3</span>
+<span class="kt">int</span> <span class="n">idx2</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'e'</span><span class="o">);</span> <span class="c1">//1</span>
+<span class="kt">int</span> <span class="n">idx3</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'x'</span><span class="o">);</span> <span class="c1">//-1</span>
+<span class="kt">int</span> <span class="n">idx4</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'$'</span><span class="o">);</span> <span class="c1">//-1</span>
+
+<span class="kt">int</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'e'</span><span class="o">);</span> <span class="c1">//3</span>
+<span class="kt">int</span> <span class="n">idx2</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'e'</span><span class="o">);</span> <span class="c1">//1</span>
+<span class="kt">int</span> <span class="n">idx3</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'x'</span><span class="o">);</span> <span class="c1">//-1</span>
+<span class="kt">int</span> <span class="n">idx4</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'$'</span><span class="o">);</span> <span class="c1">//-1</span>
+
+<span class="kt">int</span> <span class="n">idx5</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">"in"</span><span class="o">);</span> <span class="c1">//7</span>
+<span class="kt">int</span> <span class="n">idx6</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">"in"</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span> <span class="c1">//27</span>
+
+<span class="nc">String</span> <span class="n">sub1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="c1">//"uper Nintendo Chalmers is in?"</span>
+<span class="nc">String</span> <span class="n">sub2</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">7</span><span class="o">);</span> <span class="c1">//"fail"</span>
+<span class="nc">String</span> <span class="n">sub3</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span> <span class="c1">//INVALID RANGE - StringIndexOutOfBoundsException</span>
+<span class="nc">String</span> <span class="n">sub4</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">substring</span><span class="o">(-</span><span class="mi">5</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span> <span class="c1">//INVALID STARTING INDEX - StringIndexOutOfBoundsException</span>
+
+</code></pre></div></div>
+
+<h1 id="basic-strategy">Basic strategy</h1>
+
+<p>When designing and implementing recursive solutions in the context of String data, the key strategy is to</p>
+
+<ol>
+  <li><em>slice</em> a String,</li>
+  <li>operate on the immediate portion, and,</li>
+  <li>call the recursive method on the remaining String</li>
+</ol>
+
+<h2 id="example-1-count-the-number-of-vowels-in-a-string">Example 1: count the number of vowels in a String</h2>
+
+<h3 id="process-countvowelsstring">PROCESS: countVowels(String)</h3>
+
+<ol>
+  <li>If String is <code class="language-plaintext highlighter-rouge">null</code> or empty, return 0.</li>
+  <li>Extract the first character.</li>
+  <li>Store 1 into variable <code class="language-plaintext highlighter-rouge">contri</code> if first character is a vowel, 0 otherwise.</li>
+  <li>Extract the String without the first character (<code class="language-plaintext highlighter-rouge">remaining</code>).</li>
+  <li>Return <code class="language-plaintext highlighter-rouge">contri + countVowels(remaining)</code></li>
+</ol>
+
+<p><img src="./fig/04-recursion/recursion-strings-1.png" alt="" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">countVowels</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="nc">String</span> <span class="n">vowels</span> <span class="o">=</span> <span class="s">"aeiouAEIOU"</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">countFirstVowel</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">vowels</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">first</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">countFirstVowel</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="nc">String</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">return</span> <span class="n">countFirstVowel</span> <span class="o">+</span> <span class="n">countVowels</span><span class="o">(</span><span class="n">remaining</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="sample-call-chain">Sample call chain:</h3>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("Aliens")</code> returns 1 + <code class="language-plaintext highlighter-rouge">countVowels("liens")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("liens")</code> returns 0 + <code class="language-plaintext highlighter-rouge">countVowels("iens")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("iens")</code> returns 1 + <code class="language-plaintext highlighter-rouge">countVowels("ens")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("ens")</code> returns 1 + <code class="language-plaintext highlighter-rouge">countVowels("ns")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("ns")</code> returns 0 + <code class="language-plaintext highlighter-rouge">countVowels("s")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("s")</code> returns 0 + <code class="language-plaintext highlighter-rouge">countVowels("")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("")</code> returns 0</p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("s")</code> returns 0 + 0 = 0</p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("ns")</code> returns 0 + 0 = 0</p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("ens")</code> returns 1 + 0 = 1</p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("iens")</code> returns 1 + 1 = 2</p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("liens")</code> returns 0 + 2 = 2</p>
+
+<p><code class="language-plaintext highlighter-rouge">countVowels("Aliens")</code> returns 1 + 2 = 3</p>
+
+<h2 id="example-2-check-two-strings-are-reverse-of-each-other">Example 2: check two Strings are reverse of each other</h2>
+
+<h3 id="process-aremutuallyreversestring-string">PROCESS: areMutuallyReverse(String, String)</h3>
+
+<ol>
+  <li>If either of the two Strings is <code class="language-plaintext highlighter-rouge">null</code> or if Strings are of different lengths, return <code class="language-plaintext highlighter-rouge">false</code>.</li>
+  <li>If both Strings are empty, return <code class="language-plaintext highlighter-rouge">true</code>.</li>
+  <li>Extract the first character of the first String (<code class="language-plaintext highlighter-rouge">a</code>).</li>
+  <li>Extract the last character of the second String (<code class="language-plaintext highlighter-rouge">b</code>).</li>
+  <li>If <code class="language-plaintext highlighter-rouge">a != b</code>, return false.</li>
+  <li>Extract the first String without the first character (<code class="language-plaintext highlighter-rouge">remaining1</code>).</li>
+  <li>Extract the second String without the last character (<code class="language-plaintext highlighter-rouge">remaining2</code>).</li>
+  <li>Return <code class="language-plaintext highlighter-rouge">areMutuallyReverse(remaining1, remaining2)</code></li>
+</ol>
+
+<h3 id="sample-call-chain-1">Sample call chain 1:</h3>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("super", "reap")</code> returns <code class="language-plaintext highlighter-rouge">false</code> (as the two Strings are of different lengths)</p>
+
+<h3 id="sample-call-chain-1-1">Sample call chain 1:</h3>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("super", "reap")</code> returns <code class="language-plaintext highlighter-rouge">false</code> (as the two Strings are of different lengths)</p>
+
+<h3 id="sample-call-chain-2">Sample call chain 2:</h3>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("super", "reads")</code> returns <code class="language-plaintext highlighter-rouge">areMutuallyReverse("uper", "read")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("uper", "rope")</code> returns <code class="language-plaintext highlighter-rouge">false</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("super", "reads")</code> returns <code class="language-plaintext highlighter-rouge">false</code></p>
+
+<h3 id="sample-call-chain-3">Sample call chain 3:</h3>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("pat", "tap")</code> returns <code class="language-plaintext highlighter-rouge">areMutuallyReverse("at", "ta")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("at", "ta")</code> returns <code class="language-plaintext highlighter-rouge">areMutuallyReverse("t", "t")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("t", "t")</code> returns <code class="language-plaintext highlighter-rouge">areMutuallyReverse("", "")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("", "")</code> returns <code class="language-plaintext highlighter-rouge">true</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("t", "t")</code> returns <code class="language-plaintext highlighter-rouge">true</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("at", "ta")</code> returns <code class="language-plaintext highlighter-rouge">true</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">areMutuallyReverse("pat", "tap")</code> returns <code class="language-plaintext highlighter-rouge">true</code></p>
+
+<p><img src="./fig/04-recursion/recursion-strings-2.png" alt="" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areMutuallyReverse</span><span class="o">(</span><span class="nc">String</span> <span class="n">str1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">str2</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str1</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str2</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str1</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">!=</span> <span class="n">str2</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">char</span> <span class="n">a</span> <span class="o">=</span> <span class="n">str1</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="kt">char</span> <span class="n">b</span> <span class="o">=</span> <span class="n">str2</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">str2</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="nc">String</span> <span class="n">remaining1</span> <span class="o">=</span> <span class="n">str1</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="nc">String</span> <span class="n">remaining2</span> <span class="o">=</span> <span class="n">str2</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">str2</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">return</span> <span class="nf">areMutuallyReverse</span><span class="o">(</span><span class="n">remaining1</span><span class="o">,</span> <span class="n">remaining2</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="example-3-remove-consecutive-occurrences-of-any-character-with-a-unique-instance">Example 3: Remove consecutive occurrences of any character with a unique instance</h2>
+
+<p>Example: <code class="language-plaintext highlighter-rouge">keepUnique("aaaaaaabbbbbcccccddd")</code> returns <code class="language-plaintext highlighter-rouge">"abcd"</code></p>
+
+<h3 id="process-keepuniquestring">PROCESS: keepUnique(String)</h3>
+
+<ol>
+  <li>If String is <code class="language-plaintext highlighter-rouge">null</code> or has less than 2 characters, return the String itself.</li>
+  <li>Extract the first character in a variable <code class="language-plaintext highlighter-rouge">first</code>.</li>
+  <li>Extract the second character in a variable <code class="language-plaintext highlighter-rouge">second</code>.</li>
+  <li>Extract the String without the first two characters (<code class="language-plaintext highlighter-rouge">withoutFirstTwo</code>).</li>
+  <li>If <code class="language-plaintext highlighter-rouge">first == second</code>, return <code class="language-plaintext highlighter-rouge">keepUnique(first + withoutFirstTwo)</code> (since it’s still possible that first and third might are the same)</li>
+  <li>Extract the String without the first character (<code class="language-plaintext highlighter-rouge">withoutFirst</code>).</li>
+  <li>Return <code class="language-plaintext highlighter-rouge">first + keepUnique(withoutFirst)</code></li>
+</ol>
+
+<p><img src="./fig/04-recursion/recursion-strings-3.png" alt="" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">keepUnique</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="kt">char</span> <span class="n">second</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="nc">String</span> <span class="n">withoutFirstTwo</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">keepUnique</span><span class="o">(</span><span class="n">first</span> <span class="o">+</span> <span class="n">withoutFirstTwo</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="nc">String</span> <span class="n">withoutFirst</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">keepUnique</span><span class="o">(</span><span class="n">withoutFirst</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

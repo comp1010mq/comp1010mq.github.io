@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Class holding array(s) | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Class holding array(s)" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/classes_class_holding_array.html" />
+<meta property="og:url" content="/classes_class_holding_array.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Class holding array(s)" />
+<script type="application/ld+json">
+{"url":"/classes_class_holding_array.html","@type":"WebPage","headline":"Class holding array(s)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Class holding array(s)</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./classes_types">Classes as Types</a></li>
+    <li><a href="./classes_copies">Copying objects</a></li>
+    <li><a href="./classes_methods">Instance methods</a></li>
+    <li><a href="./classes_composition">Composition</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Defining a class holding array(s).</li>
+    <li>Creating and populating objects of such classes.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="class-holding-arrays">Class holding array(s)</h1>
+
+<p>Say, we want to keep a track of the total time spent daily watching television.</p>
+
+<p>The dataset would be something like:</p>
+
+<ul>
+  <li><strong>Day 1</strong>: 120 minutes</li>
+  <li><strong>Day 2</strong>: 90 minutes</li>
+  <li><strong>Day 3</strong>: 180 minutes</li>
+  <li>…</li>
+</ul>
+
+<p>If we hold this information in an array, it’s rather primitive and lacks context. However, if we hold it in an array <strong>inside</strong> a class, we can create instance methods to operate and analyze the dataset, and also provide context and meaning to our objects.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TVData</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">minutes</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Before we go on and add constructors and other methods, let’s think about how we are going to access the information.</p>
+
+<p>From inside a client (outside the class definition), assuming an object <code class="language-plaintext highlighter-rouge">record</code> of class <code class="language-plaintext highlighter-rouge">TVData</code>,</p>
+
+<ul>
+  <li>the array holding the information is accessed using <code class="language-plaintext highlighter-rouge">record.minutesWatched</code>.</li>
+  <li>the number of days for which we have the information is given by <code class="language-plaintext highlighter-rouge">record.minutes.length</code>.</li>
+  <li>amount of time I spent watching TV on the first day is given by <code class="language-plaintext highlighter-rouge">record.minutes[0]</code>.</li>
+  <li>amount of time I spent watching TV on the second day is given by <code class="language-plaintext highlighter-rouge">record.minutes[1]</code>.</li>
+  <li>and so on …</li>
+</ul>
+
+<p>Next, we add a constructor with an array passed that will be <strong>reference-copied</strong> into the array <code class="language-plaintext highlighter-rouge">minutes</code>, and a method that determines total viewing time.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TVData</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">minutes</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">TVData</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">minutes</span> <span class="o">=</span> <span class="n">source</span><span class="o">;</span> <span class="c1">//reference copy made into array</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">totalViewingTime</span><span class="o">()</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">minutes</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">result</span><span class="o">+=</span><span class="n">minutes</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The following client gives an example of how the object will be created and used:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GoodClient</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">src</span> <span class="o">=</span> <span class="o">{</span><span class="mi">120</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">180</span><span class="o">};</span>
+		<span class="nc">TVData</span> <span class="n">record</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TVData</span><span class="o">(</span><span class="n">src</span><span class="o">);</span> <span class="c1">//populate with array src</span>
+		<span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="na">totalViewingTime</span><span class="o">();</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">total</span><span class="o">+</span><span class="s">" minutes viewed"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><img src="fig/03-classes-and-objects/classHoldingArrayReferenceCopy.png" alt="" /></p>
+
+<p>The above client would give the expected outcome:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>390 minutes viewed
+</code></pre></div></div>
+
+<h2 id="however-">However …</h2>
+
+<p>What happens when we change the contents of the source data AFTER populating our object with it?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BadClient</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">src</span> <span class="o">=</span> <span class="o">{</span><span class="mi">120</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">180</span><span class="o">};</span>
+		<span class="nc">TVData</span> <span class="n">record</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TVData</span><span class="o">(</span><span class="n">src</span><span class="o">);</span> <span class="c1">//populate with array src</span>
+
+		<span class="c1">//so far, so good</span>
+
+		<span class="n">src</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">400</span><span class="o">;</span> <span class="c1">//nothing stops us from doing so</span>
+
+		<span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="na">totalViewingTime</span><span class="o">();</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">total</span><span class="o">+</span><span class="s">" minutes viewed"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The above client would give the following outcome, which is, let’s say, logically flawed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-130 minutes viewed
+</code></pre></div></div>
+
+<p>We don’t want the array held inside an object to be a reference copy of the source, but an instance copy.</p>
+
+<p>Everything else remains the same, but we change the constructor as follows,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">TVData</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">source</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">minutes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span> <span class="c1">//empty array</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="n">minutes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">minutes</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span> <span class="c1">//some more validation</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="fig/03-classes-and-objects/classHoldingArrayInstanceCopy.png" alt="" /></p>
+
+<p>Now, both <code class="language-plaintext highlighter-rouge">GoodClient</code> and <code class="language-plaintext highlighter-rouge">BadClient</code> will give the same, logically correct, output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>390 minutes viewed
+</code></pre></div></div>
+
+<h1 id="class-holding-an-array-of-objects">Class holding an array of objects</h1>
+
+<p>This section assumes you are familiar with <a href="./classes_composition">Composition</a>.</p>
+
+<p>For the sake of clarity, we’ll use the same <code class="language-plaintext highlighter-rouge">Point</code> class definition used in that topic.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span> <span class="c1">//"this" distinguishes instance variable from formal paramter</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">Point</span><span class="o">(</span><span class="nc">Point</span> <span class="n">p</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"("</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="s">","</span><span class="o">+</span><span class="n">y</span><span class="o">+</span><span class="s">")"</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Say we want to create a “connect-the-dots” game where multiple points are present on a canvas and adjacent points need to be connected to reveal the art.</p>
+
+<h3 id="iteration-1">Iteration 1</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConnectTheDots</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Point</span><span class="o">[]</span> <span class="n">points</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">ConnectTheDots</span><span class="o">(</span><span class="nc">Point</span><span class="o">[]</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">source</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+		<span class="o">}</span>
+		<span class="k">else</span> <span class="o">{</span>
+			<span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">[</span><span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+			<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="n">points</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There is one logical mistake in the above code.</p>
+
+<details>
+  <summary>Click to reveal!</summary>
+  Each item of the array is a reference copy of the corresponding item in `source`.
+</details>
+
+<h3 id="iteration-2">Iteration 2</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConnectTheDots</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Point</span><span class="o">[]</span> <span class="n">points</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">ConnectTheDots</span><span class="o">(</span><span class="nc">Point</span><span class="o">[]</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">source</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+		<span class="o">}</span>
+		<span class="k">else</span> <span class="o">{</span>
+			<span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">[</span><span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+			<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="n">points</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Still one issue :(</p>
+
+<details>
+  <summary>Click to reveal!</summary>
+  If an item in `source` is `null`, the constructor call will raise `NullPointerException`.
+</details>
+
+<h3 id="iteration-3-and-the-last-one">Iteration 3 (and the last one)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConnectTheDots</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Point</span><span class="o">[]</span> <span class="n">points</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">ConnectTheDots</span><span class="o">(</span><span class="nc">Point</span><span class="o">[]</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">source</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+		<span class="o">}</span>
+		<span class="k">else</span> <span class="o">{</span>
+			<span class="kt">int</span> <span class="n">nonNullPoints</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+			<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="k">if</span><span class="o">(</span><span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+					<span class="n">nonNullPoints</span><span class="o">++;</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+
+			<span class="n">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">[</span><span class="n">nonNullPoints</span><span class="o">];</span>
+
+			<span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">//destination index</span>
+			<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">source</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="k">if</span><span class="o">(</span><span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+					<span class="n">points</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="n">source</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+					<span class="n">k</span><span class="o">++;</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="fig/03-classes-and-objects/classHoldingArrayOfObjects.png" alt="" /></p>
+
+<p>Let’s just write a client to finish this off!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArtGallery</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Point</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">30</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+		<span class="nc">Point</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">50</span><span class="o">,</span> <span class="mi">30</span><span class="o">);</span>
+		<span class="nc">Point</span> <span class="n">c</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//BOO!!!!!!!</span>
+		<span class="nc">Point</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">30</span><span class="o">,</span> <span class="mi">50</span><span class="o">);</span>
+		<span class="nc">Point</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">30</span><span class="o">);</span>
+		<span class="nc">Point</span><span class="o">[]</span> <span class="n">src</span> <span class="o">=</span> <span class="o">{</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">c</span><span class="o">,</span> <span class="n">d</span><span class="o">,</span> <span class="n">e</span><span class="o">};</span>
+		<span class="nc">ConnectTheDots</span> <span class="n">canvas</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConnectTheDots</span><span class="o">(</span><span class="n">src</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">canvas</span><span class="o">.</span><span class="na">points</span><span class="o">));</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We will get the following output (notice that the <code class="language-plaintext highlighter-rouge">null</code> object was dropped successfully):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[(30,10), (50,30), (30,50), (10,30)]
+</code></pre></div></div>
+
+<p>Complete code is provided in <a href="./codes/ArtGallery.java">ArtGallery.java</a></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

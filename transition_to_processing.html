@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Transition to Processing | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Transition to Processing" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/transition_to_processing.html" />
+<meta property="og:url" content="/transition_to_processing.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Transition to Processing" />
+<script type="application/ld+json">
+{"url":"/transition_to_processing.html","@type":"WebPage","headline":"Transition to Processing","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Transition to Processing</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li>Basic Computer Literacy</li>
+    <li>Understands Files and Folders.</li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Become familiar with the Processing Programming Environment</li>
+    <li>Create your first Processing Programs on your Own Computer</li>
+    <li>Become familiar with the steps that occur when a processing program is run.</li>
+    <li>Be able to do arithmetic the way computers do.</li>
+  </ul>
+</details>
+
+<p class="readings">Learning Processing: Introduction- Macquarie University Students <a href="https://multisearch.mq.edu.au/permalink/61MACQUARIE_INST/1c87tk9/alma99244325146802171">have access via the library</a></p>
+
+<h1 id="install-processing">Install Processing</h1>
+
+<p><a href="https://processing.org/download/">Processing is available for all desktop operating systems</a>.  You can’t run it on an iPad or a Chromebook however.</p>
+
+<div class="task">
+  <p><a href="https://processing.org/download/">Download and install</a> the processing environment on your own computer.</p>
+
+  <p>Once you have done this, copy-and-paste the following code into the processing IDE and hit the run button.</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">line</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">);</span>
+<span class="n">line</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">width</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+</code></pre></div>  </div>
+
+  <p>What is the end result?</p>
+
+  <details>
+    <summary>Solution</summary>
+    <p>You should see an X drawn across a small window.  That window is a processing “sketch” that is being drawn in a small window according to your instructions.  In this course we will learn how to give processing very complex instructions to make very complex sketches.  These sketches are really just computer programs like any other but they are started by the processing IDE and you can inspect what is going on inside them with the debugger.</p>
+  </details>
+</div>
+
+<h1 id="how-processing-works">How Processing Works</h1>
+
+<p>Programmers need to know how the machine they are programming actually work.  This is one of your primary tasks early on.  You can copy-and-paste some programs, and even make small changes to them, without understanding the underlying machine but you will run out of runway very quickly.</p>
+
+<p>So, what exactly occurs when a processing program is run?  If we think of the process as a <em>conversation</em> between different <em>actors</em> we would see a conversation like this:</p>
+
+<p class="chat user left">Please run this program</p>
+
+<p class="chat compiler right">I’m checking the program for errors</p>
+
+<p class="chat compiler right">I’m converting the program to a runnable form</p>
+
+<p class="chat processing left">I’m running the code in <code class="language-plaintext highlighter-rouge">setup</code></p>
+
+<p class="chat processing left">I’m running the code in <code class="language-plaintext highlighter-rouge">draw</code></p>
+
+<p class="chat computer right">I’m displaying the results</p>
+
+<p class="chat processing left">I’m running the code in <code class="language-plaintext highlighter-rouge">draw</code></p>
+
+<p class="chat computer right">I’m displaying the results</p>
+
+<p class="chat processing left">I’m running the code in <code class="language-plaintext highlighter-rouge">draw</code></p>
+
+<p class="chat computer right">I’m displaying the results</p>
+
+<p class="chat processing left">I’m running the code in <code class="language-plaintext highlighter-rouge">draw</code></p>
+
+<p class="chat computer right">I’m displaying the results</p>
+
+<p>… and so on ad-infinitum until</p>
+
+<p class="chat user left">I’m shutting this thing down.</p>
+
+<div class="task">
+  <p>Given the following things have occurred during the execution of a processing program, what do you expect to happen next</p>
+
+  <ul>
+    <li>compiler has checked the program</li>
+    <li>compiler has converted the program</li>
+    <li><code class="language-plaintext highlighter-rouge">setup</code> has run</li>
+    <li><code class="language-plaintext highlighter-rouge">draw</code> has run</li>
+  </ul>
+
+  <details>
+    <summary>solution</summary>
+    <p>The next step is for the result of the <code class="language-plaintext highlighter-rouge">draw</code> function to be put on the screen by the operating system/computer.</p>
+  </details>
+</div>
+
+<div class="task">
+  <p>Which component is responsible for each of the following tasks:</p>
+
+  <ul>
+    <li>convert text to a runnable program</li>
+    <li>work out what occurs in <code class="language-plaintext highlighter-rouge">draw</code></li>
+    <li>put actual pictures on the screen</li>
+    <li>work out what occurs in <code class="language-plaintext highlighter-rouge">setup</code></li>
+  </ul>
+
+  <details>
+    <summary>Solution</summary>
+    <p><em>The compiler</em> will convert text to a runnable program.  <em>Processing</em> will work out what occurs in draw.  <em>The computer (or the operating system)</em> will put actual pictures on the screen.  <em>Processing</em> will work out what occurs in <code class="language-plaintext highlighter-rouge">setup</code>.</p>
+  </details>
+</div>
+
+<h1 id="integer-division">Integer Division</h1>
+
+<p>Processing insists that if you divide one integer by another, you should get an integer back as the result.  This is simple enough for <code class="language-plaintext highlighter-rouge">4/2</code> which is <code class="language-plaintext highlighter-rouge">2</code> but what answer should you get from <code class="language-plaintext highlighter-rouge">4/3</code>?  Processing will do integer division as a <em>quotient</em> and <em>remainder</em> just like you did in primary school.  <code class="language-plaintext highlighter-rouge">/</code> gets you the quotient and the new operation <code class="language-plaintext highlighter-rouge">%</code> gets you the remainder:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">4/2</code> = <code class="language-plaintext highlighter-rouge">2</code></li>
+  <li><code class="language-plaintext highlighter-rouge">4/3</code> = <code class="language-plaintext highlighter-rouge">1</code> because the full answer would be “1 remainder 1”</li>
+  <li><code class="language-plaintext highlighter-rouge">8/3</code> = <code class="language-plaintext highlighter-rouge">2</code> because the full answer would be “2 remainder 2”</li>
+  <li><code class="language-plaintext highlighter-rouge">7/3</code> = <code class="language-plaintext highlighter-rouge">2</code> because the full answer would be “2 remainder 1”</li>
+  <li><code class="language-plaintext highlighter-rouge">4%3</code> = <code class="language-plaintext highlighter-rouge">1</code> because the full answer would be “1 remainder 1”</li>
+  <li><code class="language-plaintext highlighter-rouge">8%3</code> = <code class="language-plaintext highlighter-rouge">2</code> because the full answer would be “2 remainder 2”</li>
+  <li><code class="language-plaintext highlighter-rouge">7%3</code> = <code class="language-plaintext highlighter-rouge">1</code> because the full answer would be “2 remainder 1”</li>
+</ul>
+
+<div class="task">
+  <p>Compute the following expressions according to rules of Processing:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">3+5</code></li>
+    <li><code class="language-plaintext highlighter-rouge">-2*5</code></li>
+    <li><code class="language-plaintext highlighter-rouge">12/3</code></li>
+    <li><code class="language-plaintext highlighter-rouge">17/5</code></li>
+    <li><code class="language-plaintext highlighter-rouge">17/6</code></li>
+    <li><code class="language-plaintext highlighter-rouge">12%3</code></li>
+    <li><code class="language-plaintext highlighter-rouge">17%5</code></li>
+    <li><code class="language-plaintext highlighter-rouge">17%6</code></li>
+    <li><code class="language-plaintext highlighter-rouge">12.0/5.0</code></li>
+  </ul>
+
+  <details>
+    <summary>solutions</summary>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">3+5</code> = <code class="language-plaintext highlighter-rouge">8</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">-2*5</code> = <code class="language-plaintext highlighter-rouge">-10</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">12/3</code> = <code class="language-plaintext highlighter-rouge">4</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">17/5</code> = <code class="language-plaintext highlighter-rouge">3</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">17/6</code> = <code class="language-plaintext highlighter-rouge">2</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">12%3</code> = <code class="language-plaintext highlighter-rouge">0</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">17%5</code> = <code class="language-plaintext highlighter-rouge">2</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">17%6</code> = <code class="language-plaintext highlighter-rouge">5</code><br /></li>
+      <li><code class="language-plaintext highlighter-rouge">12.0/5.0</code>= <code class="language-plaintext highlighter-rouge">2.4</code></li>
+    </ul>
+  </details>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Compound Data | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Compound Data" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/composite_data.html" />
+<meta property="og:url" content="/composite_data.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Compound Data" />
+<script type="application/ld+json">
+{"url":"/composite_data.html","@type":"WebPage","headline":"Compound Data","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Compound Data</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="variables">Variables</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Understand how larger chunks of data are stored in a program</li>
+    <li>Understand how to access these larger chunks of data</li>
+    <li>Understand the most common data chunks, arrays</li>
+  </ul>
+</details>
+
+<p>So far we have been working only with <em>atomic</em> data.  That is data that is “just one thing” and can’t be broken up.  This is getting unwieldy.  Everytime we have something to draw, we need to have an x-position and a y-position and so we need two variables for something we probably think of as just one thing (the position on the screen).</p>
+
+<p>Wouldn’t it be nice to have just one variable for both?  Yes, yes it would.</p>
+
+<p>The facility we need for this is <em>composite data</em>.  We need a way to put two values (the x and the y positions) into a single variable.  What type would this be?  Not an <code class="language-plaintext highlighter-rouge">int</code> or a <code class="language-plaintext highlighter-rouge">float</code> or a <code class="language-plaintext highlighter-rouge">char</code>!  Processing <em>does</em> have types we can use for this, but they act a little differently from the types we already know.</p>
+
+<p>Let me introduce you to one of these types, <code class="language-plaintext highlighter-rouge">PVector</code>.</p>
+
+<p>Recall that processing has <em>values</em> (like 1,c,4.5) that are grouped into <em>types</em> (like <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">char</code>, <code class="language-plaintext highlighter-rouge">float</code>).  It is possible to have a value with two numbers in it, that value would be of the type <code class="language-plaintext highlighter-rouge">PVector</code>:</p>
+
+<ul>
+  <li>(1,1) is a <code class="language-plaintext highlighter-rouge">PVector</code> with two values in it, <code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">1</code></li>
+  <li>(10,4) is a <code class="language-plaintext highlighter-rouge">PVector</code> with two values in it, <code class="language-plaintext highlighter-rouge">10</code> and <code class="language-plaintext highlighter-rouge">4</code>.</li>
+</ul>
+
+<p>So you can see that we have a whole new type and a whole new set of values that fit into that type.  Lets play with it.</p>
+
+<p><a href="https://processing.org/examples/bouncingball.html">The Processing website has an example of using <code class="language-plaintext highlighter-rouge">PVectors</code></a> for a bouncing ball program.  Study it carefully.</p>
+
+<p>You will notice two interesting features that we will now discuss:</p>
+
+<ul>
+  <li>the use of “dot-notation” to get inside the compound data</li>
+  <li>the use of <code class="language-plaintext highlighter-rouge">new</code> for an extra step in the declare-and-initialise process.</li>
+</ul>
+
+<h2 id="compound-data-in-memory">Compound Data in Memory</h2>
+
+<p>So, compound data is <em>bigger</em>, so much so, that it can’t fit into a single memory slot.  <em>But</em> variables can only point to single buckets, so what do we do?</p>
+
+<p>For compound data, a variable will point to one memory location that then tells you <em>where the larger chunk of memory is</em>.</p>
+<aside>
+  <p>Note that the reasons for this way of doing things are myriad.  In the end, it is the right way but we don’t need to know all the reasons, we only need to know that it is so and know how to work with it.  Atomic data (<code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">float</code>, <code class="language-plaintext highlighter-rouge">char</code>) is stored directly in their memory slot but compound data stored a “reference” to another location where the compound data is really stored.</p>
+</aside>
+
+<div class="row">
+<div class="col-xs-6">
+    <pre><code class="language-~">int[] myArray;
+myArray = new int[5];
+</code></pre>
+  </div>
+<div class="col-xs-6">
+<svg xmlns="http://www.w3.org/2000/svg" height="400" width="480" version="1.1" viewBox="0 0 105.83333 52.916666">
+ <defs>
+  <marker id="marker8703" refY="0.0" refX="0.0" overflow="visible" orient="auto">
+   <path stroke-linejoin="round" d="m8.719 4.034l-10.93-4.018 10.93-4.018c-1.746 2.372-1.736 5.618 0 8.036z" fill-rule="evenodd" transform="scale(.6) rotate(180) translate(0)" stroke="#000" stroke-width=".625" />
+  </marker>
+  <marker id="marker9431" refY="0.0" refX="0.0" overflow="visible" orient="auto">
+   <path stroke-linejoin="round" d="m8.719 4.034l-10.93-4.018 10.93-4.018c-1.746 2.372-1.736 5.618 0 8.036z" fill-rule="evenodd" transform="scale(.6) rotate(180) translate(0)" stroke="#000" stroke-width=".625" />
+  </marker>
+ </defs>
+ <g transform="translate(29.1 -243.1)">
+  <rect height="37.04" width="35.72" stroke="#263738" y="249.4" x="3.969" stroke-width=".2495" fill="none" />
+  <g fill="none">
+   <path marker-end="url(#marker9431)" d="m-7.938 250.7 10.96 0.3858" stroke="#000" stroke-width=".2761" />
+   <g stroke="#263738">
+    <g stroke-width="0.26px">
+     <path d="m7.937 249.4v37.04" />
+     <path d="m11.91 249.4v37.04" />
+     <path d="m15.88 249.4v37.04" />
+     <path d="m19.84 249.4v37.04" />
+     <path d="m23.81 249.4v37.04" />
+     <path d="m27.78 249.4v37.04" />
+     <path d="m31.75 249.4v37.04" />
+     <path d="m35.72 249.4v37.04" />
+    </g>
+    <g stroke-width=".2646px">
+     <path d="m3.969 253.3h35.72" />
+     <path d="m3.969 257.3h35.72" />
+     <path d="m3.969 262.6h35.72" />
+     <path d="m3.969 266.6h35.72" />
+     <path d="m3.969 270.5h35.72" />
+     <path d="m3.969 274.5h35.72" />
+     <path d="m3.969 278.5h35.72" />
+     <path d="m3.969 282.4h35.72" />
+    </g>
+   </g>
+   <path marker-end="url(#marker8703)" d="m5.292 250.7 14.55 19.8" stroke="#000" stroke-width=".2646px" />
+   <rect height="3.969" width="19.84" stroke="#263738" y="270.5" x="19.84" stroke-width=".7650" />
+  </g>
+  <g font-size="3.836px" font-family="sans-serif">
+   <text style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="1.25" y="273.91467" x="20.823767"><tspan y="273.91467" x="20.823767" stroke-width=".0959">0</tspan></text>
+   <text style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="1.25" y="273.91467" x="24.589979"><tspan y="273.91467" x="24.589979" stroke-width=".0959">0</tspan></text>
+   <text style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="1.25" y="273.94202" x="28.586056"><tspan y="273.94202" x="28.586056" stroke-width=".0959">0</tspan></text>
+   <text style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="1.25" y="273.97897" x="32.463181"><tspan y="273.97897" x="32.463181" stroke-width=".0959">0</tspan></text>
+   <text style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="1.25" y="273.91467" x="36.174744"><tspan y="273.91467" x="36.174744" stroke-width=".0959">0</tspan></text>
+   <text style="word-spacing:0px;letter-spacing:0px" xml:space="preserve" line-height="1.25" y="251.88321" x="-25.058374"><tspan y="251.88321" x="-25.058374" stroke-width=".0959">myArray</tspan></text>
+  </g>
+  <rect height="3.969" width="3.969" stroke="#263738" y="249.4" x="3.969" stroke-width=".7650" fill="none" />
+ </g>
+</svg>
+
+
+</div>
+</div>
+
+<p>So, an extra step is required, making the memory box point to another, larger, chunk of memory.  This is what <code class="language-plaintext highlighter-rouge">new</code> does.  It finds some free space that is big enough, and sets aside that much space.  Lets call this step “memory allocation”.</p>
+
+<p>The other new step is to “follow the arrow” from the memory box to the bigger chunk and to pull out one part from there.  This is what the <code class="language-plaintext highlighter-rouge">.</code> does.  It follows the arrow and then uses the special name that comes after to get one of the values from the larger chunk.  Lets call this step “de-referencing”.</p>
+
+<p>Processing actually has two different forms of compound data - objects like <code class="language-plaintext highlighter-rouge">PVector</code> (and many others), and arrays.  We will focus on arrays from here but feel free to use objects whenenver you like.</p>
+
+<p>Note:  objects are often taught with a related concept - classes - however, we will not address classes in any way at this point.</p>
+
+<p>Note that the two different versions of compound data come with two different syntaxes for dereferences - for objects is it <code class="language-plaintext highlighter-rouge">.name</code> and for arrays it is <code class="language-plaintext highlighter-rouge">[number]</code>.  See below for details.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XavYru3jotQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h1 id="arrays">Arrays</h1>
+
+<p>To understand how to use compound data, we will look at the most common compound data type, arrays.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NptnmWvkbTw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/47JBVxCWXJA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>An array is a fixed-sized collection of items, each item of the same type.</p>
+
+<p>So you can have,</p>
+
+<ul>
+  <li>an array of 5 integers</li>
+  <li>an array of 20 booleans</li>
+  <li>an array of 2000 characters</li>
+  <li>an array of 50 Strings</li>
+  <li>an array of 400 arrays</li>
+  <li>and so on…</li>
+</ul>
+
+<h2 id="syntax-to-create-an-array">Syntax to create an array</h2>
+
+<p>There are a few ways to create an array.</p>
+
+<h3 id="creating-array---option-1">Creating array - Option 1</h3>
+
+<p>The most common way to create an array is by specifying the type and size of the array.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span><span class="o">[]</span> <span class="n">arrayName</span> <span class="o">=</span> <span class="k">new</span> <span class="n">type</span><span class="o">[</span><span class="n">size</span><span class="o">];</span>
+</code></pre></div></div>
+
+<h4 id="example">Example</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span> <span class="c1">//an array that holds 5 integers</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span><span class="o">[]</span> <span class="n">flags</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span> <span class="c1">//an array that holds 8 booleans</span>
+</code></pre></div></div>
+
+<h3 id="creating-array---option-2">Creating array - Option 2</h3>
+
+<p>When you know the values that need to be stored in the array beforehand, you can create an array as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span><span class="o">[]</span> <span class="n">arrayName</span> <span class="o">=</span> <span class="o">{</span><span class="n">item1</span><span class="o">,</span> <span class="n">item2</span><span class="o">,</span> <span class="o">....};</span>
+</code></pre></div></div>
+
+<h4 id="example-1">Example</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">cutoffs</span> <span class="o">=</span> <span class="o">{</span><span class="mi">50</span><span class="o">,</span> <span class="mi">65</span><span class="o">,</span> <span class="mi">75</span><span class="o">,</span> <span class="mi">85</span><span class="o">};</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">[]</span> <span class="n">punctuations</span> <span class="o">=</span> <span class="o">{</span><span class="sc">'.'</span><span class="o">,</span> <span class="sc">'!'</span><span class="o">,</span> <span class="sc">'?'</span><span class="o">,</span> <span class="sc">','</span><span class="o">,</span> <span class="sc">';'</span><span class="o">,</span> <span class="sc">':'</span><span class="o">};</span>
+</code></pre></div></div>
+
+<h1 id="size-of-an-array">Size of an array</h1>
+
+<p>The number of items in an array <code class="language-plaintext highlighter-rouge">arr</code> is given by <code class="language-plaintext highlighter-rouge">arr.length</code>.</p>
+
+<div class="aside">
+  <p>Note that, given what we said above this means <code class="language-plaintext highlighter-rouge">.length</code> should be read as “follow the reference and see how large the chunk of memory at the other end is”.</p>
+</div>
+
+<p>For example,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">20</span><span class="o">];</span>
+<span class="n">println</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">);</span> <span class="c1">//displays 20</span>
+</code></pre></div></div>
+
+<h1 id="accessing-items-of-an-array">Accessing items of an array</h1>
+
+<ul>
+  <li>The first item of an array <code class="language-plaintext highlighter-rouge">arr</code> is at index 0.</li>
+  <li>The second item of an array <code class="language-plaintext highlighter-rouge">arr</code> is at index 1.</li>
+  <li>…</li>
+  <li>The last item of an array <code class="language-plaintext highlighter-rouge">arr</code> is at index <code class="language-plaintext highlighter-rouge">arr.length - 1</code>.</li>
+</ul>
+
+<p>Thus you can traverse an array using a loop from <code class="language-plaintext highlighter-rouge">0</code> to <code class="language-plaintext highlighter-rouge">arr.length - 1</code> as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="c1">//do what you want with arr[i]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="example-2">Example</h4>
+
+<p>Create an array that holds the outcome of 20 dice rolls.</p>
+
+<p>Each dice roll is a random integer between 1 and 6.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">outcomes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">20</span><span class="o">];</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">outcomes</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">outcomes</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">random</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">7</span><span class="o">);</span> <span class="c1">//remember 7 is not included</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then we can find out the average outcome as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">total</span>  <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">outcomes</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">total</span> <span class="o">+=</span> <span class="n">outcomes</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="o">}</span>
+<span class="kt">double</span> <span class="n">average</span> <span class="o">=</span> <span class="o">(</span><span class="n">total</span> <span class="o">*</span> <span class="mf">1.0</span><span class="o">)/</span><span class="n">outcomes</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+<span class="c1">//multiplication with 1.0 to convert int to double</span>
+</code></pre></div></div>
+
+<h1 id="storage-of-an-array-and-representation">Storage of an array and representation</h1>
+
+<p>For the next example, note that an integer takes up 4 bytes of memory.</p>
+
+<p>The array items are held together in a block.</p>
+
+<p>Consider the following array,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">4</span><span class="o">];</span>
+</code></pre></div></div>
+
+<p>If the first item is at memory address 200-203, the second item will be at 204-207, the third item will be at 208-211 and the last item from 212-215.</p>
+
+<p>The array itself holds the starting address, in this case 200.
+That’s why we say that an array is a <em>reference</em>.</p>
+
+<p>We represent this as,</p>
+
+<div>
+<center><img src="arraysFigs/arrays-figure0.png" style="width: 300px;" /></center>
+</div>
+
+<p>or a more simplified way of adding the array label above the items.</p>
+
+<div>
+<center><img src="arraysFigs/arrays-figure1.png" style="width: 100px;" /></center>
+</div>
+
+<h4 id="example-3">Example</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span><span class="o">[]</span> <span class="n">flags</span> <span class="o">=</span> <span class="o">{</span><span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">};</span>
+</code></pre></div></div>
+
+<div>
+<center><img src="arraysFigs/arrays-figure2.png" style="width: 100px;" /></center>
+</div>
+
+<h1 id="exercises">Exercises</h1>
+
+<h2 id="exercise-1">Exercise 1</h2>
+
+<p>Draw the memory diagram for the following code,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="mi">50</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="mi">60</span><span class="o">};</span>
+</code></pre></div></div>
+
+<h2 id="exercise-2">Exercise 2</h2>
+
+<p>Draw the memory diagram for the following code,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">6</span><span class="o">];</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="exercise-3">Exercise 3</h2>
+
+<p>Write a piece of code that creates the arrays represented in the following diagram.</p>
+
+<div>
+<center><img src="arraysFigs/arrays-figure7.png" style="width: 300px;" /></center>
+</div>
+
+<h2 id="exercise-4">Exercise 4</h2>
+
+<p>Draw the memory diagram for the following code,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span><span class="mi">4</span><span class="o">,</span><span class="mi">8</span><span class="o">,</span><span class="mi">15</span><span class="o">,</span><span class="mi">16</span><span class="o">,</span><span class="mi">23</span><span class="o">,</span><span class="mi">42</span><span class="o">};</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+<span class="n">b</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="mi">104</span><span class="o">,</span><span class="mi">101</span><span class="o">,</span><span class="mi">108</span><span class="o">,</span><span class="mi">108</span><span class="o">,</span><span class="mi">111</span><span class="o">};</span>
+</code></pre></div></div>
+
+<h2 id="exercise-5">Exercise 5</h2>
+
+<p>Write a piece of code that creates an array with 100 integers, each between 1 and 20. Count the number of items that are divisible by the item after them.</p>
+
+<p>For example, if the first few items of the array are <code class="language-plaintext highlighter-rouge">{20, 5, 8, 4, 4, ...}</code>, 20 is divisible by 5, 8 is divisible by 4, and 4 is divisible by 4, so we have 3 such items so far.</p>
+
+<h2 id="exercise-6">Exercise 6</h2>
+
+<p>Consider the following piece of code.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+<span class="n">items</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">items</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">];</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What are the contents of the array <code class="language-plaintext highlighter-rouge">items</code>?</p>
+
+<h1 id="furthering-your-understanding">Furthering your understanding</h1>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/liw7__I2kCs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h1 id="coding-in-the-real-life">Coding in the real life</h1>
+
+<div class="task">
+  <p>The ages of 20 people is stored in an array <code class="language-plaintext highlighter-rouge">ageList</code>. Write a piece of code that determines the range of the distribution. That is, the age difference between the oldest and the youngest person.</p>
+
+  <details>
+    <summary>Solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//assuming ageList is a boolean array containing 20 items</span>
+
+<span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">ageList</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ageList</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">ageList</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">min</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">min</span> <span class="o">=</span> <span class="n">ageList</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">ageList</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ageList</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">ageList</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">max</span> <span class="o">=</span> <span class="n">ageList</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kt">int</span> <span class="n">range</span> <span class="o">=</span> <span class="n">max</span> <span class="o">-</span> <span class="n">min</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>The state of 25 electrical switches is held in an array <code class="language-plaintext highlighter-rouge">smartSwitches</code>. The states can be “On” (true) or “Off” (false). Write a piece of code that toggles all switches. That is, all switches that are currently “On” should turn “Off”, and all switches that are currently “Off” should turn “On”.</p>
+
+  <details>
+    <summary>Solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//assuming smartSwitches is a boolean array containing 25 items</span>
+
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">smartSwitches</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">smartSwitches</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">!</span><span class="n">smartSwitches</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>Assume that we are encoding birthdays as integers where:</p>
+
+  <ul>
+    <li>1st january is 0,</li>
+    <li>2nd january is 1,</li>
+    <li>and so on till,</li>
+    <li>31st december is 365</li>
+  </ul>
+
+  <p>(remember that 29th february will also be given an integer mapping).</p>
+
+  <p>The birthdays of 1000 people is stored in an array <code class="language-plaintext highlighter-rouge">bdays</code>. Write a piece of code that displays the most frequent date of birth. For the basic version, you may display an integer between 0 and 365. For the advanced version, display the actual data in <code class="language-plaintext highlighter-rouge">DD/MM</code> format.</p>
+
+  <details>
+    <summary>Solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//assuming bdays is an array containing 1000 items</span>
+<span class="c1">//such that each item is in range [0...365]</span>
+
+<span class="cm">/*
+frequencies holds number of birthdays on each of the 366 days.
+if a birthday falls on 1st jan (coded as 0), frequencies[0] increases by 1
+if a birthday falls on 2nd jan (coded as 1), frequencies[1] increases by 1
+...
+if a birthday falls on 32st dec (coded as 365), frequencies[365] increases by 1
+*/</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">frequencies</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">366</span><span class="o">];</span>
+
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">bdays</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="o">/*</span>
+	<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">bdays</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+	<span class="n">frequencies</span><span class="o">[</span><span class="n">idx</span><span class="o">]++;</span> <span class="c1">//another birthday on that day</span>
+<span class="o">}</span>
+
+<span class="kt">int</span> <span class="n">mostFrequentBday</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">//1st jan</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">frequencies</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">frequencies</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">frequencies</span><span class="o">[</span><span class="n">mostFrequentBday</span><span class="o">])</span> <span class="o">{</span>
+		<span class="n">mostFrequentBday</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="n">println</span><span class="o">(</span><span class="n">mostFreqBday</span><span class="o">);</span>
+
+<span class="c1">//advanced:</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">daysInMonths</span> <span class="o">=</span> <span class="o">{</span><span class="mi">31</span><span class="o">,</span><span class="mi">29</span><span class="o">,</span><span class="mi">31</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="mi">31</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="mi">31</span><span class="o">,</span><span class="mi">31</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="mi">31</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="mi">31</span><span class="o">};</span>
+<span class="kt">int</span> <span class="n">currentMonth</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">mostFreqBday</span> <span class="o">&lt;</span> <span class="n">daysInMonths</span><span class="o">[</span><span class="n">currentMonth</span><span class="o">])</span> <span class="o">{</span>
+	<span class="n">mostFreqBday</span> <span class="o">=</span> <span class="n">mostFreqBday</span> <span class="o">-</span> <span class="n">daysInMonths</span><span class="o">[</span><span class="n">currentMonth</span><span class="o">];</span>
+<span class="o">}</span>
+<span class="kt">int</span> <span class="n">dayInMonth</span> <span class="o">=</span> <span class="n">mostFreqBday</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+<span class="n">println</span><span class="o">(</span><span class="n">dayInMonth</span><span class="o">+</span><span class="s">"/"</span><span class="o">+</span><span class="n">currentMonth</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>I keep track of the time taken (in minutes) to run each kilometer over a 100km race (let me dream!). These times are stored in an array <code class="language-plaintext highlighter-rouge">lapTimes</code>. For example, if <code class="language-plaintext highlighter-rouge">lapTimes[0]</code> is 6.23, it means I ran the first kilometer in 6 minutes 13.8 seconds.</p>
+
+  <p>Write a piece of code that determines my fastest lap (for example, display “Kilometer 0-1” if the first kilometer was the fastest, and “Kilometer 63-64” if the 64th kilometer was the fastest.)</p>
+
+  <details>
+    <summary>Solution</summary>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//assuming lapTimes is a float array containing 100 items</span>
+<span class="kt">int</span> <span class="n">fastestLap</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lapTimes</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">lapTimes</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">lapTimes</span><span class="o">[</span><span class="n">fastestLap</span><span class="o">])</span> <span class="o">{</span>
+		<span class="n">fastestLap</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="n">print</span><span class="o">(</span><span class="s">"Kilometer "</span><span class="o">+</span><span class="n">fastestLap</span><span class="o">+</span><span class="s">"-"</span><span class="o">+(</span><span class="n">fastestLap</span><span class="o">+</span><span class="mi">1</span><span class="o">));</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<!--
+better for arrays and functions
+Create an array that holds the first 1000 prime numbers (a number is *prime* if it is more than or equal to 2 and is divisible by only 1 and itself).-->
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

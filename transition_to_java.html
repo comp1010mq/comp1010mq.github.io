@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Transition to Java | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Transition to Java" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/transition_to_java.html" />
+<meta property="og:url" content="/transition_to_java.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Transition to Java" />
+<script type="application/ld+json">
+{"url":"/transition_to_java.html","@type":"WebPage","headline":"Transition to Java","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Transition to Java</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="./primitive_operations">Primitive Operations</a></li>
+    <li><a href="./variables">Variables</a></li>
+    <li><a href="./conditions">Conditions</a></li>
+    <li><a href="./loops">Loops</a></li>
+    <li><a href="./functions">Functions</a></li>
+    <li><a href="./scope">Scope</a></li>
+    <li><a href="./composite_data">Compound Data</a></li>
+    <li><a href="./reference_semantics">Reference Semantics</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Be able to compile and run basic Java programs</li>
+    <li>Understand the correspondance between Processing and Java</li>
+    <li>Know the phases of compiling and running Java code.</li>
+  </ul>
+
+</details>
+
+<p class="keypoint">Processing was a restricted version of Java all-along.</p>
+
+<p><img src="./fig/01-transition-to-java/processingJava.jpg" alt="" /></p>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="graduation">Graduation</h1>
+
+<p>We have cut our teeth with Processing, but now it is time to graduate to the same tools that professional developers use.  Processing was a simplified version of two tools we are going to embrace:</p>
+
+<ul>
+  <li><a href="https://www.oracle.com/au/java/">Java</a>: One of the <a href="https://www.tiobe.com/tiobe-index/">most popular programming language on the planet</a>.  Processing is a simplified subset of Java that simplified our first steps.</li>
+  <li>IDE
+  	* <a href="https://www.eclipse.org/">Eclipse</a> (Supported, use extensively in the lectures), or,
+  	* <a href="https://code.visualstudio.com/">Visual Studio Code</a>, or,
+  	* <a href="https://www.jetbrains.com/idea/">IntelliJ</a></li>
+</ul>
+
+<h1 id="how-do-programs-run-in-java-compared-to-processing">How do programs run in Java (compared to Processing)</h1>
+
+<p><a href="./transition_to_processing">Remind yourself how processing ran</a> programs if you need to refresh your memory.</p>
+
+<p>In Java, you must perform <em>two</em> steps yourself to get your program to run:</p>
+
+<ol>
+  <li>Compile.  The <code class="language-plaintext highlighter-rouge">javac</code> compiler will look for errors and convert your code to a runnable form (called bytecode).  <code class="language-plaintext highlighter-rouge">javac</code> will put this form into a <code class="language-plaintext highlighter-rouge">.class</code> file for you.</li>
+  <li>Run.  The <code class="language-plaintext highlighter-rouge">java</code> program will run the <code class="language-plaintext highlighter-rouge">.class</code> file for you.</li>
+</ol>
+
+<p>You should have become familiar with both steps already, but they were both done for you when hitting “play” in Processing.  Now you have to do each yourself (mostly).</p>
+
+<p><img src="./transition_to_javaFigs/javaCompileExecute.png" alt="" /></p>
+
+<h1 id="what-does-a-java-program-look-like">What does a Java Program look like?</h1>
+
+<p>All Java programs have the following structure</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="o">&lt;</span><span class="no">CODE</span> <span class="no">GOES</span> <span class="no">HERE</span><span class="o">&gt;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>When you began writing Processing code you didn’t really understand <code class="language-plaintext highlighter-rouge">setup</code> and <code class="language-plaintext highlighter-rouge">draw</code>, you just used them, the same is true of this “<code class="language-plaintext highlighter-rouge">Main</code> class” and “<code class="language-plaintext highlighter-rouge">main</code> function”.  For now, just put all your code in <code class="language-plaintext highlighter-rouge">main</code>, it will run once when the program runs (just like code in <code class="language-plaintext highlighter-rouge">setup</code> used to) and the full story will become clear later.</p>
+
+<p>Note:  You can’t change the name of the <code class="language-plaintext highlighter-rouge">main</code> function, but you can change the name of the <code class="language-plaintext highlighter-rouge">Main</code> class, just make sure the file-name you are using (“<code class="language-plaintext highlighter-rouge">Main.java</code>”) matches the class name exactly.</p>
+
+<h1 id="compiling-and-running-java-programs-from-command-prompt-or-terminal">Compiling and running java programs from command prompt or terminal</h1>
+
+<p>After installing Java SDK, you can write a code in a basic text editor (like notepad, atom, sublime) and then compile and run Java programs from command prompt or terminal.</p>
+
+<p>A java source file <code class="language-plaintext highlighter-rouge">HelloWorld.java</code> is compiled as</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac HelloWorld.java
+</code></pre></div></div>
+
+<p>Once it is compiled, there will be java class file generated with name <code class="language-plaintext highlighter-rouge">HelloWorld.class</code>. What you execute is this class file, as,</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java HelloWorld
+</code></pre></div></div>
+
+<p>This is a good skill and the benefits of doing this over using an IDE like Eclipse include,</p>
+
+<ol>
+  <li>
+    <p>reducing reliance on auto-complete done by Eclipse.</p>
+  </li>
+  <li>
+    <p>not relying on Eclipse to tell you each time there is a syntactical error.</p>
+  </li>
+  <li>
+    <p>program will not compile, and therefore the class file will not be generated to execute if there is a syntactical error.</p>
+  </li>
+  <li>
+    <p>Helps with pen and paper design.</p>
+  </li>
+</ol>
+
+<p>Let’s say, following are the contents of <code class="language-plaintext highlighter-rouge">HelloWorld.java</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">5</span><span class="o">+);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>When you compile the program, you’ll get the following message,</p>
+
+<div class="language-plaintext bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I-2:intro gauravgupta$ javac HelloWorld.java
+HelloWorld.java:3: error: illegal start of expression
+System.out.println(5+);
+^
+1 error
+I-2:intro gauravgupta$
+</code></pre></div></div>
+
+<p>You can see that it points to the line number (3) with syntactical errors so you can correct them. In this case, we change the <code class="language-plaintext highlighter-rouge">5+</code> to <code class="language-plaintext highlighter-rouge">5+3</code>, and our program compiles, and executes, successfully.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">5</span><span class="o">+</span><span class="mi">3</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h1 id="software-to-install-and-first-program">Software to install and first program</h1>
+
+<p>Install the following software <strong>in the order below</strong>. You will be asked to choose your operating system for each software, and whether it’s 32-bits or 64-bits. If not sure, use this <a href="http://www.computerhope.com/issues/ch001121.htm">link</a> to determine the same.</p>
+
+<ol>
+  <li>
+    <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><strong>Java Standard Edition (Java SE)</strong></a>, previously known as Java Standard Development Kit (Java SDK). Current version (on the date of writing this document): <code class="language-plaintext highlighter-rouge">16.0.2</code>. You’ll be fine as long as you have version 8 or above.</p>
+  </li>
+  <li>
+    <p><a href="https://eclipse.org/downloads/"><strong>Eclipse IDE for Java developers</strong></a>. Current version (on the date of writing this document): <code class="language-plaintext highlighter-rouge">2021-06</code>.</p>
+  </li>
+</ol>
+
+<p><strong>NOTE:</strong> You are free to use any other IDE besides Eclipse (such as Visual Studio Code or NetBeans or IntelliJ) if you want. However, we shall be doing all screencasts and video tutorials using Eclipse.</p>
+
+<h2 id="first-java-program">First java program</h2>
+
+<p>Once you have installed Java SE, you are ready to write and run Java programs. First we’ll learn how to write and run a java program from command prompt.</p>
+
+<p>Open notepad and type the following code in it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyFirstProgram</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello world!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Save the file as <code class="language-plaintext highlighter-rouge">MyFirstProgram.java</code> (case sensitive).</p>
+
+<p>Open command prompt (or terminal on Mac), go to the folder in which <code class="language-plaintext highlighter-rouge">MyFirstProgram.java</code> exists, and type the following:</p>
+
+<div class="language-plaintext bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac MyFirstProgram.java
+</code></pre></div></div>
+
+<blockquote>
+  <p>This is the <em>compilation</em> step.</p>
+</blockquote>
+
+<p>If everything went ok, it would execute this command and generate a new file named <code class="language-plaintext highlighter-rouge">MyFirstProgram.class</code> in the same directory as <code class="language-plaintext highlighter-rouge">MyFirstProgram.java</code>. This is the <em>classfile</em> or <em>bytecode</em>. It’s this file that actually executes. Once it’s generated, you can even delete the source file (<code class="language-plaintext highlighter-rouge">MyFirstProgram.java</code>) provided you don’t need to make any further changes).</p>
+
+<p>You run the classfile using the <code class="language-plaintext highlighter-rouge">java</code> command.</p>
+
+<div class="language-plaintext bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java MyFirstProgram
+</code></pre></div></div>
+
+<blockquote>
+  <p>This is the <em>execution</em> step.</p>
+</blockquote>
+
+<p>If there are no run-time errors, you will get the following output on the console.</p>
+
+<pre><code class="language-output">Hello world!
+</code></pre>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Atxj7fwu5Uk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<div class="task">
+  <p>Write a java program that initializes two variables, <code class="language-plaintext highlighter-rouge">distance</code>, <code class="language-plaintext highlighter-rouge">time</code>, and give
+them values of your choice. Calculate the speed and display on the console.</p>
+
+  <p>Compile and run the java program.</p>
+
+  <details class="solution">
+    <summary>solution</summary>
+    <script src="https://gist.github.com/gaurav1780/905f1681f5c75e60a7a4f3715355e14f.js"></script>
+
+  </details>
+</div>
+
+<div class="task">
+  <p>What’s wrong with the following code?</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"How do you do?"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>  </div>
+  <details class="solution">
+    <summary>solution</summary>
+    <p>Display statement exists outside the <code class="language-plaintext highlighter-rouge">main</code> method.
+Corrected version:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"How do you do?"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>What’s wrong with the following code?</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"All right!"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>  </div>
+  <details class="solution">
+    <summary>solution</summary>
+    <p><code class="language-plaintext highlighter-rouge">main</code> should be inside the <code class="language-plaintext highlighter-rouge">class</code>, not the other way round.
+Corrected version:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"All right!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>What’s wrong with the following code?</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wassup!"</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>  </div>
+  <details class="solution">
+    <summary>solution</summary>
+    <p>Missing semi-colon at the end of line 3.
+Corrected version:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wassup!"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<h2 id="first-java-program-in-eclipse">First java program in Eclipse</h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8DcIQcmwuSE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<h2 id="adding-more-functions-to-a-java-program">Adding more functions to a java program</h2>
+
+<p>In Processing, you added extra functions at the bottom of the file, or in other tabs.  Where should they go in Java?  Everything in Java needs to be inside a class, so you have to put it inbetween the first and last curly-braces, but keep them separate from <code class="language-plaintext highlighter-rouge">main</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="c1">//something</span>
+  <span class="o">}</span>
+
+  <span class="o">&lt;</span><span class="no">OTHER</span> <span class="no">FUNCTIONS</span> <span class="no">GO</span> <span class="no">IN</span> <span class="no">HERE</span><span class="o">&gt;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You will notice that the <code class="language-plaintext highlighter-rouge">main</code> function is labelled <code class="language-plaintext highlighter-rouge">static</code> by Java. Your program will not run if you remove this keyword. A function being <code class="language-plaintext highlighter-rouge">static</code> means that the only data it operates on (if any) are the parameters passed.</p>
+
+<p>Equivalent versions of the same function in <code class="language-plaintext highlighter-rouge">Processing</code> and <code class="language-plaintext highlighter-rouge">Java</code> are provided below -</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processing</th>
+      <th>Java</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><script src="https://gist.github.com/gaurav1780/b3653c5a7bc5b8918bae111279542573.js"></script></td>
+      <td><script src="https://gist.github.com/gaurav1780/b9c62caf13fa64d008ee6770525158af.js"></script></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code class="language-plaintext highlighter-rouge">public</code> keyword is for consistency and will be used for all functions unless explicitly specified to be <code class="language-plaintext highlighter-rouge">private</code> (again, more about this in week 2 and 3).</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XS48hrWdm4Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<h1 id="warm-up">Warm Up</h1>
+
+<p>Warning: make sure you are comfortable using functions before you move on to these examples.  <a href="./functions.html">Refresh your memory</a> if you need to.</p>
+
+<h2 id="problem-1-write-code-that-determines-if-a-given-number-is-prime">Problem 1: Write code that determines if a given number is prime.</h2>
+
+<p>What is a prime number?<em>A number more than 1 that is divisible only by 1 and itself.</em></p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Is 37 a prime number?
+Is 37 divisible by 2? No. So we carry on
+...
+Is 37 divisible by 36? No. This means 37 is not divisible by
+any integer besides 1 and 37.
+Thus, 37 is a prime number.
+</code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Is 77 a prime number?
+Is 77 divisible by 2? No. So we carry on
+...
+Is 77 divisible by 7? Yes. This means 77 is divisible by
+another integer besides 1 and 77.
+Therefore, it's not a prime number.
+</code></pre></div></div>
+
+<p><strong>NOTE:</strong> You can see that this is a kind of <code class="language-plaintext highlighter-rouge">violation</code> algorithm, where we continuously look for a violation (existence non-trivial divisor) to the problem in context (primality). As soon as a violation is encountered, our algorithm can exit with <code class="language-plaintext highlighter-rouge">failure (false)</code> status. Only if <strong>no</strong> violations are found, can the algorithm exit with <code class="language-plaintext highlighter-rouge">success (true)</code>status. The algorithm is,</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INPUT: Integer n
+PROCESS:
+if n is less than 2
+begin condition
+  OUTPUT false (integers less than 2 are not primes)
+end condition
+
+for integer candidate from 2 to n-1
+begin loop
+  if n is divisible by candidate
+  begin condition
+    OUTPUT false (as a non-trivial divisor was found)
+  end condition
+end loop
+</code></pre></div></div>
+
+<p>The equivalent Java code would be,</p>
+
+<script src="https://gist.github.com/gaurav1780/dfe61c931d2b637931ffcd4a4d25f765.js"></script>
+
+<p>Note: we really need to check only until square root of <code class="language-plaintext highlighter-rouge">n</code> instead of <code class="language-plaintext highlighter-rouge">n-1</code>.</p>
+
+<p>The way we can call this function from another function (say <code class="language-plaintext highlighter-rouge">main</code>) is as follows,</p>
+
+<script src="https://gist.github.com/gaurav1780/2f84e7676a8fc2009b9c7df8b3bad1a6.js"></script>
+
+<h2 id="problem-2-determining-if-a-string-contains-any-space">Problem 2: Determining if a String contains any space</h2>
+
+<p>As opposed to the prime checking example, this is a <code class="language-plaintext highlighter-rouge">validation</code> algorithm, where we look for a validation, and as soon as one is found, we can return <code class="language-plaintext highlighter-rouge">true</code>. If there is no validation found, then, at the end, we can return <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<script src="https://gist.github.com/gaurav1780/a70018542384418de6724f5c5b9acd45.js"></script>
+
+<h2 id="problem-3-calculating-the-total-of-all-items-of-an-integer-array">Problem 3: Calculating the total of all items of an integer array</h2>
+
+<p>This is an <code class="language-plaintext highlighter-rouge">accumulation</code> algorithm. We go through each item of the array, and add it to a variable that stores the total.</p>
+
+<script src="https://gist.github.com/gaurav1780/990f005dee2573083528b3d0e6283a3f.js"></script>
+
+<p>Once we know how to do this, we can apply this to other problems such as,</p>
+
+<div class="task">
+  <p>Define a method that when passed an array, returns the sum of all even numbers in the array</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <script src="https://gist.github.com/gaurav1780/b1abbb1a3bab1ef55c1c0cf4815482b9.js"></script>
+
+  </details>
+</div>
+
+<div class="task">
+  <p>Define a method that when passed an integer array, returns the sum of all negative numbers in the first half of the array. For example, if array is <code class="language-plaintext highlighter-rouge">{-6, -8, -1, -2, 9}</code>, return <code class="language-plaintext highlighter-rouge">-14</code>, and if array is <code class="language-plaintext highlighter-rouge">{-6, -5, -8, -12, -1, 9}</code>, return <code class="language-plaintext highlighter-rouge">-19</code>.</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <script src="https://gist.github.com/gaurav1780/671b713a16b53872f45a36c1659464ea.js"></script>
+
+  </details>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

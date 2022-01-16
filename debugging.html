@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Debugging in Java | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Debugging in Java" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/debugging.html" />
+<meta property="og:url" content="/debugging.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Debugging in Java" />
+<script type="application/ld+json">
+{"url":"/debugging.html","@type":"WebPage","headline":"Debugging in Java","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Debugging in Java</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="transition_to_java">Transition to Java</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Be able to identify input/output pairs that are good for debugging.</li>
+    <li>Be able to debug Java programs with appropriate tools.</li>
+    <li>Be able to do paper traces of Java code.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="debugging">Debugging</h1>
+
+<p>For any given problem, we design a solution and then implement it.</p>
+
+<p>As an example, let’s say that we are writing a program that gives you the number of digits in an integer. We expect the following <em>input-output mappings</em>.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1729</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1234567890</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>-888</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now, it’s possible that the actual outputs you get from your code are as follows,</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1729</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1234567890</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>-888</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We need to find out why do some inputs have incorrect outputs. So we go through our design and implementation looking for possible bugs. A logical way to do this is to trace every variable at every stage and see where does the program deviate from the expected.</p>
+
+<h2 id="example-1">Example 1</h2>
+
+<p>Consider the following code that is supposed to return the product of all integers from 1 to <code class="language-plaintext highlighter-rouge">n</code> (n &gt;= 1).</p>
+
+<script src="https://gist.github.com/gaurav1780/71d8008cd4cc632dc6119b1594dcfe88.js"></script>
+
+<p>The input-output mappings are -</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Expected Output</th>
+      <th>Actual Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>24</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>720</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>5040</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you trace the program, you’ll see that the loop executes when <code class="language-plaintext highlighter-rouge">i=1</code> and <code class="language-plaintext highlighter-rouge">result</code> becomes <code class="language-plaintext highlighter-rouge">result (0) * i (1) = 0</code>. And every subsequent time, <code class="language-plaintext highlighter-rouge">result</code> becomes <code class="language-plaintext highlighter-rouge">0 * i = 0</code>. A trace for <code class="language-plaintext highlighter-rouge">n=4</code> using <em>logic table</em> is provided below,</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>i &lt; 4</th>
+      <th>result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>0*1 = 0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>0*2 = 0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>true</td>
+      <td>0*3 = 0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Thus, the first bug is <code class="language-plaintext highlighter-rouge">result</code> should be initalized to 1 and not 0.</p>
+
+<p>Our partially fixed code:</p>
+
+<script src="https://gist.github.com/gaurav1780/526b68d197c7c3a705780af2fcef93c1.js"></script>
+
+<p>The new input-output mappings are -</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Expected Output</th>
+      <th>Actual Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>24</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>720</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>5040</td>
+      <td>720</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A trace for <code class="language-plaintext highlighter-rouge">n=4</code> using <em>logic table</em> is provided below,</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>i &lt; 4</th>
+      <th>result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>1*1 = 1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>1*2 = 2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>true</td>
+      <td>2*3 = 6 (not the expected output)</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>It can now be seen that the loop <strong>should</strong> execute for <code class="language-plaintext highlighter-rouge">i=4</code> and multiply it into the <code class="language-plaintext highlighter-rouge">result</code> but it doesn’t. By changing <code class="language-plaintext highlighter-rouge">i &lt; n</code> to <code class="language-plaintext highlighter-rouge">i &lt;= n</code>, we fix this problem.</p>
+
+<script src="https://gist.github.com/gaurav1780/331fb94f328322b2fc4bd781ef22d18e.js"></script>
+
+<p>To confirm, we trace once more for <code class="language-plaintext highlighter-rouge">i=4</code>.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>i &lt; 4</th>
+      <th>result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>1*1 = 1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>1*2 = 2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>true</td>
+      <td>2*3 = 6</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>true</td>
+      <td>6*4 = 24 (expected output)</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="task">
+  <p>Debug the following method for which the expected input-output mappings are provided in the javadoc (comment above the method).
+<script src="https://gist.github.com/gaurav1780/111f98632dbb6068d4056df295341cf3.js"></script>
+<strong>CRITICAL STEP!!!</strong> Write down the actual input-output mappings after every iteration of debugging</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <script src="https://gist.github.com/gaurav1780/7556eea66978a974423447f544150841.js"></script>
+
+  </details>
+</div>
+
+<h2 id="performing-debugging-in-eclipse">Performing debugging in Eclipse</h2>
+
+<p>Most of the modern Integrated Development Environments (IDEs) have a comprehensive debugging feature that let’s you trace the variables as your program executes.</p>
+
+<p>In the IDE we are using (Eclipse), the debugger relies of placing <code class="language-plaintext highlighter-rouge">breakpoints</code> that are like pitstops in car race. The program runs till the next breakpoint where you can see the values of all the variables and when you hit <code class="language-plaintext highlighter-rouge">resume</code>, it goes to the next breakpoint.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NQTQVYhmsL0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<h1 id="pen-and-paper-methodology">Pen and paper methodology</h1>
+
+<p>At this point, it becomes tempting to throw away your notebook, you have everything you need in the programming environment right?</p>
+
+<p>No.</p>
+
+<p>Debugging is still mostly done in your head or on paper, so it is worth revisiting our programming tracing skills.  What follows is a set of exercises for you to get familiar with tracing Java code.  You should do all these exercises with just a pen/pencil and paper as the skill you are training is to be able to trace a program <em>without</em> the aid of a computer.</p>
+
+<div class="task">
+  <p>Trace the flow of the following program and determine the value of <code class="language-plaintext highlighter-rouge">result</code> at the end of it.
+<script src="https://gist.github.com/gaurav1780/767824769b5456ddb080e63d84124d70.js"></script></p>
+  <details class="solution">
+    <summary>solution</summary>
+    <p><code class="language-plaintext highlighter-rouge">a &lt; b</code> is <code class="language-plaintext highlighter-rouge">true</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">b % a == 0</code> is <code class="language-plaintext highlighter-rouge">true</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">a % 2 == 0</code> is <code class="language-plaintext highlighter-rouge">false</code></p>
+
+    <p>The expression becomes <code class="language-plaintext highlighter-rouge">true &amp;&amp; true &amp;&amp; false</code></p>
+
+    <p>This is <code class="language-plaintext highlighter-rouge">false</code></p>
+
+    <p>Hence, the <code class="language-plaintext highlighter-rouge">else</code> block executes and <code class="language-plaintext highlighter-rouge">result</code> becomes <code class="language-plaintext highlighter-rouge">b (10)</code>.</p>
+  </details>
+</div>
+
+<div class="task">
+  <p>Trace the flow of the following program and determine the value of <code class="language-plaintext highlighter-rouge">result</code> at the end of it.
+<script src="https://gist.github.com/gaurav1780/0f335474bbbf8fcf488150b7b411c33a.js"></script></p>
+  <details class="solution">
+    <summary>solution</summary>
+    <p>a == b<code class="language-plaintext highlighter-rouge"> is </code>false<code class="language-plaintext highlighter-rouge">,
+</code>else` executes</p>
+
+    <p><code class="language-plaintext highlighter-rouge">b</code> decreases by 5, becomes 5
+<code class="language-plaintext highlighter-rouge">a == b</code> is <code class="language-plaintext highlighter-rouge">true</code>.
+<code class="language-plaintext highlighter-rouge">if</code> block executes and <code class="language-plaintext highlighter-rouge">result</code> becomes <code class="language-plaintext highlighter-rouge">b (5)</code>.</p>
+  </details>
+</div>
+
+<div class="task">
+  <p>Trace the flow of the following program and determine the value of <code class="language-plaintext highlighter-rouge">result</code> at the end of it.
+<script src="https://gist.github.com/gaurav1780/0302ce7e20a43b1807584b4ca7f49ce7.js"></script></p>
+  <details class="solution">
+    <summary>solution</summary>
+    <p class="table">| i | i&lt;=7 | i%2 | i%2==1 | result |
+| — | — | — | — | — |
+| 1 | true | 1 | true | -3+1 = -2 |
+| 2 | true | 0 | false | |
+| 3 | true | 1 | true | -2+3 = 1 |
+| 4 | true | 0 | false | |
+| 5 | true | 1 | true | 1+5 = 6 |
+| 6 | true | 0 | false | |
+| 7 | true | 1 | true | 6+7 = 13 |
+| 8 | false | | | |</p>
+
+  </details>
+</div>
+
+<div class="task">
+  <p>Trace the flow of the following code -
+<script src="https://gist.github.com/gaurav1780/0b8969cabc916cff8ed88cfcde631560.js"></script></p>
+  <details class="solution">
+    <summary>solution</summary>
+    <h2 id="solution">Solution</h2>
+    <p>At the end of the code,
+<code class="language-plaintext highlighter-rouge">a = 5</code>, <code class="language-plaintext highlighter-rouge">b = 10</code>, <code class="language-plaintext highlighter-rouge">c = 2</code>, <code class="language-plaintext highlighter-rouge">d = false</code>, <code class="language-plaintext highlighter-rouge">result = 10</code>.
+Explanation -
+<script src="https://gist.github.com/gaurav1780/7edd01a8e4ae3182e3ddd7f6166a0e53.js"></script></p>
+  </details>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

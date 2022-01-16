@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Recursion - function call | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Recursion - function call" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/recursion_function_call.html" />
+<meta property="og:url" content="/recursion_function_call.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recursion - function call" />
+<script type="application/ld+json">
+{"url":"/recursion_function_call.html","@type":"WebPage","headline":"Recursion - function call","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Recursion - function call</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./functions">Functions</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Better understand the concept of parameter passing.</li>
+    <li>Familiarize yourself with standard terminology - <em>formal paramters</em> vs. <em>actual parameters</em>.</li>
+    <li>Understand the control flow and memory transactions during a function call.</li>
+    <li>Understand the concept of <em>Call Stack</em>.</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="formal-parameters-vs-actual-parameters">Formal parameters vs. actual parameters</h1>
+
+<ul>
+  <li><em>Formal parameter</em> is the name used for the variable in the function definition.</li>
+  <li><em>Actual parameter</em> is the value copied into the formal parameter during a function call.</li>
+</ul>
+
+<p>Consider the following example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FormalVsActual</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">square</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//n is the "formal parameter"</span>
+		<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="o">;</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">square</span><span class="o">(</span><span class="n">a</span><span class="o">);</span> <span class="c1">//whatever is inside the brackets is the "actual parameter"</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the above example,</p>
+
+<ul>
+  <li>Formal parameter in function <code class="language-plaintext highlighter-rouge">square</code> is <code class="language-plaintext highlighter-rouge">n</code>.</li>
+  <li>Actual parameter in the function call <code class="language-plaintext highlighter-rouge">square(a)</code> is <code class="language-plaintext highlighter-rouge">a</code> (5).</li>
+  <li>If the function call was <code class="language-plaintext highlighter-rouge">square(d/20 + e/9)</code>, the actual parameter would be <code class="language-plaintext highlighter-rouge">d/4 + e/9</code> (100/20 + 36/9 = 9).</li>
+</ul>
+
+<h1 id="what-happens-during-a-function-call">What happens during a function call?</h1>
+
+<p>Before we can truly conquer recursion, it’s critical to understand what happens when a function is called. Consider the following example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">ax</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">bx</span> <span class="o">=</span> <span class="mi">6</span><span class="o">,</span> <span class="n">by</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+	<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">distance</span><span class="o">(</span><span class="n">ax</span><span class="o">,</span> <span class="n">ay</span><span class="o">,</span> <span class="n">bx</span><span class="o">,</span> <span class="n">by</span><span class="o">);</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Distance: "</span><span class="o">+</span><span class="n">d</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">distance</span><span class="o">(</span><span class="kt">int</span> <span class="n">x1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">x2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y2</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">square</span><span class="o">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x1</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">square</span><span class="o">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="n">sumSquares</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="o">;</span>
+	<span class="kt">double</span> <span class="n">result</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="n">sumSquares</span><span class="o">);</span>
+	<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">square</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="n">num</span><span class="o">;</span>
+	<span class="k">return</span> <span class="n">answer</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="step-1-main-function-is-invoked-by-jvm">STEP 1: main function is invoked by JVM</h3>
+
+<p><img src="./fig/04-recursion/callStack1.png" alt="" /></p>
+
+<p>function call is placed on the stack. Note that parameter is <code class="language-plaintext highlighter-rouge">null</code> because we typically do not pass any arguments to main, at least in this unit.</p>
+
+<h3 id="step-2-main-function-calls-distance-with-parameters-1-3-6-and-5">STEP 2: main function calls <code class="language-plaintext highlighter-rouge">distance</code> with parameters 1, 3, 6 and 5.</h3>
+
+<p><img src="./fig/04-recursion/callStack2.png" alt="" /></p>
+
+<p>Another entry is made for the call to <code class="language-plaintext highlighter-rouge">distance</code> and placed on the call stack.</p>
+
+<h3 id="step-3-distance-calls-square-with-parameter-5">STEP 3: <code class="language-plaintext highlighter-rouge">distance</code> calls <code class="language-plaintext highlighter-rouge">square</code> with parameter <code class="language-plaintext highlighter-rouge">5</code></h3>
+
+<p><img src="./fig/04-recursion/callStack3.png" alt="" /></p>
+
+<p>A third entry is made for the call to <code class="language-plaintext highlighter-rouge">square</code> and placed on the stack.</p>
+
+<h3 id="step-4-square-returns-25-to-distance">STEP 4: <code class="language-plaintext highlighter-rouge">square</code> returns 25 to <code class="language-plaintext highlighter-rouge">distance</code></h3>
+
+<p><img src="./fig/04-recursion/callStack4.png" alt="" /></p>
+
+<p>Entry for <code class="language-plaintext highlighter-rouge">square</code> is taken off the stack. <code class="language-plaintext highlighter-rouge">distance</code> becomes the active function.</p>
+
+<h3 id="step-5-distance-calls-square-with-parameter-2">STEP 5: <code class="language-plaintext highlighter-rouge">distance</code> calls <code class="language-plaintext highlighter-rouge">square</code> with parameter <code class="language-plaintext highlighter-rouge">2</code></h3>
+
+<p><img src="./fig/04-recursion/callStack5.png" alt="" /></p>
+
+<p>A third entry is made for the call to <code class="language-plaintext highlighter-rouge">square</code> and placed on the stack.</p>
+
+<h3 id="step-6-square-returns-4-to-distance">STEP 6: <code class="language-plaintext highlighter-rouge">square</code> returns 4 to <code class="language-plaintext highlighter-rouge">distance</code></h3>
+
+<p><img src="./fig/04-recursion/callStack6.png" alt="" /></p>
+
+<p>Entry for <code class="language-plaintext highlighter-rouge">square</code> is taken off the stack. <code class="language-plaintext highlighter-rouge">distance</code> becomes the active function.</p>
+
+<h3 id="step-7-distance-calls-mathsqrt-with-parameter-29">STEP 7: <code class="language-plaintext highlighter-rouge">distance</code> calls <code class="language-plaintext highlighter-rouge">Math.sqrt</code> with parameter <code class="language-plaintext highlighter-rouge">29</code></h3>
+
+<p><img src="./fig/04-recursion/callStack7.png" alt="" /></p>
+
+<p>A third entry is made for the call to <code class="language-plaintext highlighter-rouge">Math.sqrt</code> and placed on the stack.</p>
+
+<h3 id="step-8-mathsqrt-returns-538516-to-distance">STEP 8: <code class="language-plaintext highlighter-rouge">Math.sqrt</code> returns 5.38516 to <code class="language-plaintext highlighter-rouge">distance</code></h3>
+
+<p><img src="./fig/04-recursion/callStack8.png" alt="" /></p>
+
+<p>Entry for <code class="language-plaintext highlighter-rouge">square</code> is taken off the stack. <code class="language-plaintext highlighter-rouge">distance</code> becomes the active function.</p>
+
+<h3 id="step-9-distance-returns-538516-to-main">STEP 9: <code class="language-plaintext highlighter-rouge">distance</code> returns 5.38516 to <code class="language-plaintext highlighter-rouge">main</code></h3>
+
+<p><img src="./fig/04-recursion/callStack9.png" alt="" /></p>
+
+<p>Entry for <code class="language-plaintext highlighter-rouge">distance</code> is taken off the stack. <code class="language-plaintext highlighter-rouge">main</code> becomes the active function.</p>
+
+<h3 id="step-10-main-terminates">STEP 10: <code class="language-plaintext highlighter-rouge">main</code> terminates</h3>
+
+<p>Entry for <code class="language-plaintext highlighter-rouge">main</code> is taken off the stack. Call stack is now empty. Program has now finished execution.</p>
+
+<h2 id="summary-of-control-flow">Summary of control flow</h2>
+
+<p><img src="./fig/04-recursion/controlFlow.png" alt="" />
+<!--<iframe src="https://giphy.com/embed/Az1CJ2MEjmsp2" width="480" height="221" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/bare-barren-Az1CJ2MEjmsp2">via GIPHY</a></p>--></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

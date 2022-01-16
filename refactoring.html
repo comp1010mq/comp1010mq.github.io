@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Refactoring | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Refactoring" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/refactoring.html" />
+<meta property="og:url" content="/refactoring.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Refactoring" />
+<script type="application/ld+json">
+{"url":"/refactoring.html","@type":"WebPage","headline":"Refactoring","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Refactoring</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+  <ul>
+    <li><a href="primitive_operations">Primitive Operations</a></li>
+    <li><a href="variables">Variables</a></li>
+    <li><a href="loops">Loops</a></li>
+    <li><a href="functions">Functions</a></li>
+    <li><a href="composite_data">Compound Data</a></li>
+    <li><a href="scope">Scope</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+  <ul>
+    <li>Be able to identify why one program snippet is preferrable over another.</li>
+    <li>Be able to convert programs from a poorer version to a better version.</li>
+  </ul>
+</details>
+
+<p class="keypoint">We refactor code to <em>takeaway duplicate or similar code</em>, <em>to make our program easier to understand</em>, and <em>to improve code maintenance</em>.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vcydPCZJMBc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h1 id="variables">Variables</h1>
+
+<h3 id="renaming-variables">Renaming Variables</h3>
+
+<p>You want meaningful variable names.  If you find you have a variable that is not self-describing, give it a better name.</p>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+int d = 20;
+
+ellipse(width/2, height/2, d, d);
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+int diameter = 20;
+
+ellipse(width/2, height/2, diameter, diameter);
+</code></pre>
+	</div>
+</div>
+
+<h3 id="magic-numbers">Magic Numbers</h3>
+
+<p>Any value that you are using <em>in multiple places</em> but <em>for the same underlying concept</em> is called a magic number and should be replaced by a variable</p>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+ellipse(width/2, height/2, 20, 20);
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+int circleSize = 20;
+
+ellipse(width/2, height/2, circleSize, circleSize);
+</code></pre>
+	</div>
+</div>
+
+<h1 id="conditions">Conditions</h1>
+
+<h3 id="common-body-of-if">Common body of <code class="language-plaintext highlighter-rouge">if</code></h3>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+if(x &lt; 7)
+	y = 4;
+if(x &gt; 23)
+	y = 4;
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+if(x &lt; 7 || x &gt; 23)
+	y = 4;
+</code></pre>
+	</div>
+</div>
+
+<h3 id="common-if-condition">Common <code class="language-plaintext highlighter-rouge">if</code> condition</h3>
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+if(x &lt; 7)
+	y = 4;
+if(x &lt; 7)
+	z = 9;
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+if(x &lt; 7) {
+	y = 4;
+	z = 9;
+}
+</code></pre>
+	</div>
+</div>
+
+<h3 id="nested-if-statements-can-sometimes-be-combined">Nested <code class="language-plaintext highlighter-rouge">if</code> statements can sometimes be combined.</h3>
+
+<p>It is often possible to replace nested <code class="language-plaintext highlighter-rouge">if</code> statements with a single <code class="language-plaintext highlighter-rouge">if</code> statement that has a more complex condition.  You should take this option <em>as long as the condition does not become too complex itself</em>.</p>
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+if(x &lt; 7){
+	if (y &lt; 7){
+		y = 4;
+	}
+}
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+if(x &lt; 7 &amp;&amp; y &lt; 7) {
+	y = 4;
+}
+</code></pre>
+	</div>
+</div>
+
+<h1 id="loops">Loops</h1>
+
+<h3 id="simple-formula">Simple formula</h3>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+ellipse(30, 30, 10, 10);
+ellipse(60, 60, 10, 10);
+ellipse(90, 90, 10, 10);
+ellipse(120, 120, 10, 10);
+ellipse(150, 150, 10, 10);
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+for(int i = 30; i &lt;= 150; i += 30){
+	ellipse(i, i, 10, 10);
+}
+</code></pre>
+	</div>
+</div>
+
+<h3 id="no-simple-forumla">No simple forumla</h3>
+
+<p>Introduce an array to store the values you need and loop over the array.</p>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+ellipse(30, 30, 10, 10);
+ellipse(50, 50, 10, 10);
+ellipse(110, 110, 10, 10);
+ellipse(120, 120, 10, 10);
+ellipse(160,160, 10, 10);
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+int[] z = {30, 50, 110, 120, 160};
+for(int i = 0; i &lt; z.length; i++){
+	ellipse(z[i], z[i], 10, 10);
+}
+</code></pre>
+	</div>
+</div>
+
+<h3 id="loop-with-calculation">Loop with calculation</h3>
+
+<p>Sometimes, in using a loop to position multiple things on the screen, we end up using a calculation based on the loop variable.  It is often possible to adjust the way that loop variable progresses instead.  You end up with more meaningful coe because the loop variable is taking exactly the values you need - it is a little-bit of documentation <em>and</em> the code is simpler.</p>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+for(int i = 0; i &lt; 10; i++){
+	ellipse(width/2, height/2, i*10, i*10);
+}
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+for(int i = 0; i &lt; 100; i = i + 10){
+	ellipse(width/2, height/2, i, i);
+}
+</code></pre>
+	</div>
+</div>
+
+<h1 id="functions">Functions</h1>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GmWFXwyVW_E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h3 id="common-code">Common Code</h3>
+<p>Note that the following examples show cases where new functions could be created but in practical cases, we would be more likely to create a new function if:</p>
+
+<ul>
+  <li>it has a reasonable size or complexity</li>
+  <li>it will be used (or is likely to be used) in multiple places in the code</li>
+</ul>
+
+<p>You might have similar code in two (or more) place in your program.  For example</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stroke(0);
+fill(255, 0, 0);
+ellipse(255, 200, 40, 40);
+</code></pre></div></div>
+
+<p>in one place and</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stroke(0);
+fill(255, 0, 0);
+ellipse(300, 250, 40, 40);
+</code></pre></div></div>
+
+<p>in another.</p>
+
+<p>You should create a function to do that job</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void drawRedEllipse(int x, int y){
+	stroke(0);
+	fill(255, 0, 0);
+	ellipse(x, y, 40, 40);
+}
+</code></pre></div></div>
+
+<p>and replace the other places with calls to this function.</p>
+
+<h2 id="common-code-but-with-one-troublesome-variation">Common code but with one troublesome variation</h2>
+
+<p>Imagine you have, in one place in the code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stroke(0)
+fill(255, 0, 0);
+ellipse(150, 200, 40, 40);
+</code></pre></div></div>
+
+<p>and at another place in the code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stroke(0)
+fill(255, 0, 0);
+rect(300, 250, 40, 40);
+</code></pre></div></div>
+
+<p>The structure is the same, the numbers are the same, the intent is very similar, it would be great to have one place to put this code.</p>
+
+<p>To achieve this, you should introduce a parameter that can be used to indicate which version of the major variation should be used. Create a new function and constants for the new parameter:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int SHAPE_ELLIPSE = 1;
+int SHAPE_RECT = 2;
+
+void drawRedShape(int x, int y, int shape) {
+	stroke(0);
+	fill(255, 0, 0);
+	if(shape == SHAPE_ELLIPSE){
+		ellipse(x, y, 40, 40);
+	} else {
+		rect(x, y, 40, 40);
+	}
+}
+</code></pre></div></div>
+
+<p>and in the first place, replace with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drawRedShape(150, 200, SHAPE_ELLIPSE);
+</code></pre></div></div>
+
+<p>and in the second place, replace with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drawRedShape(300, 250, SHAPE_RECT);
+</code></pre></div></div>
+
+<h3 id="splitting-big-functions">Splitting big functions</h3>
+
+<p>The following function picks the (first) array element that is closest to the average</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int closestToAverage(int[] a){
+
+	int sum = 0;
+
+	for(int i = 0; i &lt; a.length; i++){
+		sum += a[i];
+	}
+
+	float avg = (float)sum / a.length;
+
+	println(avg);
+
+	int closest = a[0];
+	float smallestGap = abs(a[0] - avg);
+
+	for(int i = 1; i &lt; a.length; i++){
+		float currentGap = abs(a[i] - avg);
+		if(currentGap &lt; smallestGap){
+			smallestGap = currentGap;
+			closest = a[i];
+		}
+	}
+
+	return closest;
+}
+</code></pre></div></div>
+
+<p>The function is really doing two separate tasks:</p>
+
+<ul>
+  <li>calculating the average</li>
+  <li>scanning the array to find the (first) element that is closest the average</li>
+</ul>
+
+<p>We could create two functions to do these two tasks. The first function can calculate the average and the second function can be slightly generalised so that it will scan an array and find the (first) element that is closest to a particular value.</p>
+
+<p>We now have two functions that are more likely to be used elsewhere in our programs than the original.</p>
+
+<h3 id="if-returns-true-and-false"><code class="language-plaintext highlighter-rouge">if</code> returns <code class="language-plaintext highlighter-rouge">true</code> and <code class="language-plaintext highlighter-rouge">false</code></h3>
+
+<p>If you end up with <code class="language-plaintext highlighter-rouge">return true</code> or <code class="language-plaintext highlighter-rouge">return false</code> in the body of an if, then the condition probably contains all the information you need.</p>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+if(x){
+	return true;
+} else {
+	return false;
+}
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+return x;
+</code></pre>
+	</div>
+</div>
+
+<h3 id="dead-code-removal">dead code removal</h3>
+
+<p>You might have mutliple code paths in a function and you end up with mutliple <code class="language-plaintext highlighter-rouge">return</code> statements.  Make sure you don’t have any redundant ones.</p>
+
+<div class="row">
+	<div class="col-xs-5">
+<pre><code>
+if(x){
+	return 1;
+} else {
+	return 2;
+}
+return 3;
+</code></pre>
+	</div>
+	<div class="col-xs-2 refactor">&nbsp;</div>
+	<div class="col-xs-5">
+<pre><code>
+if(x){
+	return 1;
+} else {
+	return 2;
+}
+</code></pre>
+	</div>
+</div>
+
+<p><em>Incomming: vid to come here (??)</em></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Recursive data structures | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Recursive data structures" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/recursive_data_structures_1.html" />
+<meta property="og:url" content="/recursive_data_structures_1.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recursive data structures" />
+<script type="application/ld+json">
+{"url":"/recursive_data_structures_1.html","@type":"WebPage","headline":"Recursive data structures","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Recursive data structures</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="./recursion">Recursion</a></li>
+    <li><a href="./lists">Lists</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Be able to create and operate on a class holding one or more references of the same type</li>
+  </ul>
+
+</details>
+
+<h2 id="author-gaurav-gupta">Author: Gaurav Gupta</h2>
+
+<h1 id="the-node-class">The Node class</h1>
+
+<!--<iframe width="560" height="315" src="https://www.youtube.com/embed/fDU7AtmQBjA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>&nbsp;</p>
+-->
+
+<p>Consider the following class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nc">Node</span> <span class="n">next</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="kt">int</span> <span class="n">d</span><span class="o">,</span> <span class="nc">Node</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+		<span class="n">next</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Every Node object holds a reference to another Node object.</p>
+
+<blockquote>
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</code></pre></div>  </div>
+
+  <p><img src="./fig/06-lists/node/node-figure0.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+</code></pre></div>  </div>
+
+  <p><img src="./fig/06-lists/node/node-figure1.png" alt="" /></p>
+</blockquote>
+
+<blockquote>
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">head</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="kc">null</span><span class="o">));</span>
+</code></pre></div>  </div>
+
+  <p><img src="./fig/06-lists/node/node-figure2.png" alt="" /></p>
+</blockquote>
+
+<p>Here, we created an <em>anonymous</em> <code class="language-plaintext highlighter-rouge">Node</code> object - <code class="language-plaintext highlighter-rouge">new Node(10, null)</code> - and passed it as a parameter to the constructor of <code class="language-plaintext highlighter-rouge">head</code>.</p>
+
+<blockquote>
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(-</span><span class="mi">50</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</code></pre></div>  </div>
+
+  <p><img src="./fig/06-lists/node/node-figure3.png" alt="" /></p>
+</blockquote>
+
+<h2 id="linking-nodes">Linking nodes</h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Jqu9IpulHvU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<p>&nbsp;</p>
+
+<p>We can link any number of nodes as we want.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">n5</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">n4</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">n5</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">n3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">n4</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">n2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">n3</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">30</span><span class="o">,</span> <span class="n">n2</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/linkedlists/linkedlists-figure4.png" alt="" /></p>
+
+<p>Simplified representaton:</p>
+
+<p><img src="./fig/06-lists/linkedlists/linkedlists-figure5.png" alt="" /></p>
+
+<p>We can get all the values just using <code class="language-plaintext highlighter-rouge">n1</code> :)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n1</span><span class="o">.</span><span class="na">data</span><span class="o">);</span> <span class="c1">//30</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n1</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span><span class="o">);</span> <span class="c1">//90</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n1</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span><span class="o">);</span> <span class="c1">//10</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n1</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span><span class="o">);</span> <span class="c1">//70</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n1</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span><span class="o">);</span> <span class="c1">//20</span>
+</code></pre></div></div>
+
+<p>If we create a <code class="language-plaintext highlighter-rouge">Node</code> reference <code class="language-plaintext highlighter-rouge">temp</code> initialized to <code class="language-plaintext highlighter-rouge">n1</code>, we can re-reference it to the <code class="language-plaintext highlighter-rouge">Node</code> after it using <code class="language-plaintext highlighter-rouge">temp = temp.next</code>. Thereby, repeating the operation over and over.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">n1</span><span class="o">;</span> <span class="c1">//temp refers to same instance as n1</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//temp refers to node after temp or n1 which is n2</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//temp refers to node after temp or n2 which is n3</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//temp refers to n4</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//temp refers to n5</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//temp is now null - STOP</span>
+</code></pre></div></div>
+
+<p>Abstracting into a loop to add all the values:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">n1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">temp</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+	<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/linkedlists/linkedlists-figure12.png" alt="" /></p>
+
+<h2 id="nodes-can-hold-other-objects-too">Nodes can hold other objects too</h2>
+
+<p>In the previous example, we saw a node holding integer data, but it can hold any kind of data. For starters, take a look at <code class="language-plaintext highlighter-rouge">RNode</code> holding <code class="language-plaintext highlighter-rouge">Rectangle</code> object.</p>
+
+<p>For the classes defined in,</p>
+
+<ul>
+  <li><a href="./Rectangle.java">Rectangle.java</a>,</li>
+  <li><a href="./RNode.java">RNode.java</a>,</li>
+</ul>
+
+<p>Consider the following code,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Rectangle</span> <span class="n">r1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">2.5</span><span class="o">,</span> <span class="mf">1.5</span><span class="o">);</span>
+<span class="nc">Rectangle</span> <span class="n">r2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">4.2</span><span class="o">,</span> <span class="mf">3.6</span><span class="o">);</span>
+<span class="nc">RNode</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RNode</span><span class="o">(</span><span class="n">r2</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">RNode</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RNode</span><span class="o">(</span><span class="n">r1</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/linkedlists/linkedlists-figure2.png" alt="" /></p>
+
+<p>We can create anonymous objects to reduce variable count.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">RNode</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RNode</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">4.2</span><span class="o">,</span> <span class="mf">3.6</span><span class="o">),</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">RNode</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RNode</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">2.5</span><span class="o">,</span> <span class="mf">1.5</span><span class="o">),</span> <span class="n">q</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="./fig/06-lists/linkedlists/linkedlists-figure3.png" alt="" /></p>
+
+<h1 id="homework---2">Homework - 2</h1>
+
+<h3 id="task-1">Task 1</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, draw the memory diagram to illustrate objects after the last statement of the following code executes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="task-2">Task 2</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, draw the memory diagram to illustrate objects after the last statement of the following code executes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="n">a</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="task-3">Task 3</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, draw the memory diagram to illustrate objects after the last statement of the following code executes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="n">a</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="task-4">Task 4</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, draw the memory diagram to illustrate objects after the last statement of the following code executes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="n">a</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="task-5">Task 5</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, the following code attempts to store the sum of all items in the chain of nodes into a varaible <code class="language-plaintext highlighter-rouge">total</code>. However, it has a a bug. Briefly explain what is the problem with the code, and correct it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">current</span><span class="o">;</span>
+	<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="task-6">Task 6</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, the following code attempts to store the number of nodes in the chain into a variable <code class="language-plaintext highlighter-rouge">size</code>. However, it has a a bug. Briefly explain what is the problem with the code, and correct it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="task-7">Task 7</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, what is the value of <code class="language-plaintext highlighter-rouge">result</code> after the following code is executed?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">current</span><span class="o">.</span><span class="na">data</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">else</span> <span class="o">{</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">10</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="task-8">Task 8</h3>
+
+<p>For the class <a href="./Node.java">Node</a>, what is the value of <code class="language-plaintext highlighter-rouge">result</code> after the following code executes?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+<span class="nc">Node</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+<span class="n">a</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+<span class="n">a</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> 	<span class="mi">1000</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span>
+			<span class="mi">100</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span>
+			<span class="mi">10</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span>
+			<span class="mi">1</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="task-9">Task 9</h3>
+
+<p>Consider the following class definition for <code class="language-plaintext highlighter-rouge">TreeNode</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TreeNode</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nc">TreeNode</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nf">TreeNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">d</span><span class="o">,</span> <span class="nc">TreeNode</span> <span class="n">l</span><span class="o">,</span> <span class="nc">TreeNode</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">l</span><span class="o">;</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">r</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Draw the memory diagram to illustrate objects after the last statement of the following code executes. Also, state the number of instances and references in the diagram.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">TreeNode</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TreeNode</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">TreeNode</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TreeNode</span><span class="o">(-</span><span class="mi">10</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="nc">TreeNode</span> <span class="n">t3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TreeNode</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="o">);</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

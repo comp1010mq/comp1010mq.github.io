@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Classification Of Array-Based Problems | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Classification Of Array-Based Problems" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/array_common_problem_families.html" />
+<meta property="og:url" content="/array_common_problem_families.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Classification Of Array-Based Problems" />
+<script type="application/ld+json">
+{"url":"/array_common_problem_families.html","@type":"WebPage","headline":"Classification Of Array-Based Problems","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Classification Of Array-Based Problems</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./transition_to_java">Transition to Java</a></li>
+    <li><a href="./composite_data">Compound Data</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Identify the basic categories of array-based problems.</li>
+    <li>Quickly put a new problem into one of the categories to apply the <em>standardized</em> template.</li>
+    <li>Save time and energy by doing so.</li>
+  </ul>
+</details>
+
+<h1 id="classification-of-array-based-problems">Classification Of Array-Based Problems</h1>
+
+<h1 id="why-talk-about-this">Why talk about this?</h1>
+
+<p>In programming, we have to operate on collections very frequently. These collections are stored as arrays, lists, maps, dictionaries, tuples, etc.</p>
+
+<p>What is important is a sound understanding of the underlying logic.</p>
+
+<p>By realizing that most of the problems we’ll encounter at this level (COMP1010) will lie in a handful of categories, and practising with these, we can improve our familiarity and save time and effort when we need to solve them.</p>
+
+<p>So, let’s jump in.</p>
+
+<p>NOTE: the twenty problems I am using are just examples for demonstration purposes. You can have practically infinite problems belonging to one category.</p>
+
+<h2 id="category-1-counting-based-on-criteria">CATEGORY 1: Counting based on criteria</h2>
+
+<p>Consider the following examples (some might be equivalent but phrased differently),</p>
+
+<ol>
+  <li>Count the number of items in an array that are positive.</li>
+  <li>Count the number of items in an array that are negative.</li>
+  <li>Count the number of items in an array that are zero.</li>
+  <li>Count the number of items in an array that are non-zero.</li>
+  <li>Count the number of items in an array that are non-positive.</li>
+  <li>Count the number of items in an array that are non-negative.</li>
+  <li>Count the number of items in an array that are even.</li>
+  <li>Count the number of items in an array that are odd.</li>
+  <li>Count the number of items in an array that are even and positive.</li>
+  <li>Count the number of items in an array that are even or positive.</li>
+  <li>Count the number of items in an array that are neither even nor positive.</li>
+  <li>Count the number of items in an array that are even but not positive.</li>
+  <li>Count the number of items in an array that are odd but not negative</li>
+  <li>Count the number of items in an array that are even but non-zero.</li>
+  <li>Count the number of items in an array that are odd but non-zero.</li>
+  <li>Count the number of items in an array that are even or non-zero.</li>
+  <li>Count the number of items in an array that are odd or non-zero.</li>
+  <li>Count the number of items in an array that are neither odd nor zero.</li>
+  <li>Count the number of items in an array that are neither even nor zero.</li>
+  <li>Count the number of items in an array that are neither even nor non-zero.</li>
+</ol>
+
+<p>And this is just in the context of two criteria (sign, divisibility by two).</p>
+
+<p>What’s common in all these problems is that,</p>
+
+<ol>
+  <li>have a counter to hold the final answer.</li>
+  <li>we need to go through and check EACH item of the array.</li>
+  <li>if the current item satisfies the criteria, increase the counter by 1.</li>
+  <li>when the loop terminates, return this counter.</li>
+</ol>
+
+<p>So the generic code body would be,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">check</span> <span class="n">something</span> <span class="n">on</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+		<span class="n">counter</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">counter</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>As the first example, the part where you check something on <code class="language-plaintext highlighter-rouge">data[i]</code> is provided for some of the problems.</p>
+
+<ol>
+  <li>Count the number of items in an array that are positive: <code class="language-plaintext highlighter-rouge">data[i] &gt; 0</code>.</li>
+  <li>Count the number of items in an array that are negative: <code class="language-plaintext highlighter-rouge">data[i] &lt; 0</code>.</li>
+  <li>Count the number of items in an array that are zero: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are non-zero: <code class="language-plaintext highlighter-rouge">data[i] != 0</code>.</li>
+  <li>Count the number of items in an array that are non-positive: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are non-negative: <code class="language-plaintext highlighter-rouge">data[i] &gt;= 0</code>.</li>
+  <li>Count the number of items in an array that are even: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are odd: <code class="language-plaintext highlighter-rouge">data[i]%2 != 0</code>.</li>
+  <li>Count the number of items in an array that are even and positive: <code class="language-plaintext highlighter-rouge">data[i]%2 == 0 &amp;&amp; data[i] &gt; 0</code>.</li>
+  <li>Count the number of items in an array that are even or positive: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are neither even nor positive: <code class="language-plaintext highlighter-rouge">data[i]%2 != 0 &amp;&amp; data[i] &lt;= 0</code>.</li>
+  <li>Count the number of items in an array that are even but not positive: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are odd but not negative: <code class="language-plaintext highlighter-rouge">data[i]%2 != 0 &amp;&amp; data[i] &gt;= 0</code>.</li>
+  <li>Count the number of items in an array that are even but non-zero: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are odd but non-zero: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are even or non-zero: <code class="language-plaintext highlighter-rouge">data[i]%2 == 0 || data[i]!= 0</code> (all values of <code class="language-plaintext highlighter-rouge">data[i]</code> satisfy this :D)</li>
+  <li>Count the number of items in an array that are odd or non-zero <code class="language-plaintext highlighter-rouge">???</code> (only <code class="language-plaintext highlighter-rouge">data[i] == 0</code> dpes not satisfy this)</li>
+  <li>Count the number of items in an array that are neither odd nor zero: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are neither even nor zero: <code class="language-plaintext highlighter-rouge">???</code></li>
+  <li>Count the number of items in an array that are neither even nor non-zero: <code class="language-plaintext highlighter-rouge">data[i]%2 != 0 &amp;&amp; data[i]!=0</code>.</li>
+</ol>
+
+<p>The idea is: if you practice enough with such problems, then it becomes second nature to identify a problem that belongs to this category.</p>
+
+<h2 id="category-2-accumulating-based-on-criteria">CATEGORY 2: Accumulating based on criteria</h2>
+
+<p>The only difference will be that instead of increasing the counter by 1, we’ll add the current item to it, and therefore, instead of calling it <code class="language-plaintext highlighter-rouge">counter</code>, we should call it <code class="language-plaintext highlighter-rouge">total</code> or <code class="language-plaintext highlighter-rouge">sum</code> or <code class="language-plaintext highlighter-rouge">aggregate</code> or something to that extent.</p>
+
+<ol>
+  <li>Add (or multiply) all items in an array that are positive.</li>
+  <li>Add (or multiply) all items in an array that are negative.</li>
+  <li>Add (or multiply) all items in an array that are zero.</li>
+  <li>Add (or multiply) all items in an array that are non-zero.</li>
+  <li>Add (or multiply) all items in an array that are non-positive.</li>
+  <li>Add (or multiply) all items in an array that are non-negative.</li>
+  <li>Add (or multiply) all items in an array that are even.</li>
+  <li>Add (or multiply) all items in an array that are odd.</li>
+  <li>Add (or multiply) all items in an array that are even and positive.</li>
+  <li>Add (or multiply) all items in an array that are even or positive.</li>
+  <li>Add (or multiply) all items in an array that are neither even nor positive.</li>
+  <li>Add (or multiply) all items in an array that are even but not positive.</li>
+  <li>Add (or multiply) all items in an array that are odd but not negative</li>
+  <li>Add (or multiply) all items in an array that are even but non-zero.</li>
+  <li>Add (or multiply) all items in an array that are odd but non-zero.</li>
+  <li>Add (or multiply) all items in an array that are even or non-zero.</li>
+  <li>Add (or multiply) all items in an array that are odd or non-zero.</li>
+  <li>Add (or multiply) all items in an array that are neither odd nor zero.</li>
+  <li>Add (or multiply) all items in an array that are neither even nor zero.</li>
+  <li>Add (or multiply) all items in an array that are neither even nor non-zero.</li>
+</ol>
+
+<p>Design:</p>
+
+<ol>
+  <li>have a variable (say <code class="language-plaintext highlighter-rouge">result</code>) to hold the final answer and initialize to 0 (additive identity) or 1 (multiplicative identity).</li>
+  <li>we need to go through and check EACH item of the array.</li>
+  <li>if the current item satisfies the criteria, <strong>add (or multiply) the current item</strong> into <code class="language-plaintext highlighter-rouge">result</code>.</li>
+  <li>when the loop terminates, return this counter.</li>
+</ol>
+
+<p>Generic code body would be,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">(</span><span class="n">or</span> <span class="mi">1</span><span class="o">);</span> <span class="c1">//just a more suitable variable name</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">check</span> <span class="n">something</span> <span class="n">on</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+		<span class="n">result</span><span class="o">+=</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span> <span class="o">(</span><span class="n">or</span> <span class="n">resut</span><span class="o">*=</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">])</span>
+		<span class="c1">//this is the only real difference from category 1.</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Code for number 12 version 1 (adding all even but not positive):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sumNonPositiveEvens</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]&lt;=</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">result</span><span class="o">+=</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Code for number 12 version 2 (multiplying all even but not positive):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">productNonPositiveEvens</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]&lt;=</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">result</span><span class="o">*=</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="category-3---validation-problems">CATEGORY 3 - “Validation” problems</h1>
+
+<ol>
+  <li>Check if there is <strong>any</strong> item in the array that is  positive.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  negative.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  non-zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  non-positive.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  non-negative.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  even.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  odd.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  even and positive.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  even or positive.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  neither even nor positive.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  even but not positive.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  odd but not negative</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  even but non-zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  odd but non-zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  even or non-zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  odd or non-zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  neither odd nor zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  neither even nor zero.</li>
+  <li>Check if there is <strong>any</strong> item in the array that is  neither even nor non-zero.</li>
+</ol>
+
+<p>Instead of directly going to the pseudo-code, we’ll consider one example to build a prototype:</p>
+
+<ul>
+  <li>Check if there is <strong>any</strong> item in the array that is even (number 7).</li>
+</ul>
+
+<p>Le’ts say my array contains 10 items.</p>
+
+<h3 id="step-1-check-the-first-item-say-17">STEP 1: Check the first item (Say, 17).</h3>
+
+<ul>
+  <li>Can you tell if there is any even item in the array just by looking at the first item (17)?</li>
+  <li>Can you guarantee that there is <strong>NO</strong> even item in the array just by looking at the first item (17)?</li>
+</ul>
+
+<h3 id="step-2-check-the-second-item-say--5">STEP 2: Check the second item (Say, -5).</h3>
+
+<ul>
+  <li>Can you tell if there is any even item in the array just by looking at the second item (-5)?</li>
+  <li>Can you guarantee that there is <strong>NO</strong> even item in the array just by looking at the second item (-5)?</li>
+</ul>
+
+<h3 id="step-3-check-the-third-item-say-12">STEP 3: Check the third item (Say, 12).</h3>
+
+<ul>
+  <li>Can you tell if there is any even item in the array just by looking at the first item (12)? YES! So we can immedaitely return <code class="language-plaintext highlighter-rouge">true</code>.</li>
+</ul>
+
+<p>What happens if I check each item and none of them is even? The loop terminates, and it’s then we can return <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<p>Generic code body would be,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">check</span> <span class="k">if</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="n">satisfies</span> <span class="n">required</span> <span class="n">criteria</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h1 id="category-4---violation-problems">CATEGORY 4 - “Violation” problems</h1>
+
+<ol>
+  <li>Check if <strong>all</strong> items in the array are positive.</li>
+  <li>Check if <strong>all</strong> items in the array are negative.</li>
+  <li>Check if <strong>all</strong> items in the array are zero.</li>
+  <li>Check if <strong>all</strong> items in the array are non-zero.</li>
+  <li>Check if <strong>all</strong> items in the array are non-positive.</li>
+  <li>Check if <strong>all</strong> items in the array are non-negative.</li>
+  <li>Check if <strong>all</strong> items in the array are even.</li>
+  <li>Check if <strong>all</strong> items in the array are odd.</li>
+  <li>Check if <strong>all</strong> items in the array are even and positive.</li>
+  <li>Check if <strong>all</strong> items in the array are even or positive.</li>
+  <li>Check if <strong>all</strong> items in the array are neither even nor positive.</li>
+  <li>Check if <strong>all</strong> items in the array are even but not positive.</li>
+  <li>Check if <strong>all</strong> items in the array are odd but not negative</li>
+  <li>Check if <strong>all</strong> items in the array are even but non-zero.</li>
+  <li>Check if <strong>all</strong> items in the array are odd but non-zero.</li>
+  <li>Check if <strong>all</strong> items in the array are even or non-zero.</li>
+  <li>Check if <strong>all</strong> items in the array are odd or non-zero.</li>
+  <li>Check if <strong>all</strong> items in the array are neither odd nor zero.</li>
+  <li>Check if <strong>all</strong> items in the array are neither even nor zero.</li>
+  <li>Check if <strong>all</strong> items in the array are neither even nor non-zero.</li>
+</ol>
+
+<p>Again, we’ll use number 7.</p>
+
+<ul>
+  <li>Check if <strong>all</strong> items in the array are even.</li>
+</ul>
+
+<p>Le’ts say my array contains 10 items.</p>
+
+<h3 id="step-1-check-the-first-item-say-17-1">STEP 1: Check the first item (Say, 17).</h3>
+
+<ul>
+  <li>Can you tell if there is any even item in the array just by looking at the first item (17)?</li>
+  <li>Can you guarantee that there is <strong>NO</strong> even item in the array just by looking at the first item (17)? YES! Even if one item doesn’t satisfy the criteria, we can return <code class="language-plaintext highlighter-rouge">false</code> immediately.</li>
+</ul>
+
+<p>So, what you are checking if that the current item <strong>DOES NOT</strong> satisfy the criteria (to return <code class="language-plaintext highlighter-rouge">false</code>).</p>
+
+<p>What happens if I check each item and none of them is NOT even? The loop terminates, and it’s then we can return <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<p>Generic code body would be,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">check</span> <span class="k">if</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="no">DOES</span> <span class="no">NOT</span> <span class="n">satisfy</span> <span class="n">required</span> <span class="n">criteria</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h1 id="category-5---checking-all-pairs">Category 5 - Checking all Pairs</h1>
+
+<p>This is inspired by <em>the handshake algorithm</em>. Useful when you want to check each item of an array against every other item.</p>
+
+<p>Consider the array <code class="language-plaintext highlighter-rouge">{10,70,20,90}</code> (surprise!)</p>
+
+<p>The pairs are:</p>
+
+<p><code class="language-plaintext highlighter-rouge">(10, 70)</code>, <code class="language-plaintext highlighter-rouge">(10, 20)</code>, <code class="language-plaintext highlighter-rouge">(10, 90)</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">(70, 20)</code>, <code class="language-plaintext highlighter-rouge">(70,90)</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">(20, 90)</code></p>
+
+<p>We don’t consider the pairs <code class="language-plaintext highlighter-rouge">(10, 10)</code>, <code class="language-plaintext highlighter-rouge">(70, 70)</code>, <code class="language-plaintext highlighter-rouge">(20, 20)</code>, <code class="language-plaintext highlighter-rouge">(90, 90)</code> because an item will seldom be compared with itself.</p>
+
+<p>Also, once we have compared 10 with 70 (indicated by <code class="language-plaintext highlighter-rouge">(10, 70)</code>), we don’t need to compare 70 with 10 again. Hence, the pair <code class="language-plaintext highlighter-rouge">(70, 10)</code> is not in the list of pairs.</p>
+
+<p>You can see that we compared:</p>
+
+<ol>
+  <li>the first item against,
+    <ul>
+      <li>the second item to the last item</li>
+    </ul>
+  </li>
+  <li>the second item against,
+    <ul>
+      <li>the third item to the last item</li>
+    </ul>
+  </li>
+  <li>…</li>
+  <li>the second last item against,
+    <ol>
+      <li>the last item (to the last item)</li>
+    </ol>
+  </li>
+</ol>
+
+<p>If <code class="language-plaintext highlighter-rouge">i</code> is the index of the first of the items in the pair and <code class="language-plaintext highlighter-rouge">k</code> is the index of the second item in the pair, we can get it by:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go through each i from 0 to array.length - 2:
+	go through each k from (i+1) to array.length - 1:
+		compare array[i] against array[k]
+</code></pre></div></div>
+
+<p>The equivalent code is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="c1">//compare data[i] against data[k] for counting/accumulation/validation/violation/...</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="example-1-checking-if-array-has-any-duplicates">Example 1: Checking if array has any duplicates</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">containsDuplicate</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">data</span><span class="o">[</span><span class="n">k</span><span class="o">])</span> <span class="o">{</span>
+				<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="example-2-checking-if-any-two-items-add-up-to-a-certain-target">Example 2: Checking if any two items add up to a certain target</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">pairAddingUpto</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">data</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+				<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="example-3-bit-advanced-checking-if-all-pairs-are-co-prime">Example 3 (bit advanced): Checking if all pairs are co-prime</h2>
+
+<p>Two numbers are <em>co-prime</em> if they have no common divisors (besides 1).</p>
+
+<p>For example, 12 and 25 are co-prime since divisors of 12 are 2, 3, 4 and 6 while that of 25 is only 5. On the other hand 147 and 490 are NOT co-prime since they are both divisible by 7.</p>
+
+<p>We will use the following helper method based on euclid’s algorithm to determine if two numbers are co-prime:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areCoPrime</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">while</span><span class="o">(</span><span class="n">b</span><span class="o">!=</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="o">;</span>
+		<span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+		<span class="n">b</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If trying to understand that method’s logic caused some of the nerves in your brain to burst, you can use the following version instead. This belongs to category 4 algorithms (violation).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areCoPrime</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="nc">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">a</span><span class="o">%</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span><span class="o">%</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//found a common divisor!</span>
+			<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Now that we have our helper method, we can write the method to determine if they are all co-prime:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">allPairsCoPrime</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span><span class="o">(!</span><span class="n">areCoPrime</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">data</span><span class="o">[</span><span class="n">k</span><span class="o">]))</span> <span class="o">{</span> <span class="c1">//at least one pair is not co-prime</span>
+				<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Instead, if we have to count the number of co-prime pairs, we count instead of immediately returning a value after the check:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">countCoPrimePairs</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">coPrimeCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">areCoPrime</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">data</span><span class="o">[</span><span class="n">k</span><span class="o">]))</span> <span class="o">{</span>  <span class="c1">//another co-prime pair</span>
+				<span class="n">coPrimeCount</span> <span class="o">++;</span>
+			<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">coPrimeCount</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Counting pairs that are NOT co-prime!? If you have have already implemented the method <code class="language-plaintext highlighter-rouge">countCoPrimePairs</code>, then it becomes trivial, as,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">countNonCoPrimePairs</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">countCoPrimePairs</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If you haven’t implemented it, just negate the expression for the condition.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">countNonCoPrimePairs</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">coPrimeCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span><span class="o">(!</span><span class="n">areCoPrime</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">data</span><span class="o">[</span><span class="n">k</span><span class="o">]))</span> <span class="o">{</span>  <span class="c1">//another non co-prime pair</span>
+				<span class="n">coPrimeCount</span> <span class="o">++;</span>
+			<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="k">return</span> <span class="n">coPrimeCount</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="category-6-generating-a-subset">CATEGORY 6: Generating a subset</h1>
+
+<ol>
+  <li>Return a sub-array containing all items that are positive.</li>
+  <li>Return a sub-array containing all items that are negative.</li>
+  <li>Return a sub-array containing all items that are zero.</li>
+  <li>Return a sub-array containing all items that are non-zero.</li>
+  <li>Return a sub-array containing all items that are non-positive.</li>
+  <li>Return a sub-array containing all items that are non-negative.</li>
+  <li>Return a sub-array containing all items that are even.</li>
+  <li>Return a sub-array containing all items that are odd.</li>
+  <li>Return a sub-array containing all items that are even and positive.</li>
+  <li>Return a sub-array containing all items that are even or positive.</li>
+  <li>Return a sub-array containing all items that are neither even nor positive.</li>
+  <li>Return a sub-array containing all items that are even but not positive.</li>
+  <li>Return a sub-array containing all items that are odd but not negative</li>
+  <li>Return a sub-array containing all items that are even but non-zero.</li>
+  <li>Return a sub-array containing all items that are odd but non-zero.</li>
+  <li>Return a sub-array containing all items that are even or non-zero.</li>
+  <li>Return a sub-array containing all items that are odd or non-zero.</li>
+  <li>Return a sub-array containing all items that are neither odd nor zero.</li>
+  <li>Return a sub-array containing all items that are neither even nor zero.</li>
+  <li>Return a sub-array containing all items that are neither even nor non-zero.</li>
+</ol>
+
+<p>(Psst… these becomes eeeeasy with lists)</p>
+
+<p><em>I’ll have a number 7</em> (we are using number 7 - Return a sub-array containing all items that are even - as an example).</p>
+
+<p>In such a scenario, we obviously need to know HOW MANY items are there are the array to be returned.</p>
+
+<p>So, let’s calculate that first!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">n</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So far, so good, yeah?</p>
+
+<p>Now that we know the size of the array required, go ahead and create one :)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+</code></pre></div></div>
+
+<p>(Yes, the length COULD be zero, which is fine - it just creates an empty array).</p>
+
+<p>The next step is populating the array result.</p>
+
+<p>The key is to <strong>keep a track of the index into which an item is being put</strong>.</p>
+
+<p>For example, if <code class="language-plaintext highlighter-rouge">data = {7,12,-5,9,18}</code>, we need to put,</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">data[1]</code> into <code class="language-plaintext highlighter-rouge">result[0]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">data[4]</code> into <code class="language-plaintext highlighter-rouge">result[1]</code></li>
+</ol>
+
+<p>The index for <code class="language-plaintext highlighter-rouge">data</code> will be handled by good old <code class="language-plaintext highlighter-rouge">i</code>.
+We create a separate index <code class="language-plaintext highlighter-rouge">k</code> to hold index for <code class="language-plaintext highlighter-rouge">result</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">result</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="n">k</span><span class="o">++;</span> <span class="c1">//k only increases when another item put into result</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Lastly, return this array!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Put it all together and you got yourself a solution.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">getEvenItems</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">n</span><span class="o">++;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+
+<span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">result</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="n">k</span><span class="o">++;</span> <span class="c1">//k only increases when another item put into result</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

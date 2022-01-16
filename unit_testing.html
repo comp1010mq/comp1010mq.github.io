@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Unit Testing and JUnit | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Unit Testing and JUnit" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/unit_testing.html" />
+<meta property="og:url" content="/unit_testing.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Unit Testing and JUnit" />
+<script type="application/ld+json">
+{"url":"/unit_testing.html","@type":"WebPage","headline":"Unit Testing and JUnit","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Unit Testing and JUnit</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge:</summary>
+
+  <ul>
+    <li><a href="./transition_to_java">Transition to Java</a></li>
+    <li><a href="./debugging">Debugging in Java</a></li>
+  </ul>
+
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes:</summary>
+
+  <ul>
+    <li>Understand the roll of Unit Testing in the programming process</li>
+    <li>Understand when tests are sufficient</li>
+    <li>Be able to write simple tests using JUnit.</li>
+  </ul>
+
+</details>
+
+<p>Unit testing allows us to check - by running other code - that each method of our code, individually, works correctly. Of course, it doesn’t guarantee that the the methods interact correctly or not.</p>
+
+<p>Unit testing is based on the fundamental assumption that for a given input, there is an expected output. Creating a list of such input-output mappings, we can determine if the method, in fact, works correctly.</p>
+
+<p>Conside a method supposed to return the highest of three numbers. An input-output mapping for such a method is listed below.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5, 7, 9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>1, 10, 100</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>0, 0, 0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="task">
+  <p>Is the above set of mappings sufficient?</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <p>No, in all cases, the third value is the answer. A function that simply returns the third value will pass this insufficient test</p>
+  </details>
+</div>
+
+<p>A more comprehensive set of mappings is provided below.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5, 7, 9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>100, 1, 10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>0, 8, 0</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>-5, -100, -1</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td>-9, -9, 0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>6, 6, 6</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="task">
+  <p>Write a set of input-output mappings for a function that when passed an integer, returns <code class="language-plaintext highlighter-rouge">true</code> if all the digits in the integer are even (0/2/4/6/8), and <code class="language-plaintext highlighter-rouge">false</code> otherwise.</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <p>| Input      | Output |
+ |————|——–|
+ | 284666604    | true      |
+ | 284661604 | false    |
+ | 148   | false      |
+ | 227 | false |
+ | -2486 | true |
+ | -9486 | false |
+ | 0 | true |</p>
+  </details>
+</div>
+
+<div class="task">
+  <p>Write a set of input-output mappings for a function that when passed an integer array, returns <code class="language-plaintext highlighter-rouge">true</code> if the array is in ascending order (for each item of thearray, the item is less than or equal to the next item (if any)), and <code class="language-plaintext highlighter-rouge">false</code> otherwise.</p>
+  <details class="solution">
+    <summary>solution</summary>
+
+    <p>| Input      | Output |
+ |————|——–|
+ | {5, 8, 12, 100}    | true      |
+ | {6, 6, 6} | true    |
+ | {20}   | true      |
+ | {} | true |
+ | null | not well-defined |
+ | {5, 8, 12, 11} | false |
+ | {6, 4, 4, 8} | false |</p>
+  </details>
+</div>
+
+<div class="task">
+  <p>Write a set of input-output mappings for a function that when passed an integer array, returns <code class="language-plaintext highlighter-rouge">true</code> if each item of the array occurs exactly once, and <code class="language-plaintext highlighter-rouge">false</code> otherwise. Return <code class="language-plaintext highlighter-rouge">false</code> if the array is <code class="language-plaintext highlighter-rouge">null</code>.</p>
+  <details class="solution">
+    <summary>solution</summary>
+
+    <p>| Input      | Output |
+|————|——–|
+| {5, 8, 12, 100}    | true      |
+| {6, 6, 6} | false    |
+| {20}   | true      |
+| {} | true |
+| null | false |
+| {2, 7, 1, 9, 3, -5, -5} | false |
+| {2, -5, 7, 1, 9, 3, -5} | false |</p>
+  </details>
+</div>
+
+<h1 id="junit-test-cases">JUnit test cases</h1>
+
+<p>JUnit is a unit testing framework for Java. It operates using assertions to determine if a particular test passes or not.</p>
+
+<p>A list of important assertions are given below:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertTrue(boolean expression)</code>: passes if the boolean expression passed to the assertion is <code class="language-plaintext highlighter-rouge">true</code>, fails otherwise.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertTrue(5 &gt; 3): pass
+  assertTrue(6 == 12/3): fail
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertFalse(boolean expression)</code>: passes if the boolean expression passed to the assertion is <code class="language-plaintext highlighter-rouge">false</code>, fails otherwise.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertFalse(2 &gt;= 3): pass
+  assertFalse(6 == 12/2): fail
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertEquals(expected integer value, integer expression)</code>: passes if the integer expression passed to the assertion equals the expected integer value, fails otherwise.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertEquals(5, 10/2): pass
+  assertEquals(5, 2*3): fail
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertEquals(expected floating-point value, floating-point expression, tolerance)</code>: passes if the floating-point expression passed to the assertion is within tolerance distance of the expected floating-point value, fails otherwise.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertEquals(1.2, 1.21, 0.02): pass
+  assertEquals(1.2, 1.23, 0.02): fail
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertNull(reference)</code>: passes if the reference (object/array) passed to the assertion is <code class="language-plaintext highlighter-rouge">null</code>, fails otherwise.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertNull(null): pass
+  assertNull(new int[]{1,7,2,9}): fail
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertNotNull(reference)</code>: passes if the reference (object/array) passed to the assertion is not <code class="language-plaintext highlighter-rouge">null</code>, fails otherwise.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertNotNull(new int[]{1,7,2,9}): pass
+  assertNotNull(null): fail
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">assertArrayEquals(expected integer array, actual integer array)</code>: passes if the actual integer array passed to the assertion equals the expected integer array, fails otherwise.</p>
+
+    <p>Assuming three arrays created as following:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">9</span><span class="o">};</span>
+  <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">2</span><span class="o">};</span>
+  <span class="kt">int</span><span class="o">[]</span> <span class="n">c</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">9</span><span class="o">};</span>
+</code></pre></div>    </div>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  assertArrayEquals(a,c): pass
+  assertArrayEquals(a,b): fail
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="how-to-write-a-junit-test">How to write a JUnit test</h2>
+
+<p>First you need a method that you need to test.</p>
+
+<p>Let’s take a look at the following code that contains a single method <code class="language-plaintext highlighter-rouge">sumEven</code>.</p>
+
+<script src="https://gist.github.com/gaurav1780/b3df9f0a24fcf9a0c41cc75cdb8616a3.js"></script>
+
+<p>The JUnit test is a separate class created to test this method. The following video describes the steps to create a JUnit test. Generally a test is written before implementing a method.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7-T3kxCcMJY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

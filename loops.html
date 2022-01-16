@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Loops | COMP1010 - Fundamentals of Computer Science</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Loops" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/loops.html" />
+<meta property="og:url" content="/loops.html" />
+<meta property="og:site_name" content="COMP1010 - Fundamentals of Computer Science" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Loops" />
+<script type="application/ld+json">
+{"url":"/loops.html","@type":"WebPage","headline":"Loops","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="COMP1010 - Fundamentals of Computer Science" /></head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">COMP1010 - Fundamentals of Computer Science</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content"><style>
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .sidebar {
+      width: 25%;
+      position: absolute;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    color: black;
+    background: white;
+    text-align: left;
+  }
+
+  .show {display:block;}
+
+  .wrapper {
+    margin-left: 25%;
+  }
+
+</style>
+
+<div class="sidebar">
+  <ul>
+        <li class="dropdown" data-name = "COMP1000"> COMP1000 ▼
+          <ul id="COMP1000" class="dropdown-content"><a href="/transition_to_processing">Transition to Processing</a><a href="/primitive_operations">Primitive Operations</a><a href="/algorithms">Algorithms</a><a href="/variables">Variables</a><a href="/debugging_processing">Debugging in Processing</a><a href="/conditions">Conditions</a><a href="/loops">Loops</a><a href="/functions">Functions</a><a href="/scope">Scope</a><a href="/composite_data">Compound Data</a><a href="/reference_semantics">Reference Semantics</a><a href="/refactoring">Refactoring</a><a href="/design">Program Design</a></ul>
+        </li>
+      
+        <li class="dropdown" data-name = "COMP1010"> COMP1010 ▼
+          <ul id="COMP1010" class="dropdown-content"><a href="/transition_to_java">Transition to Java</a><a href="/debugging">Debugging in Java</a><a href="/unit_testing">Unit Testing</a><a href="/classes_types">Classes - Writing your own Types</a><a href="/classes_copies">Classes - Copying objects</a><a href="/classes_methods">Classes - Functions inside objects</a><a href="/classes_composition">Classes - Composition</a><a href="/classes_array_of_objects">Classes - Array of objects</a><a href="/classes_class_holding_array">Classes - Class holding array(s)</a><a href="/recursion_function_call">Recursion - What goes on during a function call</a><a href="/recursion">Recursion</a><a href="/recursion-strings">Recursion with String data</a><a href="/recursion-tail">Tail-optimized recursion</a><a href="/recursion-arrays">Recursion with arrays</a><a href="/lists">Lists</a><a href="/iteration">Iteration</a><a href="/listOfLists">List of Lists</a><a href="stacks_queues">Stacks and Queues</a><a href="/custom-built-arraylist">Custom-built ArrayList</a><a href="/recursive_data_structures_1">Recursive data structures - 1</a><a href="/recursive_data_structures_2">Recursive data structures - 2</a><a href="/searching">Searching</a></ul>
+        </li>
+      
+        <li><a href="https://github.com/comp1010mq/comp1010mq.github.io">Edit (for staff)</a></li></ul>
+</div>
+
+
+<script>
+  document.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.tagName && target.tagName.toLowerCase() == "li") {
+      document.getElementById(target.dataset.name).classList.toggle("show");
+    }
+  });
+</script>
+<div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Loops</h1>
+  </header>
+
+  <div class="post-content">
+    <details class="prereq">
+  <summary>Assumed Knowledge</summary>
+
+  <ul>
+    <li><a href="./primitive_operations">Primitive Operations</a></li>
+    <li><a href="./variables">Variables</a></li>
+    <li><a href="./conditions">Conditions</a></li>
+  </ul>
+</details>
+
+<details class="outcomes">
+  <summary>Learning Outcomes</summary>
+
+  <ul>
+    <li>Know the two types of loops</li>
+    <li>Understand how to use loops to draw multiple things in one frame</li>
+    <li>Understand syntax and semantics of loops</li>
+    <li>Be able to trace loops with tables</li>
+  </ul>
+
+</details>
+
+<h1 id="loops">Loops</h1>
+
+<p>Loops are similar to conditions except that after every iteration of the loop, the expression is checked again.</p>
+
+<p class="readings">Chapter 6 of <a href="https://learningprocessing.com">Learning Processing</a> by Danel Shiffman.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RtAPBvz6k0Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/esKLU3dJo70" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h4ApLHe8tbk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="statement-or-expression">Statement or Expression</h2>
+
+<p>Firstly, loops are <em>statements</em> not expressions, for the same reasons as <code class="language-plaintext highlighter-rouge">if</code> statements.  That means they don’t have an equivalent <em>value</em>.  Instead, they are useful because of what they <em>do</em>.</p>
+
+<p>Both loops and <code class="language-plaintext highlighter-rouge">if</code> statements are called “control-flow” statements because they change the flow of the program from top-to-bottom to somethings more complex.  We will see another control flow statement when we see functions.</p>
+
+<h2 id="a-while-loop">A <code class="language-plaintext highlighter-rouge">while</code> loop</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">expression</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">code</span> <span class="n">inside</span> <span class="n">loop</span>
+<span class="o">}</span>
+<span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span>
+</code></pre></div></div>
+
+<center><img src="loopsFigs/whileLoop.png" style="width: 300px;" /></center>
+
+<p>Example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">a</span><span class="o">;</span>
+	<span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</code></pre></div></div>
+
+<center><img src="loopsFigs/whileExample.png" style="width: 300px;" /></center>
+
+<p>The above code executes the loop 6 times (for <code class="language-plaintext highlighter-rouge">a</code> = 6,5,4,3,2,1 but not for 0) each time multiplying the current value of <code class="language-plaintext highlighter-rouge">a</code> into <code class="language-plaintext highlighter-rouge">result</code> and the final value of <code class="language-plaintext highlighter-rouge">result</code> is 6*5*4*3*2*1 = 720.</p>
+
+<p>There is a better way of tracing loops known as logic table construction. The logic table for the above example is given below.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>a</th>
+      <th>a &gt; 0</th>
+      <th>result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6</td>
+      <td>true</td>
+      <td>1*6 = 6</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>true</td>
+      <td>6*5 = 30</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>true</td>
+      <td>30*4 = 120</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>true</td>
+      <td>120*3 = 360</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>360*2 = 720</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>720*1 = 720</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VbGDp1FaDzc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="guidelines-for-constructing-a-logic-table">Guidelines for constructing a logic table</h2>
+
+<p>While constructing a logic table, one is strongly encouraged to follow the following steps:</p>
+
+<ol>
+  <li>Identify all variables involved in the boolean expression in the loop header.</li>
+  <li>Create columns for each of the variables identified in step 1.</li>
+  <li>Create a column for the loop expression. Create multiple columns to simplify reaching the expression if complex. For example, if expression is <code class="language-plaintext highlighter-rouge">x==y &amp;&amp; !z</code>, the variables involved are <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">y</code>, and <code class="language-plaintext highlighter-rouge">z</code> and the sub-expressions are <code class="language-plaintext highlighter-rouge">x==y</code> and <code class="language-plaintext highlighter-rouge">!z</code>.</li>
+  <li>Create columns for each variable (<strong>unless column for the variable already present</strong>) modified in the loop (in the order they are modified).</li>
+</ol>
+
+<h3 id="example-for-constructing-a-logic-table">Example for constructing a logic table</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="n">c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>a &gt; b</th>
+      <th>c &gt; a</th>
+      <th>a &gt; b &amp;&amp; c &gt; a</th>
+      <th>result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10</td>
+      <td>2</td>
+      <td>100</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>0+1 = 1</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>2</td>
+      <td>50</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>1+1 = 2</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>2</td>
+      <td>25</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>2+1 = 3</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>2</td>
+      <td>12</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>3+1 = 4</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>2</td>
+      <td>6</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that we don’t have columns for <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">c</code> again even though they are modified inside the loop because columns for those variables are already present in the table by virtue of step 2.</p>
+
+<details>
+  <summary>An alternative table</summary>
+
+  <p>Such a table is not a formal document, it is <em>an aid to understanding</em> and this means it is only valuable if it works <em>for you</em>.  To this end, here is another table for the same problem.  It is just as good as the other one, but might work better for you.  Further, you should experiment with your own style rather than stick rigidly to these examples.</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>a</th>
+        <th>b</th>
+        <th>c</th>
+        <th>result</th>
+        <th>a &gt; b</th>
+        <th>&amp;&amp;</th>
+        <th>c &gt; a</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>10</td>
+        <td>2</td>
+        <td>100</td>
+        <td>0</td>
+        <td><code class="language-plaintext highlighter-rouge">10&gt;2</code> = T</td>
+        <td>&amp;&amp;</td>
+        <td><code class="language-plaintext highlighter-rouge">100&gt;10</code> = T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td>&amp;&amp;</td>
+        <td>T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>2</td>
+        <td>50</td>
+        <td>1</td>
+        <td><code class="language-plaintext highlighter-rouge">9&gt;2</code> = T</td>
+        <td>&amp;&amp;</td>
+        <td><code class="language-plaintext highlighter-rouge">50&gt;9</code> = T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td>&amp;&amp;</td>
+        <td>T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>2</td>
+        <td>25</td>
+        <td>2</td>
+        <td><code class="language-plaintext highlighter-rouge">8&gt;2</code> = T</td>
+        <td>&amp;&amp;</td>
+        <td><code class="language-plaintext highlighter-rouge">25&gt;8</code> = T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td>&amp;&amp;</td>
+        <td>T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>2</td>
+        <td>12</td>
+        <td>3</td>
+        <td><code class="language-plaintext highlighter-rouge">7&gt;2</code> = T</td>
+        <td>&amp;&amp;</td>
+        <td><code class="language-plaintext highlighter-rouge">12&gt;7</code> = T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td>&amp;&amp;</td>
+        <td>T</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>2</td>
+        <td>6</td>
+        <td> </td>
+        <td><code class="language-plaintext highlighter-rouge">6&gt;2</code> = T</td>
+        <td>&amp;&amp;</td>
+        <td><code class="language-plaintext highlighter-rouge">6&gt;6</code> = F</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>T</td>
+        <td>&amp;&amp;</td>
+        <td>F</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td>F</td>
+        <td> </td>
+      </tr>
+    </tbody>
+  </table>
+
+</details>
+
+<h2 id="for-loop">for-loop</h2>
+
+<p>A for-loop is more compact than the while loop and more common in real-life applications.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">initializations</span><span class="o">;</span> <span class="kt">boolean</span> <span class="n">expression</span><span class="o">;</span> <span class="n">update</span><span class="o">(</span><span class="n">s</span><span class="o">))</span> <span class="o">{</span>
+  <span class="n">code</span> <span class="n">inside</span> <span class="n">loop</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span><span class="o">;</span>
+</code></pre></div></div>
+
+<center><img src="loopsFigs/forLoop.png" style="width: 300px;" /></center>
+
+<p>Example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="o">;</span> <span class="n">i</span><span class="o">*=</span><span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">i</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Trace (logic table):</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>i</th>
+      <th>i&lt;=16</th>
+      <th>result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>0+1 = 1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>1+2 = 3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>true</td>
+      <td>3+4 = 7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>true</td>
+      <td>7+8 = 15</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>true</td>
+      <td>15+16 = 31</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="task">
+  <p><a href="./conditions.html#two_way_animated_blue_circle">Modify your animated blue circle</a> so that it is an animated blue <a href="https://www.google.com/search?q=bullseye">bullseye</a> instead. Hint:  You can get a thin circle using <code class="language-plaintext highlighter-rouge">noFill</code> and a larger <code class="language-plaintext highlighter-rouge">strokeWeight</code> value;</p>
+
+  <details class="solution">
+    <summary>solution</summary>
+    <p>Instead of drawing a simple circle, we draw three circles, each 10 pixels larger than the last.  Each has a 2 pixel border, making a bulleye shape.  Nothing else needs to change, the center of the bullsye animates in exactly the same way as the circle did.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int ypos;
+int speed;
+
+void setup(){
+  ypos = 0;
+  speed = 1;
+}
+
+void draw(){
+  background(255);
+
+  if (ypos == height){
+    speed = -1;
+  }
+  if (ypos == 0){
+    speed = 1;
+  }
+  noFill();
+  stroke(92, 136, 218);
+  strokeWeight(2);
+  for(int i = 0; i &lt; 40; i = i + 10){
+    circle(width/2, ypos, i);
+  }
+  ypos = ypos + speed;
+
+}
+</code></pre></div>    </div>
+
+  </details>
+</div>
+
+<h1 id="looking-at-loops-without-the-draw-loop">Looking at loops <em>without</em> the draw loop</h1>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Z8s-7beNP1c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>As discussed in the above video, the fact that processing is always in a “draw loop” can confuse things somewhat.  It is possible to see all the operation of loops free of this constraint if we work only on <em>the console</em>.  <a href="./debugging">The console is the black area below your program</a> and it is available even when you do a “static” processing program (one that has no <code class="language-plaintext highlighter-rouge">setup</code> or <code class="language-plaintext highlighter-rouge">draw</code>).</p>
+
+<div class="task">
+  <p>Using loops, draw five <code class="language-plaintext highlighter-rouge">^</code> (hat) characters to the console</p>
+  <details class="solution">
+    <summary>solution</summary>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for(int i = 0; i &lt; 5; i++){
+	print('^');
+}
+</code></pre></div>    </div>
+
+    <p>Notice that this program has no <code class="language-plaintext highlighter-rouge">setup</code> and no <code class="language-plaintext highlighter-rouge">draw</code> functions, it is a special type of non-animated Processing program.</p>
+  </details>
+</div>
+
+<h2 id="nesting-of-control-structures">Nesting of control structures</h2>
+
+<p>Control structures are literally like lego blocks, you can arrange them as you want, depending on the situation. So you can put loops/conditions inside other loops/conditions (and then more loops/conditions inside that and so on).</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/H7frvcAHXps" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hk0nYHGma8M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>Let’s take some examples of a situation where such nesting is required.</p>
+
+<h3 id="nesting-scenario-1">Nesting scenario 1</h3>
+
+<p>We would like to generate a pattern based on input integer <code class="language-plaintext highlighter-rouge">N &gt; 0</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">N=4</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+^ ^
+^ ^ ^
+^ ^ ^ ^
+</code></pre></div></div>
+
+<p>&nbsp;</p>
+
+<p><code class="language-plaintext highlighter-rouge">N=6</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+^ ^
+^ ^ ^
+^ ^ ^ ^
+^ ^ ^ ^ ^
+^ ^ ^ ^ ^ ^
+</code></pre></div></div>
+
+<p><strong>STEP 1:</strong> There are <code class="language-plaintext highlighter-rouge">N</code> lines.</p>
+
+<p>Outer loop -</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="no">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">display</span> <span class="n">current</span> <span class="n">line</span>
+	<span class="n">change</span> <span class="n">line</span> <span class="n">using</span> <span class="nf">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>STEP 2:</strong> Line corresponding to a given value of <code class="language-plaintext highlighter-rouge">i</code> has <code class="language-plaintext highlighter-rouge">i</code> caps</p>
+
+<p>(when <code class="language-plaintext highlighter-rouge">i = 1</code>, there is 1 cap, when <code class="language-plaintext highlighter-rouge">i = 2</code> there are 2 caps, and so on …).</p>
+
+<p>Inner loop -</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span><span class="o">&lt;=</span><span class="n">i</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">print</span><span class="o">(</span><span class="s">"^"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>COMPLETE SOLUTION</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="no">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span><span class="o">&lt;=</span><span class="n">i</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="n">print</span><span class="o">(</span><span class="s">"^"</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="n">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="task">
+  <p>Change the code so that the symbols alternate between a cap (^) and a dash (-) between lines.</p>
+
+  <p><code class="language-plaintext highlighter-rouge">N=6</code></p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+- -
+^ ^ ^
+- - - -
+^ ^ ^ ^ ^
+- - - - - -
+</code></pre></div>  </div>
+
+  <p>The difference from scenario 1 is that if outer loop counter <code class="language-plaintext highlighter-rouge">i</code> is an odd number, it’s a cap (<code class="language-plaintext highlighter-rouge">^</code>) while if the outer loop counter <code class="language-plaintext highlighter-rouge">i</code> is an even number, it’s a dash (<code class="language-plaintext highlighter-rouge">-</code>).</p>
+
+  <p>So the earlier display statement</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print("^");
+</code></pre></div>  </div>
+
+  <p>will change to,</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if(i%2 == 1) { //odd counter: cap
+	print("^");
+}
+else { //even counter: dash
+	print("-");
+}
+</code></pre></div>  </div>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="no">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">k</span><span class="o">&lt;=</span><span class="n">i</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//odd counter: cap</span>
+			<span class="n">print</span><span class="o">(</span><span class="s">"^"</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">else</span> <span class="o">{</span> <span class="c1">//even counter: dash</span>
+			<span class="n">print</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	<span class="n">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>Change the code so that the symbols alternate between ^ and - within a line.</p>
+
+  <p><code class="language-plaintext highlighter-rouge">N=6</code></p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+^ -
+^ - ^
+^ - ^ -
+^ - ^ - ^
+^ - ^ - ^ -
+</code></pre></div>  </div>
+  <details>
+    <summary>Solution</summary>
+    <p>The only change required is to use <code class="language-plaintext highlighter-rouge">k</code> instead of <code class="language-plaintext highlighter-rouge">i</code> to decide what symbol to print</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int N = 6;
+
+for(int i=1; i&lt;=N; i++) {
+  for(int k=1; k&lt;=i; k++) {
+    if (k % 2 == 1)
+      print("^");
+    else
+      print("-");
+  }
+  println();
+}
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+
+  <p>Change the code so that the symbols alternate between ^ and - within a line and also the first symbol on each line is different from the first symbol on the previous line</p>
+
+  <p><code class="language-plaintext highlighter-rouge">N=6</code></p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+- ^
+^ - ^
+- ^ - ^
+^ - ^ - ^
+- ^ - ^ - ^
+</code></pre></div>  </div>
+  <details>
+    <summary>Solution</summary>
+    <p>This seems like a curly problem until we realise that <em>adding</em> <code class="language-plaintext highlighter-rouge">k</code> and <code class="language-plaintext highlighter-rouge">i</code> will give the pattern required because <code class="language-plaintext highlighter-rouge">i</code> goes up by one each line, swapping the “oddness” of each slot in that row.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int N = 6;
+
+for(int i=1; i&lt;=N; i++) {
+  for(int k=1; k&lt;=i; k++) {
+    if ((k+i) % 2 == 0)
+      print("^");
+    else
+      print("-");
+  }
+  println();
+}
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<h1 id="coding-in-the-real-world">Coding in the real world</h1>
+
+<p>Just like in conditions, lets see some real-world scenarios where we need to use loops.</p>
+
+<p>But there is a problem. Loops usually iterate over a <em>collection</em> (an array, list, hashmap, etc). Since we can’t assume knowledge of the same in this document, we’re in a bit of a pickle, aren’t we?</p>
+
+<p>So, instead we’ll iterate over numbers generated via a random-number generator.</p>
+
+<h3 id="assumption-for-scenarios">Assumption for scenarios</h3>
+
+<p>For scenarios 1 to 3, you may assume that <code class="language-plaintext highlighter-rouge">n</code> is generated using the following statement:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">random</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span> <span class="c1">//x can be any integer from 1 to 100</span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="o">;</span> <span class="c1">//n can be one of the values from [10, 20, ..., 1000]</span>
+</code></pre></div></div>
+
+<div class="task">
+  <p>Write a piece of code that determines the number of times we get a 6 when a normal 6-faced die is rolled <code class="language-plaintext highlighter-rouge">n</code> times.</p>
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int x = 1 + (int)random(100); //x can be any integer from 1 to 100
+int n = 10*x; //n can be one of the values from [10, 20, ..., 1000]
+
+int total = 0;
+for(int i = 0; i &lt; n; i++){
+  int thisRoll = (int)random(1,7);
+  if (thisRoll == 6){
+    total++;
+  }
+}
+println(total);
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>Write a piece of code that determines the average outcome when a normal 6-faced dice is rolled <code class="language-plaintext highlighter-rouge">n</code> times.</p>
+  <details>
+    <summary>Solution</summary>
+    <p>You should expect to get 3 just about every time right?</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int x = 1 + (int)random(100); //x can be any integer from 1 to 100
+int n = 10*x; //n can be one of the values from [10, 20, ..., 1000]
+
+int total = 0;
+for(int i = 0; i &lt; n; i++){
+  int thisRoll = (int)random(1,7);
+  total = total+thisRoll;
+}
+println(total/n);
+</code></pre></div>    </div>
+  </details>
+</div>
+
+<div class="task">
+  <p>For this scenario, you should assume that <code class="language-plaintext highlighter-rouge">n</code> is generated using the following statement:</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">random</span><span class="o">(</span><span class="mi">101</span><span class="o">);</span> <span class="c1">//n can be any integer from 0 to 100</span>
+</code></pre></div>  </div>
+
+  <p>Consider a party where there are 4 people. Call them Alice, Bob, Charles and Diane. Assuming they are all friendly and logical people, the following handshakes will take place:</p>
+
+  <ul>
+    <li>Alice with
+      <ol>
+        <li>Bob</li>
+        <li>Charles</li>
+        <li>Diane</li>
+      </ol>
+    </li>
+    <li>Bob (already shook hands with Alice) with
+      <ol>
+        <li>Charles</li>
+        <li>Diane</li>
+      </ol>
+    </li>
+    <li>Chales (already shook hands with Alice and Bob) with
+      <ol>
+        <li>Diane</li>
+      </ol>
+    </li>
+    <li>Diane (already shook hands with everyone)</li>
+  </ul>
+
+  <p>Thus, there are 3+2+1 = 6 handshakes for 4 people.</p>
+
+  <p>If a fifth person (Eddie) joins the party, he shakes hands with all others.</p>
+
+  <p>Thus, there are <strong><code class="language-plaintext highlighter-rouge">4</code></strong>+3+2+1 = 10 handshakes for 5 people.</p>
+
+  <p>A table summarizing this pattern is given below,</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Number of people</th>
+        <th>Number of handshakes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>2+1</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>3+2+1</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>4+3+2+1</td>
+      </tr>
+      <tr>
+        <td>…</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>n</td>
+        <td>(n-1) + (n-2) + …. + 2 + 1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>There is actually a very elegant formula to get this value, but for the purpose of our exercise, we’d like you to compute the number of handshakes in a party of <code class="language-plaintext highlighter-rouge">n</code> people using a loop.</p>
+
+  <details>
+    <summary>Solution</summary>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int n = (int)random(101); //x can be any integer from 1 to 100
+
+
+int handshakes = 0;
+
+for(int i = n-1; i &gt; 0; i--){
+  handshakes = handshakes + i;
+}
+
+println(n + " people means");
+println(handshakes + " handshakes");
+</code></pre></div>    </div>
+
+    <p>&lt;/div&gt;</p>
+  </details>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMP1010 - Fundamentals of Computer Science</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">COMP1010 - Fundamentals of Computer Science</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
